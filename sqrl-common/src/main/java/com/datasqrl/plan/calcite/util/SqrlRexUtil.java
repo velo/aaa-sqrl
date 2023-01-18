@@ -4,6 +4,16 @@
 package com.datasqrl.plan.calcite.util;
 
 import com.datasqrl.function.SqrlFunction;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import lombok.NonNull;
 import lombok.Value;
 import org.apache.calcite.plan.RelOptUtil;
@@ -14,8 +24,25 @@ import org.apache.calcite.rel.logical.LogicalFilter;
 import org.apache.calcite.rel.logical.LogicalProject;
 import org.apache.calcite.rel.type.RelDataType;
 import org.apache.calcite.rel.type.RelDataTypeFactory;
-import org.apache.calcite.rex.*;
-import org.apache.calcite.sql.*;
+import org.apache.calcite.rex.RexBuilder;
+import org.apache.calcite.rex.RexCall;
+import org.apache.calcite.rex.RexFieldCollation;
+import org.apache.calcite.rex.RexInputRef;
+import org.apache.calcite.rex.RexLiteral;
+import org.apache.calcite.rex.RexNode;
+import org.apache.calcite.rex.RexOver;
+import org.apache.calcite.rex.RexShuttle;
+import org.apache.calcite.rex.RexSubQuery;
+import org.apache.calcite.rex.RexVisitorImpl;
+import org.apache.calcite.rex.RexWindowBounds;
+import org.apache.calcite.sql.SqlAggFunction;
+import org.apache.calcite.sql.SqlBinaryOperator;
+import org.apache.calcite.sql.SqlFunctionCategory;
+import org.apache.calcite.sql.SqlIdentifier;
+import org.apache.calcite.sql.SqlKind;
+import org.apache.calcite.sql.SqlOperator;
+import org.apache.calcite.sql.SqlOperatorTable;
+import org.apache.calcite.sql.SqlSyntax;
 import org.apache.calcite.sql.fun.SqlStdOperatorTable;
 import org.apache.calcite.sql.parser.SqlParserPos;
 import org.apache.calcite.sql.type.SqlTypeName;
@@ -27,12 +54,6 @@ import org.apache.flink.table.api.internal.FlinkEnvProxy;
 import org.apache.flink.table.planner.calcite.FlinkRexBuilder;
 import org.apache.flink.table.planner.functions.bridging.BridgingSqlFunction;
 import org.apache.flink.table.planner.plan.utils.FlinkRexUtil;
-
-import java.math.BigDecimal;
-import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class SqrlRexUtil {
 
@@ -84,17 +105,19 @@ public class SqrlRexUtil {
     return RelOptUtil.conjunctions(condition);
   }
 
-  public EqualityComparisonDecomposition decomposeEqualityComparison(RexNode condition) {
+  public EqualityComparisonDecomposition decomposeEqualityComparison(RexNode condition,
+      int leftSideMaxIdx) {
     List<RexNode> conjunctions = getConjunctions(condition);
     List<IntPair> equalities = new ArrayList<>();
     List<RexNode> remaining = new ArrayList<>();
     for (RexNode rex : conjunctions) {
       Optional<IntPair> eq = getEqualityComparison(rex);
-        if (eq.isPresent()) {
-            equalities.add(eq.get());
-        } else {
-            remaining.add(rex);
-        }
+      //Only consider equalities that span the join
+      if (eq.filter(p -> p.source<leftSideMaxIdx && p.target>=leftSideMaxIdx).isPresent()) {
+          equalities.add(eq.get());
+      } else {
+          remaining.add(rex);
+      }
     }
     return new EqualityComparisonDecomposition(equalities, remaining);
   }

@@ -3,13 +3,18 @@
  */
 package com.datasqrl.plan.calcite.rules;
 
-import com.datasqrl.plan.calcite.util.CalciteUtil;
-import com.datasqrl.function.builtin.time.StdTimeLibraryImpl;
-import com.datasqrl.name.NamePath;
 import com.datasqrl.engine.EngineCapability;
 import com.datasqrl.engine.pipeline.ExecutionPipeline;
 import com.datasqrl.engine.pipeline.ExecutionStage;
-import com.datasqrl.plan.calcite.hints.*;
+import com.datasqrl.function.builtin.time.StdTimeLibraryImpl;
+import com.datasqrl.name.NamePath;
+import com.datasqrl.plan.calcite.hints.JoinCostHint;
+import com.datasqrl.plan.calcite.hints.SlidingAggregationHint;
+import com.datasqrl.plan.calcite.hints.SqrlHint;
+import com.datasqrl.plan.calcite.hints.SqrlHintStrategyTable;
+import com.datasqrl.plan.calcite.hints.TemporalJoinHint;
+import com.datasqrl.plan.calcite.hints.TopNHint;
+import com.datasqrl.plan.calcite.hints.TumbleAggregationHint;
 import com.datasqrl.plan.calcite.table.AddedColumn;
 import com.datasqrl.plan.calcite.table.NowFilter;
 import com.datasqrl.plan.calcite.table.PullupOperator;
@@ -19,11 +24,32 @@ import com.datasqrl.plan.calcite.table.TableType;
 import com.datasqrl.plan.calcite.table.TimestampHolder;
 import com.datasqrl.plan.calcite.table.TopNConstraint;
 import com.datasqrl.plan.calcite.table.VirtualRelationalTable;
-import com.datasqrl.plan.calcite.util.*;
+import com.datasqrl.plan.calcite.util.CalciteUtil;
+import com.datasqrl.plan.calcite.util.ContinuousIndexMap;
+import com.datasqrl.plan.calcite.util.IndexMap;
+import com.datasqrl.plan.calcite.util.SqrlRexUtil;
+import com.datasqrl.plan.calcite.util.TimePredicate;
+import com.datasqrl.plan.calcite.util.TimePredicateAnalyzer;
+import com.datasqrl.plan.calcite.util.TimeTumbleFunctionCall;
+import com.datasqrl.plan.calcite.util.TimestampAnalysis;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ContiguousSet;
 import com.google.common.collect.Iterables;
 import com.google.common.primitives.Ints;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.NonNull;
 import lombok.Value;
@@ -36,26 +62,28 @@ import org.apache.calcite.rel.core.AggregateCall;
 import org.apache.calcite.rel.core.CorrelationId;
 import org.apache.calcite.rel.core.JoinRelType;
 import org.apache.calcite.rel.core.TableScan;
-import org.apache.calcite.rel.logical.*;
+import org.apache.calcite.rel.logical.LogicalAggregate;
+import org.apache.calcite.rel.logical.LogicalFilter;
+import org.apache.calcite.rel.logical.LogicalJoin;
+import org.apache.calcite.rel.logical.LogicalProject;
+import org.apache.calcite.rel.logical.LogicalSort;
+import org.apache.calcite.rel.logical.LogicalUnion;
 import org.apache.calcite.rel.type.RelDataType;
 import org.apache.calcite.rel.type.RelDataTypeField;
 import org.apache.calcite.rel.type.RelDataTypeFieldImpl;
 import org.apache.calcite.rel.type.RelRecordType;
-import org.apache.calcite.rex.*;
+import org.apache.calcite.rex.RexFieldCollation;
+import org.apache.calcite.rex.RexInputRef;
+import org.apache.calcite.rex.RexLiteral;
+import org.apache.calcite.rex.RexNode;
+import org.apache.calcite.rex.RexUtil;
+import org.apache.calcite.rex.RexWindowBounds;
 import org.apache.calcite.sql.SqlKind;
 import org.apache.calcite.sql.type.SqlTypeName;
 import org.apache.calcite.tools.RelBuilder;
 import org.apache.calcite.util.mapping.IntPair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.flink.calcite.shaded.com.google.common.collect.ImmutableList;
-
-import java.math.BigDecimal;
-import java.util.*;
-import java.util.function.BiFunction;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 @Value
 public class SQRLLogicalPlanConverter extends AbstractSqrlRelShuttle<AnnotatedLP> {
@@ -601,7 +629,7 @@ public class SQRLLogicalPlanConverter extends AbstractSqrlRelShuttle<AnnotatedLP
     Preconditions.checkArgument(!FIND_NOW.foundIn(condition),
         "now() is not allowed in join conditions");
     SqrlRexUtil.EqualityComparisonDecomposition eqDecomp = rexUtil.decomposeEqualityComparison(
-        condition);
+        condition, leftSideMaxIdx);
 
     //Identify if this is an identical self-join for a nested tree
     boolean hasTransformativePullups =
@@ -689,7 +717,7 @@ public class SQRLLogicalPlanConverter extends AbstractSqrlRelShuttle<AnnotatedLP
               : idx - leftSideMaxIdx;
           joinedIndexMap = joinedIndexMap.remap(leftRightFlip);
           condition = joinedIndexMap.map(logicalJoin.getCondition());
-          eqDecomp = rexUtil.decomposeEqualityComparison(condition);
+          eqDecomp = rexUtil.decomposeEqualityComparison(condition, tmpLeftSideMaxIdx);
         }
         int newLeftSideMaxIdx = leftInput.getFieldLength();
         //Check for primary keys equalities on the state-side of the join
@@ -755,9 +783,24 @@ public class SQRLLogicalPlanConverter extends AbstractSqrlRelShuttle<AnnotatedLP
     if (joinType == JoinRelType.LEFT) {
       concatPkBuilder = ContinuousIndexMap.builder(leftInputF.primaryKey, 0);
     } else {
-      concatPkBuilder = ContinuousIndexMap.builder(leftInputF.primaryKey,
-          rightInputF.primaryKey.getSourceLength());
-      concatPkBuilder.addAll(rightInputF.primaryKey.remap(idx -> idx + leftSideMaxIdx));
+      //1) Check if the entire left or right primary key is constrained in an equi-join condition
+      //in which case the other side is the primary key.
+      ContinuousIndexMap remappedRightPk = rightInputF.primaryKey.remap(idx -> idx + leftSideMaxIdx);
+      if (eqDecomp.getEqualities().stream().map(p -> p.target).collect(Collectors.toSet())
+          .containsAll(remappedRightPk.targetsAsList())) {
+        //Entire right pk is constrained by equalities
+        concatPkBuilder = ContinuousIndexMap.builder(leftInputF.primaryKey, 0);
+      } else if (eqDecomp.getEqualities().stream().map(p -> p.source).collect(Collectors.toSet())
+          .containsAll(leftInputF.primaryKey.targetsAsList())) {
+        //Entire left pk is constrained by equalities
+        concatPkBuilder = ContinuousIndexMap.builder(remappedRightPk, 0);
+      } else {
+        //2) Take entire left pk and add right pk indexes that aren't constrained
+        List<Integer> unconstrainedRightPk = new ArrayList<>(remappedRightPk.targetsAsList());
+        eqDecomp.getEqualities().stream().map(p -> p.target).forEach(unconstrainedRightPk::remove);
+        concatPkBuilder = ContinuousIndexMap.builder(leftInputF.primaryKey, unconstrainedRightPk.size());
+        unconstrainedRightPk.forEach(concatPkBuilder::add);
+      }
     }
     ContinuousIndexMap concatPk = concatPkBuilder.build();
 
@@ -794,22 +837,12 @@ public class SQRLLogicalPlanConverter extends AbstractSqrlRelShuttle<AnnotatedLP
                 rightInputF.primaryKey.map(i) + leftSideMaxIdx));
           }
           if (eqDecomp.getEqualities().containsAll(rootPkPairs)) {
-            //Change primary key to only include root pk once and equality time condition because timestamps must be equal
+            //Add equality time condition because timestamps must be equal
             TimePredicate eqCondition = new TimePredicate(
                 rightInputF.timestamp.getBestCandidate().getIndex() + leftSideMaxIdx,
                 leftInputF.timestamp.getBestCandidate().getIndex(), SqlKind.EQUALS, 0);
             timePredicates.add(eqCondition);
             conjunctions.add(eqCondition.createRexNode(rexUtil.getBuilder(), idxResolver, false));
-
-            numRootPks = leftInputF.numRootPks;
-            //remove root pk columns from right side when combining primary keys
-            concatPkBuilder = ContinuousIndexMap.builder(leftInputF.primaryKey,
-                rightInputF.primaryKey.getSourceLength() - numRootPks.get());
-            List<Integer> rightPks = rightInputF.primaryKey.targetsAsList();
-            concatPkBuilder.addAll(rightPks.subList(numRootPks.get(), rightPks.size()).stream()
-                .map(idx -> idx + leftSideMaxIdx).collect(Collectors.toList()));
-            concatPk = concatPkBuilder.build();
-
           }
         }
         if (!timePredicates.isEmpty()) {
