@@ -327,15 +327,27 @@ public class AnnotatedLP implements RelHolder {
   }
 
 
+  AnnotatedLP postProcess(RelBuilder relBuilder) {
+    return postProcess(relBuilder, Collections.nCopies(select.getSourceLength(), null));
+  }
+
+  public AnnotatedLP postProcess(RelBuilder relBuilder, List<String> fieldNames) {
+    return postProcess(relBuilder, fieldNames, 0);
+  }
+
   /**
    * Moves the primary key columns to the front and adds projection to only return columns that the
    * user selected, are part of the primary key, a timestamp candidate, or part of the sort order.
-   * <p>
+   *
    * Inlines deduplication in case of nested data.
+   *
+   * Ensures that the parent primary key columns (which are the first numParentPks of the select list)
+   * are up front and added to the primary key if not already present since they could have gotten
+   * eliminated in a join.
    *
    * @return
    */
-  public AnnotatedLP postProcess(RelBuilder relBuilder, List<String> fieldNames) {
+  public AnnotatedLP postProcess(RelBuilder relBuilder, List<String> fieldNames, int numParentPks) {
     Preconditions.checkArgument(fieldNames.size() == select.getSourceLength());
     List<RelDataTypeField> fields = relNode.getRowType().getFieldList();
     AnnotatedLP input = this;
@@ -344,13 +356,17 @@ public class AnnotatedLP implements RelHolder {
             .anyMatch(CalciteUtil::isNestedTable)) {
       input = input.inlineTopN(relBuilder);
     }
+    List<Integer> pkIndexes = new ArrayList<>(input.select.targetsAsList().subList(0,numParentPks));
+    input.primaryKey.targetsAsList().stream().filter(idx -> !pkIndexes.contains(idx)).forEach(pkIndexes::add);
+    ContinuousIndexMap primaryKey = ContinuousIndexMap.of(pkIndexes);
+
     HashMap<Integer, Integer> remapping = new HashMap<>();
     int index = 0;
     boolean addedPk = false;
-    for (int i = 0; i < input.primaryKey.getSourceLength(); i++) {
-      remapping.put(input.primaryKey.map(i), index++);
+    for (int i = 0; i < primaryKey.getSourceLength(); i++) {
+      remapping.put(primaryKey.map(i), index++);
     }
-    if (input.primaryKey.getSourceLength() == 0) {
+    if (primaryKey.getSourceLength() == 0) {
       //If we don't have a primary key, we add a static one to resolve uniqueness in the database
       addedPk = true;
       index++;
@@ -381,7 +397,7 @@ public class AnnotatedLP implements RelHolder {
     ContinuousIndexMap updatedSelect = input.select.remap(remap);
     List<RexNode> projects = new ArrayList<>(projectLength);
     List<String> updatedFieldNames = Arrays.asList(new String[projectLength]);
-    ContinuousIndexMap primaryKey = input.primaryKey.remap(remap);
+    primaryKey = primaryKey.remap(remap);
     if (addedPk) {
       primaryKey = ContinuousIndexMap.identity(1, projectLength);
       projects.add(0, relBuilder.literal(1));
@@ -405,10 +421,6 @@ public class AnnotatedLP implements RelHolder {
         input.numRootPks,
         input.nowFilter.remap(remap), input.topN.remap(remap), input.sort.remap(remap),
         List.of(this));
-  }
-
-  public AnnotatedLP postProcess(RelBuilder relBuilder) {
-    return postProcess(relBuilder, Collections.nCopies(select.getSourceLength(), null));
   }
 
   public AnnotatedLP postProcessStream(RelBuilder relBuilder, List<String> fieldNames) {

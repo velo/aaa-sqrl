@@ -594,7 +594,7 @@ public class Resolve {
     op.setRelNode(relNode);
   }
 
-  public AnnotatedLP convert(Env env, StatementOp op) {
+  public AnnotatedLP convert(Env env, StatementOp op, int numParentPKs) {
     List<String> fieldNames = op.relNode.getRowType().getFieldNames();
 
     //Step 1: Push filters into joins so we can correctly identify self-joins
@@ -631,7 +631,7 @@ public class Resolve {
     if (op.statementKind == StatementKind.STREAM) {
       prel = prel.postProcessStream(relBuilderFactory.get(), fieldNames);
     } else {
-      prel = prel.postProcess(relBuilderFactory.get(), fieldNames);
+      prel = prel.postProcess(relBuilderFactory.get(), fieldNames, numParentPKs);
     }
 
     return prel;
@@ -763,14 +763,14 @@ public class Resolve {
   }
 
   private Multiplicity getMultiplicity(Env env, StatementOp op, SQRLTable table) {
-    AnnotatedLP processedRel = convert(env, op);
+    AnnotatedLP processedRel = convert(env, op, table.getVt().getNumPrimaryKeys());
 
     Optional<SqlNode> fetch = getFetch(env, op);
 
     return fetch
         .filter(f -> ((SqlNumericLiteral) f).intValue(true) == 1)
         .map(f -> Multiplicity.ONE)
-        .orElse(table.getVt().getNumPrimaryKeys() == processedRel.primaryKey.targetsAsList().size() ?
+        .orElse(table.getVt().getNumPrimaryKeys() == processedRel.primaryKey.getSourceLength() ?
             Multiplicity.ZERO_ONE : Multiplicity.MANY);
   }
 
@@ -788,7 +788,7 @@ public class Resolve {
 
   private void createTable(Env env, StatementOp op, Optional<SQRLTable> parentTable) {
 
-    final AnnotatedLP processedRel = convert(env, op);
+    final AnnotatedLP processedRel = convert(env, op, parentTable.map(t -> t.getVt().getNumPrimaryKeys()).orElse(0));
 
     List<String> relFieldNames = processedRel.getRelNode().getRowType().getFieldNames();
     List<Name> fieldNames = processedRel.getSelect().targetsAsList().stream()

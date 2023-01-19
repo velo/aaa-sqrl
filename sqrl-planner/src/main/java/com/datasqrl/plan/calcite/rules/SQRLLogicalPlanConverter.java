@@ -727,6 +727,7 @@ public class SQRLLogicalPlanConverter extends AbstractSqrlRelShuttle<AnnotatedLP
             .collect(Collectors.toSet());
         if (pkIndexes.equals(pkEqualities) && eqDecomp.getRemainingPredicates().isEmpty() &&
             rightInput.nowFilter.isEmpty()) {
+          combinedExec = combinedExec.require(EngineCapability.TEMPORAL_JOIN);
           RelBuilder relB = makeRelBuilder();
           relB.push(leftInput.relNode);
           relB.push(rightInput.relNode);
@@ -744,7 +745,7 @@ public class SQRLLogicalPlanConverter extends AbstractSqrlRelShuttle<AnnotatedLP
           hint.addTo(relB);
           return setRelHolder(AnnotatedLP.build(relB.build(), TableType.STREAM,
                   pk, joinTimestamp, joinedIndexMap,
-                  combinedExec.require(EngineCapability.TEMPORAL_JOIN), List.of(leftInput, rightInput))
+                  combinedExec, List.of(leftInput, rightInput))
               .joinTables(leftInput.joinTables)
               .numRootPks(leftInput.numRootPks).nowFilter(leftInput.nowFilter).sort(leftInput.sort)
               .build());
