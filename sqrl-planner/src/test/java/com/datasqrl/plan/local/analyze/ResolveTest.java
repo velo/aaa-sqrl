@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.datasqrl.AbstractLogicalSQRLIT;
 import com.datasqrl.IntegrationTestSettings;
 import com.datasqrl.engine.ExecutionEngine;
+import com.datasqrl.error.ErrorPrinter;
 import com.datasqrl.name.Name;
 import com.datasqrl.plan.calcite.table.AbstractRelationalTable;
 import com.datasqrl.plan.calcite.table.CalciteTableFactory;
@@ -31,6 +32,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.SneakyThrows;
 import lombok.Value;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.calcite.jdbc.CalciteSchema;
 import org.apache.commons.compress.utils.Sets;
 import org.apache.commons.io.FileUtils;
@@ -39,6 +41,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
+@Slf4j
 public class ResolveTest extends AbstractLogicalSQRLIT {
 
   private final Retail example = Retail.INSTANCE;
@@ -475,7 +478,12 @@ public class ResolveTest extends AbstractLogicalSQRLIT {
 
   @SneakyThrows
   protected Resolve.Env process(String query) {
-    resolvedDag = plan(query);
+    try {
+      resolvedDag = plan(query);
+    } catch (Exception e) {
+      log.error(ErrorPrinter.prettyPrint(this.error));
+      throw e;
+    }
     return resolvedDag;
   }
 

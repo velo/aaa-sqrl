@@ -753,7 +753,7 @@ public class Resolve {
     SQRLTable toTable =
         joinDeclarationUtil.getToTable(op.sqrlValidator,
             op.getJoinDeclaration());
-    Multiplicity multiplicity = getMultiplicity(env, op);
+    Multiplicity multiplicity = getMultiplicity(env, op, table);
 
     checkState(table.getField(toNamePath(env, op.statement.getNamePath()).getLast()).isEmpty(),
         ErrorCode.CANNOT_SHADOW_RELATIONSHIP, op.statement);
@@ -762,13 +762,16 @@ public class Resolve {
         Relationship.JoinType.JOIN, multiplicity, Optional.of(op.joinDeclaration));
   }
 
-  private Multiplicity getMultiplicity(Env env, StatementOp op) {
+  private Multiplicity getMultiplicity(Env env, StatementOp op, SQRLTable table) {
+    AnnotatedLP processedRel = convert(env, op);
+
     Optional<SqlNode> fetch = getFetch(env, op);
 
     return fetch
         .filter(f -> ((SqlNumericLiteral) f).intValue(true) == 1)
         .map(f -> Multiplicity.ONE)
-        .orElse(Multiplicity.MANY);
+        .orElse(table.getVt().getNumPrimaryKeys() == processedRel.primaryKey.targetsAsList().size() ?
+            Multiplicity.ZERO_ONE : Multiplicity.MANY);
   }
 
   private Optional<SqlNode> getFetch(Env env, StatementOp op) {
