@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2021, DataSQRL. All rights reserved. Use is subject to license terms.
  */
-package com.datasqrl.plan.local.analyze;
+package com.datasqrl.plan.local.generate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -12,13 +12,16 @@ import com.datasqrl.IntegrationTestSettings;
 import com.datasqrl.engine.ExecutionEngine;
 import com.datasqrl.error.ErrorPrinter;
 import com.datasqrl.name.Name;
+import com.datasqrl.name.NamePath;
 import com.datasqrl.plan.calcite.table.AbstractRelationalTable;
 import com.datasqrl.plan.calcite.table.CalciteTableFactory;
 import com.datasqrl.plan.calcite.table.PullupOperator;
 import com.datasqrl.plan.calcite.table.QueryRelationalTable;
 import com.datasqrl.plan.calcite.table.TableType;
 import com.datasqrl.plan.calcite.table.TimestampHolder;
-import com.datasqrl.plan.local.generate.Resolve;
+import com.datasqrl.schema.Multiplicity;
+import com.datasqrl.schema.Relationship;
+import com.datasqrl.schema.SQRLTable;
 import com.datasqrl.util.ScriptBuilder;
 import com.datasqrl.util.SnapshotTest;
 import com.datasqrl.util.TestRelWriter;
@@ -232,6 +235,28 @@ public class ResolveTest extends AbstractLogicalSQRLIT {
     process(builder.toString());
     validateQueryTable("totals", TableType.TEMPORAL_STATE, ExecutionEngine.Type.STREAM, 4, 2,
         TimestampTest.fixed(3), PullupTest.builder().hasTopN(true).build());
+  }
+
+  @Test
+  public void joinLimitEliminationAndMultiplicityTest() {
+    ScriptBuilder builder = imports();
+    builder.add("Product := DISTINCT Product ON productid ORDER BY _ingest_time DESC");
+    builder.add("Orders.entries.product1 := JOIN Product ON Product.productid = @.productid");
+    builder.add("Orders.entries.product2 := JOIN Product ON Product.productid = @.productid LIMIT 1");
+    builder.add("Totals1 := SELECT p.category as category, sum(e.quantity) as num " +
+        "FROM Orders o JOIN o.entries e JOIN e.product1 p GROUP BY category");
+    builder.add("Totals2 := SELECT p.category as category, sum(e.quantity) as num " +
+        "FROM Orders o JOIN o.entries e JOIN e.product2 p GROUP BY category");
+    process(builder.toString());
+    SQRLTable entries = resolvedDag.resolveTable(NamePath.of("Orders","entries"),false).get();
+    for (String relName : new String[]{"product1","product2"}) {
+      Relationship r = (Relationship) entries.getField(Name.system(relName)).get();
+      assertEquals(Multiplicity.ZERO_ONE, r.getMultiplicity());
+    }
+    validateQueryTable("totals1", TableType.TEMPORAL_STATE, ExecutionEngine.Type.STREAM, 3, 1,
+        TimestampTest.fixed(2), PullupTest.EMPTY);
+    validateQueryTable("totals2", TableType.TEMPORAL_STATE, ExecutionEngine.Type.STREAM, 3, 1,
+        TimestampTest.fixed(2), PullupTest.EMPTY);
   }
 
 

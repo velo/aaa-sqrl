@@ -1,0 +1,24 @@
+>>>totals1-lp
+LogicalProject(category=[$16], num=[SUM($8) IGNORE NULLS OVER (PARTITION BY $16 ORDER BY $4 ROWS UNBOUNDED PRECEDING)], time=[$4])
+  LogicalJoin(condition=[=($11, $7)], joinType=[inner]) hints[TemporalJoinHint options:[4, 2, 0]]
+    LogicalCorrelate(correlation=[$cor3], joinType=[inner], requiredColumns=[{5}])
+      LogicalTableScan(table=[[orders$q$5]])
+      Uncollect
+        LogicalProject($f0=[$cor3.entries])
+          LogicalValues(tuples=[[{ 0 }]])
+    LogicalFilter(condition=[=($6, 1)])
+      LogicalProject(productid=[$0], _uuid=[$1], _ingest_time=[$2], name=[$3], description=[$4], category=[$5], $f6=[ROW_NUMBER() OVER (PARTITION BY $0 ORDER BY $2 DESC NULLS LAST)])
+        LogicalTableScan(table=[[product$q$11]])
+
+>>>totals2-lp
+LogicalProject(category=[$16], num=[SUM($8) IGNORE NULLS OVER (PARTITION BY $16 ORDER BY $4 ROWS UNBOUNDED PRECEDING)], time=[$4])
+  LogicalJoin(condition=[=($11, $7)], joinType=[inner]) hints[TemporalJoinHint options:[4, 2, 0]]
+    LogicalCorrelate(correlation=[$cor5], joinType=[inner], requiredColumns=[{5}])
+      LogicalTableScan(table=[[orders$q$5]])
+      Uncollect
+        LogicalProject($f0=[$cor5.entries])
+          LogicalValues(tuples=[[{ 0 }]])
+    LogicalFilter(condition=[=($6, 1)])
+      LogicalProject(productid=[$0], _uuid=[$1], _ingest_time=[$2], name=[$3], description=[$4], category=[$5], $f6=[ROW_NUMBER() OVER (PARTITION BY $0 ORDER BY $2 DESC NULLS LAST)])
+        LogicalTableScan(table=[[product$q$11]])
+

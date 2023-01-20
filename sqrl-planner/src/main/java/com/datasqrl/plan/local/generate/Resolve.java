@@ -169,6 +169,20 @@ public class Resolve {
       return tableSource.getName();
     }
 
+    Optional<SQRLTable> resolveTable(NamePath namePath, boolean getParent) {
+      if (getParent && !namePath.isEmpty()) {
+        namePath = namePath.popLast();
+      }
+      if (namePath.isEmpty()) {
+        return Optional.empty();
+      }
+      Optional<SQRLTable> table =
+          Optional.ofNullable(relSchema.getTable(namePath.get(0).getDisplay(), false))
+              .map(t -> (SQRLTable) t.getTable());
+      NamePath childPath = namePath.popFirst();
+      return table.flatMap(t -> t.walkTable(childPath));
+    }
+
     public Resolve getResolve() {
       return Resolve.this;
     }
@@ -405,8 +419,7 @@ public class Resolve {
     } else if (statement instanceof ExportDefinition) {
       //We handle exports out-of-band and just resolve them.
       ExportDefinition export = (ExportDefinition) statement;
-      Optional<SQRLTable> tableOpt = resolveTable(env, toNamePath(env, export.getTablePath()),
-          false);
+      Optional<SQRLTable> tableOpt = env.resolveTable(toNamePath(env, export.getTablePath()), false);
       checkState(tableOpt.isPresent(), ErrorCode.MISSING_DEST_TABLE, export.getTablePath()::getParserPosition,
           () -> String.format("Could not find table path: %s", export.getTablePath()));
       SQRLTable table = tableOpt.get();
@@ -569,21 +582,7 @@ public class Resolve {
   }
 
   private Optional<SQRLTable> getContext(Env env, SqrlStatement statement) {
-    return resolveTable(env, toNamePath(env, statement.getNamePath()), true);
-  }
-
-  private Optional<SQRLTable> resolveTable(Env env, NamePath namePath, boolean getParent) {
-    if (getParent && !namePath.isEmpty()) {
-      namePath = namePath.popLast();
-    }
-    if (namePath.isEmpty()) {
-      return Optional.empty();
-    }
-    Optional<SQRLTable> table =
-        Optional.ofNullable(env.relSchema.getTable(namePath.get(0).getDisplay(), false))
-            .map(t -> (SQRLTable) t.getTable());
-    NamePath childPath = namePath.popFirst();
-    return table.flatMap(t -> t.walkTable(childPath));
+    return env.resolveTable(toNamePath(env, statement.getNamePath()), true);
   }
 
   public void plan(Env env, StatementOp op) {
@@ -769,7 +768,7 @@ public class Resolve {
 
     return fetch
         .filter(f -> ((SqlNumericLiteral) f).intValue(true) == 1)
-        .map(f -> Multiplicity.ONE)
+        .map(f -> Multiplicity.ZERO_ONE)
         .orElse(table.getVt().getNumPrimaryKeys() == processedRel.primaryKey.getSourceLength() ?
             Multiplicity.ZERO_ONE : Multiplicity.MANY);
   }

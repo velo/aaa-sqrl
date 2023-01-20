@@ -468,6 +468,15 @@ public class SQRLLogicalPlanConverter extends AbstractSqrlRelShuttle<AnnotatedLP
           partition = Collections.EMPTY_LIST; //remove partition since we set primary key to partition
           limit = Optional.empty(); //distinct does not need a limit
         } else if (topNHint.getType() == TopNHint.Type.TOP_N) {
+          Preconditions.checkArgument(limit.isPresent() && limit.get()>0,
+              "Invalid limit provided for TOP-N: %s", limit);
+          /*if the partition key contains the entire primary key, then the TOP_N constraint is
+            trivially satisfied for N>=1 since there can be at most one record per partition.
+          */
+          if (partition.containsAll(pk.targetsAsList())) {
+            return setRelHolder(baseInput.copy().primaryKey(pk).select(select)
+                .topN(TopNConstraint.EMPTY).sort(SortOrder.EMPTY).build());
+          }
           //Prepend partition to primary key
           List<Integer> pkIdx = SqrlRexUtil.combineIndexes(partition, pk.targetsAsList());
           pk = ContinuousIndexMap.builder(pkIdx.size()).addAll(pkIdx).build(targetLength);

@@ -1,4 +1,4 @@
-package com.datasqrl.plan.local.analyze;
+package com.datasqrl.plan.local.generate;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -6,7 +6,6 @@ import com.datasqrl.AbstractLogicalSQRLIT;
 import com.datasqrl.IntegrationTestSettings;
 import com.datasqrl.error.ErrorPrinter;
 import com.datasqrl.name.NamePath;
-import com.datasqrl.plan.local.generate.DebuggerConfig;
 import com.datasqrl.util.SnapshotTest;
 import com.datasqrl.util.data.Retail;
 import java.io.IOException;
