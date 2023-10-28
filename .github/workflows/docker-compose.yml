@@ -26,5 +26,7 @@ jobs:
 
       - name: Run Docker Compose
         run: |
-          cd sqrl-examples/mutations/build/deploy
+          cd sqrl-examples/mutations
+          docker run -it -v $PWD:/build datasqrl/cmd compile script.sqrl schema.graphqls
+          cd /build/deploy
           docker-compose -f ./docker-compose.yml up -d
