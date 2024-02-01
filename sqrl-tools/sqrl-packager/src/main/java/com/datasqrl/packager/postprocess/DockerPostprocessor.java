@@ -164,6 +164,8 @@ public class DockerPostprocessor implements Postprocessor {
         mountDir.ifPresent(dir -> volumes.add(dir.toAbsolutePath().normalize() + ":/build"));
         volumes.add("./init-flink.sh:/exec/init-flink.sh");
         service.put("volumes", volumes);
+      } else {
+        mountDir.ifPresent(dir -> existingVolumes.add(dir.toAbsolutePath().normalize() + ":/build"));
       }
     }
   }
