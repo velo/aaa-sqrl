@@ -215,7 +215,7 @@ public class Compiler {
   }
 
   @Value
-  public class CompilerResult {
+  public static class CompilerResult {
 
     RootGraphqlModel model;
     String graphQLSchema;

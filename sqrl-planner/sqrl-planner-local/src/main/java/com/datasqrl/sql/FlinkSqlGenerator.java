@@ -187,7 +187,7 @@ public class FlinkSqlGenerator implements
     } else if (connectorFactory instanceof TableDescriptorSourceFactory) {
       TableDescriptorSourceFactory sourceFactory = (TableDescriptorSourceFactory) connectorFactory;
       FlinkSourceFactoryContext factoryContext = new FlinkSourceFactoryContext(null, name, tableConfig.serialize(),
-          formatFactory, UUID.randomUUID());
+          formatFactory, UUID.randomUUID(), table.getSchemaDefinition());
       TableDescriptor descriptor = getTableDescriptor(sourceFactory, factoryContext, table.getSchema());
 
       return toCreateTable(name, descriptor,(RelDataType) table.getRelDataType(),

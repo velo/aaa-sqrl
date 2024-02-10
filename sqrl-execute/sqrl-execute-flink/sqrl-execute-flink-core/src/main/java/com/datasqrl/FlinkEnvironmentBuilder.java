@@ -190,7 +190,7 @@ public class FlinkEnvironmentBuilder implements
     if (startWebUi != null && startWebUi.equalsIgnoreCase("true")) {
       sEnv = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(sEnvConfig);
     } else {
-      sEnv = StreamExecutionEnvironment.getExecutionEnvironment(sEnvConfig);
+      sEnv = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(sEnvConfig);
     }
 
     EnvironmentSettings tEnvConfig = EnvironmentSettings.newInstance()
@@ -205,6 +205,7 @@ public class FlinkEnvironmentBuilder implements
     log.debug("Creating function {}", fnc.getFunctionName());
 
     String sql = createFunctionStatement(fnc);
+    System.out.println(sql);
     context.getTEnv()
         .executeSql(sql);
     return null;
@@ -213,6 +214,8 @@ public class FlinkEnvironmentBuilder implements
   @Override
   public Object visitFunction(FlinkSqlFunction fnc, PlanContext context) {
     log.debug("Creating function sql {}", fnc.getFunctionSql());
+    System.out.println(fnc.getFunctionSql());
+
     context.getTEnv()
         .executeSql(fnc.getFunctionSql());
     return null;
@@ -255,6 +258,8 @@ public class FlinkEnvironmentBuilder implements
   @Override
   public Object visitQuery(FlinkSqlQuery query, PlanContext context) {
     log.debug("Creating SQL table: {} {}", query.getName(), query.getQuery());
+    System.out.println(query.getQuery());
+
     Table table = context.getTEnv().sqlQuery(query.getQuery());
     context.getTEnv().createTemporaryView(query.getName(), table);
     return null;
@@ -405,7 +410,7 @@ public class FlinkEnvironmentBuilder implements
 
     SingleOutputStreamOperator<TimeAnnotatedRecord<String>> stream =
         sourceFactory.create(new FlinkSourceFactoryContext(context.getSEnv(), tableConfig.getName().getCanonical(),
-                tableConfig.serialize(), formatFactory, UUID.randomUUID()));
+                tableConfig.serialize(), formatFactory, UUID.randomUUID(), null));
 
     OutputTag formatErrorTag = context.createErrorTag();
     FlinkFormatFactory flinkFormat = FlinkFormatFactory.of(formatFactory.getParser(tableConfig.getFormatConfig()));
@@ -494,7 +499,7 @@ public class FlinkEnvironmentBuilder implements
     } else if (connectorFactory instanceof TableDescriptorSourceFactory) {
       TableDescriptorSourceFactory sourceFactory = (TableDescriptorSourceFactory) connectorFactory;
       FlinkSourceFactoryContext factoryContext = new FlinkSourceFactoryContext(context.sEnv, name, tableConfig.serialize(),
-          formatFactory, UUID.randomUUID());
+          formatFactory, UUID.randomUUID(), table.getSchemaDefinition());
       TableDescriptor descriptor = getTableDescriptor(sourceFactory, factoryContext, table.getSchema());
       context.getTEnv().createTemporaryTable(name, descriptor);
     } else if (connectorFactory instanceof SinkFactory) {
@@ -507,6 +512,7 @@ public class FlinkEnvironmentBuilder implements
         TableDescriptor.Builder builder = (TableDescriptor.Builder) o;
         TableDescriptor descriptor = builder.schema(toSchema(table.getSchema()))
             .build();
+
         context.getTEnv().createTemporaryTable(name, descriptor);
       } else {
         throw new RuntimeException("Unknown sink type");

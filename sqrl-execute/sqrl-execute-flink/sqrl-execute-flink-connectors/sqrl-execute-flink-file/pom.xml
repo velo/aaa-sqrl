@@ -28,5 +28,9 @@
       <groupId>org.apache.flink</groupId>
       <artifactId>flink-s3-fs-hadoop</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.datasqrl</groupId>
+      <artifactId>sqrl-io-schema-flexible</artifactId>
+    </dependency>
   </dependencies>
 </project>

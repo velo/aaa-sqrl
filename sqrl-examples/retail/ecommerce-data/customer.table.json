@@ -11,8 +11,7 @@
   "identifier" : "customer",
   "schema" : "flexible",
   "connector" : {
-    "directoryURI" : "../../sqrl-examples/retail/data/",
-    "fileURIs" : [ ],
+    "fileURIs" : ["../../sqrl-examples/retail/data/customer.csv"],
     "filenamePattern" : "^([^\\.]+?)(?:_part.*)?$",
     "name" : "file"
   }

@@ -59,6 +59,11 @@ public class SecureFunctions {
     }
 
     @Override
+    public boolean isDeterministic() {
+      return false;
+    }
+
+    @Override
     public String getDocumentation() {
       return "Generates a random UUID string";
     }

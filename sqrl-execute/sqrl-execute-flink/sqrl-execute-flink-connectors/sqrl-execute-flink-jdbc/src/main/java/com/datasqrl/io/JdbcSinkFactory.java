@@ -37,6 +37,7 @@ public class JdbcSinkFactory
     Optional.ofNullable(jdbc.getPassword())
         .map(p->builder.option(JdbcConnectorOptions.PASSWORD, p));
 
+    System.out.println(builder.toString());
     return builder;
   }
 }

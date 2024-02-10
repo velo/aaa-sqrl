@@ -309,8 +309,9 @@ public class SqrlToFlinkExecutablePlan extends RelShuttleImpl {
   }
 
   private Class<? extends FlinkSourceFactory> determineFactory(TableConfig tableConfig) {
-    return tableConfig.getFormat().hasSchemaFactory()?
-        TableDescriptorSourceFactory.class: DataStreamSourceFactory.class;
+    return //tableConfig.getFormat().hasSchemaFactory()?
+        TableDescriptorSourceFactory.class;
+    //: DataStreamSourceFactory.class;
   }
 
   public void registerSourceTable(String tableName, ImportedRelationalTable relationalTable,

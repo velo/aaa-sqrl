@@ -134,13 +134,13 @@ public class ExpandTemporalJoinRule extends RelOptRule {
 
     @Override
     public RexNode visitLiteral(RexLiteral literal) {
-      if (literal.getTypeName() == SqlTypeName.INTERVAL_SECOND) {
-        BigDecimal intervalMs = literal.getValueAs(BigDecimal.class);
-        //This does not seem to work in Flink
-        SqlIntervalQualifier sqlIntervalQualifier =
-            new SqlIntervalQualifier(TimeUnit.YEAR, 3, TimeUnit.YEAR, 3, SqlParserPos.ZERO);
-        return rexBuilder.makeIntervalLiteral(intervalMs, sqlIntervalQualifier);
-      }
+//      if (literal.getTypeName() == SqlTypeName.INTERVAL_SECOND) {
+//        BigDecimal intervalMs = literal.getValueAs(BigDecimal.class);
+//        //This does not seem to work in Flink
+//        SqlIntervalQualifier sqlIntervalQualifier =
+//            new SqlIntervalQualifier(TimeUnit.YEAR, 3, TimeUnit.YEAR, 3, SqlParserPos.ZERO);
+//        return rexBuilder.makeIntervalLiteral(intervalMs, sqlIntervalQualifier);
+//      }
       return literal;
     }
   }

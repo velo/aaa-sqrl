@@ -3,6 +3,9 @@
  */
 package com.datasqrl.schema.input;
 
+import static com.datasqrl.canonicalizer.ReservedName.ARRAY_IDX;
+
+import com.datasqrl.canonicalizer.StandardName;
 import com.datasqrl.error.ErrorCollector;
 import com.datasqrl.io.SourceRecord;
 import com.datasqrl.io.tables.SchemaValidator;
@@ -239,6 +242,14 @@ public class FlexibleSchemaValidator implements SchemaValidator, Serializable {
       FlexibleFieldSchema.Field field,
       int detectedArrayDepth, ErrorCollector errors) {
     data = convertDataToMatchedType(data, type.getType(), field, errors);
+
+    if (type.getType() instanceof RelationType && data instanceof List && ((List<?>) data).get(0) instanceof Map) {
+      List<Map> d  = (List<Map>)data;
+      int idx = 0;
+      for (Map m : d) {
+        m.put(ARRAY_IDX, idx++);
+      }
+    }
 
     assert detectedArrayDepth <= type.getArrayDepth();
     if (detectedArrayDepth < type.getArrayDepth()) {

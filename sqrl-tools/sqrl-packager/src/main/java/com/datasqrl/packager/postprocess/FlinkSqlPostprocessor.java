@@ -52,6 +52,7 @@ public class FlinkSqlPostprocessor implements Postprocessor {
       Files.writeString(planPath, String.join(PLAN_SEPARATOR, plan));
 
     } catch (Exception e) {
+      e.printStackTrace();
       //allowed to fail, fallback on legacy flink-plan.json
     }
   }

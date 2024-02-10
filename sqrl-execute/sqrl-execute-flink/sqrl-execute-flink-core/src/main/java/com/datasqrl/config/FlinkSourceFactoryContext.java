@@ -15,6 +15,7 @@ public class FlinkSourceFactoryContext implements SourceFactoryContext {
   TableConfig.Serialized tableConfig;
   FormatFactory formatFactory;
   UUID uuid;
+  String schemaDefinition;
 
   public TableConfig getTableConfig() {
     return tableConfig.deserialize(ErrorCollector.root());

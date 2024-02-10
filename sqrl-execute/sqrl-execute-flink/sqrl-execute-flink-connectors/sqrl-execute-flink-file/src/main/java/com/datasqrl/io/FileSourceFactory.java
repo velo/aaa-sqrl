@@ -38,7 +38,7 @@ public class FileSourceFactory implements DataStreamSourceFactory {
 
   @Override
   public String getSourceName() {
-    return FileDataSystemFactory.SYSTEM_NAME;
+    return FileDataSystemFactory.SYSTEM_NAME+"_legacy";
   }
 
   @Override

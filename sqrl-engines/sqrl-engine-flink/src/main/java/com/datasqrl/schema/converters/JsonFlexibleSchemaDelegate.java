@@ -16,6 +16,7 @@ public class JsonFlexibleSchemaDelegate extends FlexibleSchemaDelegate {
   @SneakyThrows
   @Override
   public Map<String, Object> parse(byte[] message) {
-    return objectMapper.readValue(message, Map.class);
+    Map map = objectMapper.readValue(message, Map.class);
+    return map;
   }
 }

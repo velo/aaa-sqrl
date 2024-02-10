@@ -81,7 +81,7 @@ public class AvroSchemaHandlingTest {
     TableConfig tableConfig = TableConfig.load(configPath, tblName, errors);
     FlinkSourceFactoryContext factoryContext = new FlinkSourceFactoryContext(null, name,
         tableConfig.serialize(),
-        tableConfig.getFormat(), UUID.randomUUID());
+        tableConfig.getFormat(), UUID.randomUUID(), null);
     TableDescriptor descriptor = FlinkEnvironmentBuilder.getTableDescriptor(sourceFactory,
         factoryContext, serializableSchema);
     snapshot.addContent(descriptor.toString(), "descriptor");

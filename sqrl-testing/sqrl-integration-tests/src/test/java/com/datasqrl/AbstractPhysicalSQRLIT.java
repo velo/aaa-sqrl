@@ -9,6 +9,7 @@ import com.datasqrl.calcite.Dialect;
 import com.datasqrl.canonicalizer.Name;
 import com.datasqrl.canonicalizer.NamePath;
 import com.datasqrl.canonicalizer.ReservedName;
+import com.datasqrl.compile.Compiler.CompilerResult;
 import com.datasqrl.config.PipelineFactory;
 import com.datasqrl.engine.PhysicalPlan;
 import com.datasqrl.engine.PhysicalPlan.StagePlan;
@@ -24,6 +25,9 @@ import com.datasqrl.io.impl.file.FilePathConfig;
 import com.datasqrl.io.impl.jdbc.JdbcDataSystemConnector;
 import com.datasqrl.io.tables.TableConfig;
 import com.datasqrl.module.SqrlModule;
+import com.datasqrl.packager.postprocess.FlinkSqlPostprocessor;
+import com.datasqrl.packager.postprocess.Postprocessor;
+import com.datasqrl.packager.postprocess.Postprocessor.ProcessorContext;
 import com.datasqrl.plan.global.DAGPlanner;
 import com.datasqrl.plan.global.PhysicalDAGPlan;
 import com.datasqrl.plan.global.PhysicalDAGPlan.ExternalSink;
@@ -69,7 +73,7 @@ import org.apache.flink.test.junit5.MiniClusterExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @Slf4j
-@ExtendWith(MiniClusterExtension.class)
+//@ExtendWith(MiniClusterExtension.class)
 public class AbstractPhysicalSQRLIT extends AbstractLogicalSQRLIT {
 
   protected SnapshotTest.Snapshot snapshot;
@@ -111,14 +115,28 @@ public class AbstractPhysicalSQRLIT extends AbstractLogicalSQRLIT {
 
     PhysicalPlan physicalPlan = new PhysicalPlanner(framework, errorSink.getErrorSink())
         .plan(dag);
+    new FlinkSqlPostprocessor()
+        .process(new ProcessorContext(null, Path.of("/Users/henneberger/sqrl/sqrl-examples/retail/build/deploy"),
+            new CompilerResult(null, null, physicalPlan), null, null));
     PhysicalPlanExecutor executor = new PhysicalPlanExecutor();
     PhysicalPlanExecutor.Result result = executor.execute(physicalPlan, errors);
     CompletableFuture[] completableFutures = result.getResults().stream()
         .map(s->s.getResult())
         .toArray(CompletableFuture[]::new);
-    CompletableFuture.allOf(completableFutures)
-        .get();
+    CompletableFuture<Void> future = CompletableFuture.allOf(completableFutures);
+//    new Thread(()->{
+//      try {
+//        Thread.sleep(30000);
+//        future.cancel(true);
+//      } catch (InterruptedException e) {
+//      }
+//
+//    }).start();
+    try {
+      future.get();
+    } catch (Exception e) {
 
+    }
     JdbcDataSystemConnector jdbcDataSystemConnector = jdbc.get();
     Connection conn = DriverManager.getConnection(jdbcDataSystemConnector.getUrl(),
         jdbcDataSystemConnector.getUser(), jdbcDataSystemConnector.getPassword());
