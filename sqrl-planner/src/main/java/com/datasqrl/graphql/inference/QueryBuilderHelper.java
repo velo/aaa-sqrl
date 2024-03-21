@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.calcite.rel.RelNode;
+import org.apache.calcite.rel.core.Project;
+import org.apache.calcite.rel.hint.RelHint;
 import org.apache.calcite.rel.type.RelDataType;
 import org.apache.calcite.rel.type.RelDataTypeField;
 import org.apache.calcite.rex.RexBuilder;
@@ -158,6 +160,15 @@ public class QueryBuilderHelper {
     List<JdbcParameterHandler> parameters = this.parameterHandler.stream()
         .map(Pair::getRight)
         .collect(Collectors.toList());
+    if (!(expanded instanceof Project)) {
+      expanded = relBuilder.push(expanded)
+          .project(relBuilder.fields(), expanded.getRowType().getFieldNames(), true)
+          .hints(List.of(RelHint.builder("sql-name")
+                  .hintOptions(List.of("name"))
+              .build()))
+          .build();
+    }
+
     return new APIQuery(nameId, path, expanded, parameters, this.graphqlArguments, limitOffsetFlag);
   }
 }

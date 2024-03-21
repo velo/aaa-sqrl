@@ -62,6 +62,7 @@ import lombok.Getter;
 import lombok.Value;
 import org.apache.calcite.plan.RelOptTable;
 import org.apache.calcite.rel.RelNode;
+import org.apache.calcite.rel.hint.RelHint;
 import org.apache.calcite.rel.type.RelDataTypeField;
 import org.apache.calcite.rex.RexInputRef;
 import org.apache.calcite.rex.RexNode;
@@ -402,10 +403,18 @@ public class ScriptPlanner implements StatementVisitor<Void, Void> {
           result.getParams(), nodeSupplier);
       planner.getSchema().addRelationship(rel);
     } else {
+      //todo check that it is hintable
+      RelNode build = framework.getQueryPlanner().getRelBuilder()
+          .push(expanded)
+          .hints(RelHint.builder("sql-name")
+              .hintOption(String.join("_", assignment.getIdentifier().names))
+              .build())
+          .build();
+
       List<String> path = assignment.getIdentifier().names;
       RelNode rel = assignment instanceof SqrlStreamQuery
-          ? LogicalStream.create(expanded, ((SqrlStreamQuery)assignment).getType())
-          : expanded;
+          ? LogicalStream.create(build, ((SqrlStreamQuery)assignment).getType())
+          : build;
 
       Optional<Supplier<RelNode>> nodeSupplier = result.getParams().isEmpty()
           ? Optional.empty()

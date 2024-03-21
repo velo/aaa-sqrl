@@ -31,12 +31,14 @@ import java.util.stream.IntStream;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NonNull;
+import lombok.Singular;
 import lombok.ToString;
 import lombok.Value;
 import org.apache.calcite.rel.RelCollation;
 import org.apache.calcite.rel.RelCollations;
 import org.apache.calcite.rel.RelFieldCollation;
 import org.apache.calcite.rel.RelNode;
+import org.apache.calcite.rel.hint.RelHint;
 import org.apache.calcite.rel.logical.LogicalSort;
 import org.apache.calcite.rel.metadata.RelMetadataQuery;
 import org.apache.calcite.rel.type.RelDataType;
@@ -84,6 +86,9 @@ public class AnnotatedLP implements RelHolder {
   @NonNull
   public SortOrder sort = SortOrder.EMPTY;
 
+  @Builder.Default
+  @NonNull
+  List<RelHint> hints = new ArrayList<>();
   /**
    * We keep track of the inputs for data lineage so we can track processing
    */
@@ -117,6 +122,7 @@ public class AnnotatedLP implements RelHolder {
     builder.nowFilter(nowFilter);
     builder.topN(topN);
     builder.sort(sort);
+    builder.hints(hints);
     builder.inputs(List.of(this));
     return builder;
   }
@@ -488,6 +494,7 @@ public class AnnotatedLP implements RelHolder {
         timestampBuilder.build(), updatedSelect,
         input.streamRoot,
         input.nowFilter.remap(remap), input.topN.remap(remap), input.sort.remap(remap),
+        input.hints,
         List.of(this));
   }
 

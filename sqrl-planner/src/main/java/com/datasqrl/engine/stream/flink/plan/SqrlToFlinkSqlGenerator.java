@@ -6,6 +6,7 @@ import static com.datasqrl.io.tables.TableConfig.METADATA_COLUMN_TYPE_KEY;
 
 import com.datasqrl.DefaultFunctions;
 import com.datasqrl.calcite.SqrlFramework;
+import com.datasqrl.calcite.schema.sql.SqlBuilders.SqlSelectBuilder;
 import com.datasqrl.calcite.schema.sql.SqlDataTypeSpecBuilder;
 import com.datasqrl.calcite.type.TypeFactory;
 import com.datasqrl.canonicalizer.Name;
@@ -68,6 +69,7 @@ import org.apache.calcite.sql.SqlLiteral;
 import org.apache.calcite.sql.SqlNode;
 import org.apache.calcite.sql.SqlNodeList;
 import org.apache.calcite.sql.SqlOperator;
+import org.apache.calcite.sql.SqlSelect;
 import org.apache.calcite.sql.fun.SqlStdOperatorTable;
 import org.apache.calcite.sql.parser.SqlParserPos;
 import org.apache.calcite.tools.Program;
@@ -112,7 +114,7 @@ public class SqrlToFlinkSqlGenerator {
     for (WriteQuery query : writeQueries) {
       RelNode relNode = applyDowncasting(framework.getQueryPlanner().getRelBuilder(),
           query.getRelNode(), query.getSink(), downcastClassNames);
-      Pair<List<SqlCreateView>, RichSqlInsert> result = process(query.getSink().getName(), relNode);
+      Pair<List<SqlCreateView>, RichSqlInsert> result = process(query, query.getSink().getName(), relNode);
       SqlCreateTable sqlCreateTable = registerSinkTable(query.getSink(), relNode);
       sinksAndSources.add(sqlCreateTable);
       queries.addAll(result.getKey());
@@ -123,16 +125,26 @@ public class SqrlToFlinkSqlGenerator {
     return new SqlResult(sinksAndSources, inserts, queries, functions);
   }
 
-  private Pair<List<SqlCreateView>, RichSqlInsert> process(String name, RelNode relNode) {
+  private Pair<List<SqlCreateView>, RichSqlInsert> process(WriteQuery query, String name, RelNode relNode) {
     FlinkSqlNodes convert = toSql.convert(relNode);
+    String topName = query.getSink().getName() + "_" + toSql.getAtomicInteger().incrementAndGet();
 
     SqlNode topLevelQuery = convert.getSqlNode();
+
+    SqlCreateView topCreateView = createQuery(new QueryPipelineItem(topLevelQuery, topName));
+
+    SqlSelect topQuery = new SqlSelectBuilder()
+        .setFrom(new SqlIdentifier(topName,
+            SqlParserPos.ZERO))
+        .build();
+
     List<SqlCreateView> queries = convert.getQueryList()
         .stream()
         .map(this::createQuery)
         .collect(Collectors.toList());
+    queries.add(topCreateView);
 
-    return Pair.of(queries, createInsert(topLevelQuery, name));
+    return Pair.of(queries, createInsert(topQuery, name));
   }
 
   private SqlCreateView createQuery(QueryPipelineItem q) {

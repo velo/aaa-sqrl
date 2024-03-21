@@ -53,8 +53,8 @@ jobs:
       - name: Build and Push sqrl-vertx Docker
         uses: docker/build-push-action@v3
         with:
-          context: sqrl-server/sqrl-server-vertx
-          file: sqrl-server/sqrl-server-vertx/Dockerfile
+          context: sqrl-server/sqrl-server
+          file: sqrl-server/sqrl-server/Dockerfile
           push: true
           tags: |
             datasqrl/sqrl-server:${{ github.ref_name }}

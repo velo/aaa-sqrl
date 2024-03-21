@@ -29,6 +29,7 @@ public class SqrlHintStrategyTable {
       .hintStrategy(INTERVAL_JOIN.getHintName(), HintPredicates.JOIN)
       .hintStrategy(DedupHint.HINT_NAME, HintPredicates.PROJECT)
       .hintStrategy(TimestampHint.HINT_NAME, HintPredicates.PROJECT)
+      .hintStrategy("sql-name", HintPredicates.PROJECT)
       .build();
 
 }

@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Preconditions;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.util.regex.Pattern;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import net.lingala.zip4j.ZipFile;
@@ -38,6 +39,7 @@ import java.util.Optional;
 public class RemoteRepositoryImplementation implements Repository {
 
   public static final URI DEFAULT_URI = URI.create("https://repo.sqrl.run");
+  private final Pattern importName = Pattern.compile("([a-zA-Z0-9]+\\\\.){2,}[a-zA-Z0-9]+(/.*)?");
 
   private final ObjectMapper mapper = SqrlObjectMapper.INSTANCE;
   private final URI repositoryServerURI;
@@ -114,6 +116,10 @@ public class RemoteRepositoryImplementation implements Repository {
 
   @Override
   public Optional<Dependency> resolveDependency(String packageName) {
+    if (!importName.asMatchPredicate().test(packageName)) {
+      return Optional.empty();
+    }
+
     JsonNode result = executeQuery(Query.getLatest, Map.of("pkgName", packageName));
     Optional<JsonNode> latest = getPackageField(result, "latest").filter(n -> !n.isNull() && !n.isEmpty());
     if (latest.isEmpty()) return Optional.empty();

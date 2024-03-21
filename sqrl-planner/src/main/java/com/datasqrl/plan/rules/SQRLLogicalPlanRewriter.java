@@ -130,6 +130,13 @@ public class SQRLLogicalPlanRewriter extends AbstractSqrlRelShuttle<AnnotatedLP>
     super.setRelHolder(relHolder);
     this.relHolder = relHolder;
     RelNode result = relHolder.getRelNode();
+    if (!(result instanceof Project) && !relHolder.getHints().isEmpty()) {
+      RelBuilder relBuilder1 = makeRelBuilder();
+      result = relBuilder1.push(result)
+        .project(relBuilder1.fields(), result.getRowType().getFieldNames(), true)
+        .hints(relHolder.getHints())
+          .build();
+    }
     //Some sanity checks
     Preconditions.checkArgument(!relHolder.type.hasTimestamp() || !relHolder.timestamp.is(
         Timestamps.Type.UNDEFINED),"Timestamp required");
@@ -199,7 +206,7 @@ public class SQRLLogicalPlanRewriter extends AbstractSqrlRelShuttle<AnnotatedLP>
         SelectIndexMap.identity(numColumns, numColumns),
         rootTable,
         pullups.getNowFilter(), topN,
-        pullups.getSort(), List.of());
+        pullups.getSort(), List.of(), List.of());
   }
 
   @Override
@@ -218,7 +225,7 @@ public class SQRLLogicalPlanRewriter extends AbstractSqrlRelShuttle<AnnotatedLP>
           SelectIndexMap.identity(numColumns, numColumns),
           Optional.empty(),
           NowFilter.EMPTY, TopNConstraint.EMPTY,
-          SortOrder.EMPTY, List.of()));
+          SortOrder.EMPTY, List.of(), List.of()));
     } else if (tableFunction instanceof QueryTableFunction) {
       exec.requireFeature(EngineFeature.TABLE_FUNCTION_SCAN); //We only support table functions on the read side
       QueryTableFunction tblFct = (QueryTableFunction) tableFunction;
@@ -422,7 +429,7 @@ public class SQRLLogicalPlanRewriter extends AbstractSqrlRelShuttle<AnnotatedLP>
           .topN(topN).sort(SortOrder.EMPTY).build());
     } else if (trivialMapResult!=null && !trivialMapResult.getRight()) {
       //Only inline if it doesn't rename
-      return setRelHolder(rawInput.copy().select(trivialMapResult.getKey()).build());
+      return setRelHolder(rawInput.copy().hints(logicalProject.getHints()).select(trivialMapResult.getKey()).build());
     }
     AnnotatedLP input = rawInput.inlineTopN(makeRelBuilder(), exec);
     //Update index mappings
@@ -512,7 +519,8 @@ public class SQRLLogicalPlanRewriter extends AbstractSqrlRelShuttle<AnnotatedLP>
     }
 
     //Build new project
-    relB.project(updatedProjects, updatedNames, true);
+    relB.project(updatedProjects, updatedNames, true)
+        .hints(logicalProject.getHints());
     RelNode newProject = relB.build();
     int fieldCount = updatedProjects.size();
     exec.requireRex(updatedProjects);

@@ -4,7 +4,6 @@ import com.datasqrl.engine.stream.flink.sql.calcite.FlinkDialect;
 import com.datasqrl.engine.stream.flink.sql.model.QueryPipelineItem;
 import com.datasqrl.plan.hints.SqrlHint;
 import com.datasqrl.plan.hints.WatermarkHint;
-import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +16,7 @@ import org.apache.calcite.rel.core.Project;
 import org.apache.calcite.rel.core.Snapshot;
 import org.apache.calcite.rel.core.TableFunctionScan;
 import org.apache.calcite.rel.core.Uncollect;
+import org.apache.calcite.rel.hint.RelHint;
 import org.apache.calcite.rel.logical.LogicalCorrelate;
 import org.apache.calcite.rel.logical.LogicalFilter;
 import org.apache.calcite.rel.logical.LogicalProject;
@@ -29,10 +29,8 @@ import org.apache.calcite.sql.JoinConditionType;
 import org.apache.calcite.sql.JoinType;
 import org.apache.calcite.sql.SqlBasicCall;
 import org.apache.calcite.sql.SqlCall;
-import org.apache.calcite.sql.SqlDialect;
 import org.apache.calcite.sql.SqlIdentifier;
 import org.apache.calcite.sql.SqlJoin;
-import org.apache.calcite.sql.SqlKind;
 import org.apache.calcite.sql.SqlLiteral;
 import org.apache.calcite.sql.SqlNode;
 import org.apache.calcite.sql.SqlSelect;
@@ -56,8 +54,8 @@ public class FlinkRelToSqlConverter extends RelToSqlConverter {
     this.uniqueTableId = uniqueTableId;
   }
 
-  public QueryPipelineItem create(SqlNode node) {
-    QueryPipelineItem q = new QueryPipelineItem(node, "table$"+ (uniqueTableId.incrementAndGet()));
+  public QueryPipelineItem create(String name, SqlNode node) {
+    QueryPipelineItem q = new QueryPipelineItem(node,(name != null ? name : "table$") + (uniqueTableId.incrementAndGet()));
     queries.add(q);
     return q;
   }
@@ -118,7 +116,7 @@ public class FlinkRelToSqlConverter extends RelToSqlConverter {
 
     SqlNode stmt = snapshotInput.asStatement();
 
-    QueryPipelineItem q = create(stmt);
+    QueryPipelineItem q = create(null, stmt);
 
     SqlNode tableRef = new SqlIdentifier(q.getTableName(), SqlParserPos.ZERO);
 
@@ -211,32 +209,48 @@ public class FlinkRelToSqlConverter extends RelToSqlConverter {
   @Override
   public Result visit(Project project) {
     Result result = super.visit(project);
-    Optional<WatermarkHint> watermark = SqrlHint.fromRel(project, WatermarkHint.CONSTRUCTOR);
+
+//    Optional<WatermarkHint> watermark = SqrlHint.fromRel(project, WatermarkHint.CONSTRUCTOR);
     /*
      * If there is a watermark, we need to rewrite the expression to remove it since it'll be
      * pushed into the stream.
      */
-    if (watermark.isPresent()) {
-      int index = watermark.get().getTimestampIdx();
+//    if (watermark.isPresent()) {
+//      int index = watermark.get().getTimestampIdx();
+//
+//      //Watermark was moved into the stream, remove the expression.
+//      SqlSelect select = (SqlSelect) result.node;
+//
+//      SqlNode node = select.getSelectList().get(index);
+//      //If it is a call, rewrite it to an identifier
+//      if (node instanceof SqlCall) {
+//        SqlCall call = (SqlCall) node;
+//        Preconditions.checkState(call.getKind() == SqlKind.AS);
+//        SqlIdentifier identifier = (SqlIdentifier) call.getOperandList().get(1);
+//
+//        SqlIdentifier newItem = new SqlIdentifier(List.of(//result.neededAlias,
+//            identifier.names.get(identifier.names.size() - 1)), SqlParserPos.ZERO);
+//        select.getSelectList().set(index, newItem);
+//      }
+//    }
 
-      //Watermark was moved into the stream, remove the expression.
-      SqlSelect select = (SqlSelect) result.node;
-
-      SqlNode node = select.getSelectList().get(index);
-      //If it is a call, rewrite it to an identifier
-      if (node instanceof SqlCall) {
-        SqlCall call = (SqlCall) node;
-        Preconditions.checkState(call.getKind() == SqlKind.AS);
-        SqlIdentifier identifier = (SqlIdentifier) call.getOperandList().get(1);
-
-        SqlIdentifier newItem = new SqlIdentifier(List.of(//result.neededAlias,
-            identifier.names.get(identifier.names.size() - 1)), SqlParserPos.ZERO);
-        select.getSelectList().set(index, newItem);
-      }
+    if (getSqlNameHint(project.getHints()) != null) {
+      SqlNode stmt = result.asStatement();
+      QueryPipelineItem q = create(getSqlNameHint(project.getHints()), stmt);
+      SqlNode tableRef = new SqlIdentifier(q.getTableName(), SqlParserPos.ZERO);
+      return this.result(tableRef, ImmutableList.of(Clause.SELECT), project, (Map) null);
     }
-
     //Don't remove the project as it may have other expressions
     return result;
+  }
+
+  private String getSqlNameHint(ImmutableList<RelHint> hints) {
+    for (RelHint hint : hints) {
+      if (hint.hintName.equalsIgnoreCase("sql-name")) {
+        return hint.listOptions.get(0);
+      }
+    }
+    return null;
   }
 
   public Result visit(Snapshot e) {
@@ -247,7 +261,7 @@ public class FlinkRelToSqlConverter extends RelToSqlConverter {
         ((RexFieldAccess) e.getPeriod()).getField().getName()), SqlParserPos.ZERO);
 
     SqlNode stmt = x.asStatement();
-    QueryPipelineItem q = create(stmt);
+    QueryPipelineItem q = create(null, stmt);
     SqlNode tableRef = new SqlIdentifier(q.getTableName(), SqlParserPos.ZERO);
     SqlSnapshot snapshot = new SqlSnapshot(SqlParserPos.ZERO,
         tableRef, period);
@@ -265,7 +279,7 @@ public class FlinkRelToSqlConverter extends RelToSqlConverter {
         .resetAlias();
 
     SqlSelect select = x.asSelect();
-    QueryPipelineItem queries1 = create(select);
+    QueryPipelineItem queries1 = create(null, select);
 
     RexBuilder rex = new RexBuilder(new FlinkTypeFactory(this.getClass().getClassLoader(),
         FlinkTypeSystem.INSTANCE));

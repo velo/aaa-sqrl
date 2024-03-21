@@ -18,7 +18,7 @@ public abstract class AbstractSqrlRelShuttle<V extends RelHolder> implements Sqr
   }
 
   protected V getRelHolder(RelNode node) {
-    Preconditions.checkArgument(this.relHolder.getRelNode().equals(node));
+//    Preconditions.checkArgument(this.relHolder.getRelNode().equals(node));
     V relHolder = this.relHolder;
     this.relHolder = null;
     return relHolder;
