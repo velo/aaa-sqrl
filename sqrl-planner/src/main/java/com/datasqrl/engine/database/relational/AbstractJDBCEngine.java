@@ -5,6 +5,8 @@ package com.datasqrl.engine.database.relational;
 
 import com.datasqrl.calcite.SqrlFramework;
 import com.datasqrl.canonicalizer.Name;
+import com.datasqrl.config.ConnectorFactoryContext;
+import com.datasqrl.config.ConnectorFactoryFactory;
 import com.datasqrl.config.EngineFactory.Type;
 import com.datasqrl.config.JdbcDialect;
 import com.datasqrl.engine.EngineFeature;
@@ -60,9 +62,9 @@ public abstract class AbstractJDBCEngine extends ExecutionEngine.Base implements
   protected abstract JdbcDialect getDialect();
 
   @Override
-  public EnginePhysicalPlan plan(StagePlan plan, List<StageSink> inputs,
-      ExecutionPipeline pipeline, SqrlFramework framework, ErrorCollector errorCollector) {
-
+  public EnginePhysicalPlan plan(StagePlan plan,
+      List<StagePlan> stagePlans, List<StageSink> inputs, ExecutionPipeline pipeline, SqrlFramework framework,
+      ErrorCollector errorCollector) {
     Preconditions.checkArgument(plan instanceof DatabaseStagePlan);
     DatabaseStagePlan dbPlan = (DatabaseStagePlan) plan;
     JdbcDDLFactory factory =

@@ -67,7 +67,7 @@ public class ConnectorFactoryFactoryImpl implements ConnectorFactoryFactory {
       }
     }
 
-    throw new RuntimeException("Connector not supported: " + connectorName);
+    return connectorConfig.map(this::createGeneric);
   }
 
   @Override
@@ -85,6 +85,20 @@ public class ConnectorFactoryFactoryImpl implements ConnectorFactoryFactory {
       TableConfigBuilderImpl builder = TableConfigImpl.builder(context.getName());
       map.entrySet().forEach(e->
           builder.getConnectorConfig().setProperty(e.getKey(), e.getValue()));
+      builder.getConnectorConfig().setProperty("catalog-table", context.getName());
+
+      builder.setType(ExternalDataType.source_and_sink);
+      return builder.build();
+    };
+  }
+
+  private ConnectorFactory createGeneric(ConnectorConf connectorConf) {
+    // todo template this
+    return context -> {
+      Map<String, Object> map = connectorConf.toMap();
+      TableConfigBuilderImpl builder = TableConfigImpl.builder(context.getName());
+      map.entrySet().forEach(e->
+              builder.getConnectorConfig().setProperty(e.getKey(), e.getValue()));
       builder.getConnectorConfig().setProperty("catalog-table", context.getName());
 
       builder.setType(ExternalDataType.source_and_sink);

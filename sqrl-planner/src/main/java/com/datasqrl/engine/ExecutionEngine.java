@@ -46,8 +46,9 @@ public interface ExecutionEngine extends IExecutionEngine {
    * Create the physical plan from the {@link StagePlan} produced by the {@link com.datasqrl.plan.global.DAGPlanner}
    * for this engine.
    */
-  EnginePhysicalPlan plan(StagePlan plan, List<StageSink> inputs,
-      ExecutionPipeline pipeline, SqrlFramework framework, ErrorCollector errorCollector);
+  EnginePhysicalPlan plan(StagePlan plan, List<StagePlan> stagePlans, List<StageSink> inputs,
+      ExecutionPipeline pipeline, SqrlFramework framework,
+      ErrorCollector errorCollector);
 
   @AllArgsConstructor
   @Getter

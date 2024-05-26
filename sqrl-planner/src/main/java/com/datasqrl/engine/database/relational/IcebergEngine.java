@@ -43,7 +43,7 @@ public class IcebergEngine extends AbstractJDBCTableFormatEngine {
   }
 
   @Override
-  public EnginePhysicalPlan plan(StagePlan plan, List<StageSink> inputs, ExecutionPipeline pipeline,
+  public EnginePhysicalPlan plan(StagePlan plan, List<StagePlan> stagePlans, List<StageSink> inputs, ExecutionPipeline pipeline,
       SqrlFramework framework, ErrorCollector errorCollector) {
 
     EnginePhysicalPlan enginePlan = queryEngines.values().stream().findFirst().get()
