@@ -47,7 +47,7 @@ public class IcebergEngine extends AbstractJDBCTableFormatEngine {
       SqrlFramework framework, ErrorCollector errorCollector) {
 
     EnginePhysicalPlan enginePlan = queryEngines.values().stream().findFirst().get()
-        .plan(plan, inputs, pipeline, framework, errorCollector);
+        .plan(plan, stagePlans, inputs, pipeline, framework, errorCollector);
     DatabaseStagePlan dbPlan = ( DatabaseStagePlan) plan;
 
     StreamUtil.filterByClass(inputs,
