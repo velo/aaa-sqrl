@@ -7,17 +7,22 @@ import com.datasqrl.config.PackageJson;
 import com.datasqrl.config.PackageJson.EmptyEngineConfig;
 import com.datasqrl.engine.EnginePhysicalPlan;
 import com.datasqrl.engine.database.QueryEngine;
+import com.datasqrl.engine.database.QueryTemplate;
 import com.datasqrl.engine.pipeline.ExecutionPipeline;
 import com.datasqrl.error.ErrorCollector;
 import com.datasqrl.plan.global.IndexDefinition;
 import com.datasqrl.plan.global.PhysicalDAGPlan.DatabaseStagePlan;
 import com.datasqrl.plan.global.PhysicalDAGPlan.EngineSink;
+import com.datasqrl.plan.global.PhysicalDAGPlan.ReadQuery;
 import com.datasqrl.plan.global.PhysicalDAGPlan.StagePlan;
 import com.datasqrl.plan.global.PhysicalDAGPlan.StageSink;
+import com.datasqrl.plan.queries.IdentifiedQuery;
 import com.datasqrl.util.StreamUtil;
 import com.google.inject.Inject;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.NonNull;
 
 public class IcebergEngine extends AbstractJDBCTableFormatEngine {
@@ -34,7 +39,7 @@ public class IcebergEngine extends AbstractJDBCTableFormatEngine {
 
   @Override
   public boolean supportsQueryEngine(QueryEngine engine) {
-    return engine instanceof SnowflakeEngine;
+    return engine instanceof SnowflakeEngine || engine instanceof DuckDBEngine;
   }
 
   @Override
@@ -48,8 +53,17 @@ public class IcebergEngine extends AbstractJDBCTableFormatEngine {
 
     EnginePhysicalPlan enginePlan = queryEngines.values().stream().findFirst().get()
         .plan(plan, inputs, pipeline, stagePlans, framework, errorCollector);
+    DatabaseStagePlan dbPlan = (DatabaseStagePlan) plan;
+
+    QueryEngine queryEngine = queryEngines.values().stream().findFirst().get();
+
+    Map<IdentifiedQuery, QueryTemplate> databaseQueries = queryEngine.updateQueries(connectorFactory, connectorConfig, dbPlan.getQueries().stream()
+        .collect(Collectors.toMap(ReadQuery::getQuery, q -> new QueryTemplate(
+            queryEngine.getName(),
+            q.getRelNode()))));
 
     //nothing needs to be created for aws-glue
-    return new IcebergPlan(enginePlan);
+    return new IcebergPlan(enginePlan, databaseQueries);
   }
+
 }

@@ -5,16 +5,10 @@ package com.datasqrl;
 
 
 import com.datasqrl.canonicalizer.NameCanonicalizer;
-import com.datasqrl.graphql.GraphQLServer;
-import com.datasqrl.graphql.JsonEnvVarDeserializer;
-import com.datasqrl.graphql.config.ServerConfig;
-import com.datasqrl.graphql.server.RootGraphqlModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.io.Resources;
-import io.vertx.core.Vertx;
-import io.vertx.core.json.JsonObject;
 import java.net.URL;
 import java.nio.file.Path;
 import java.sql.Connection;
@@ -68,7 +62,7 @@ public class DatasqrlRun {
         new JsonEnvVarDeserializer(getEnv()));
     objectMapper.registerModule(module);
 
-    startVertx();
+//    startVertx();
     startFlink();
   }
 
@@ -82,12 +76,13 @@ public class DatasqrlRun {
   public CompiledPlan compileFlink() {
     Map<String, String> config = Map.of(
         "taskmanager.network.memory.max", "1g",
-        "table.exec.source.idle-timeout", "1 s");
+        "execution.checkpointing.interval", "10 sec",
+        "table.exec.source.idle-timeout", "1 s")
+        ;
     //read flink config from package.json values?
 
     Configuration configuration = Configuration.fromMap(config);
     StreamExecutionEnvironment sEnv = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(configuration);
-    sEnv.setParallelism(1);
     EnvironmentSettings tEnvConfig = EnvironmentSettings.newInstance()
         .withConfiguration(configuration).build();
     StreamTableEnvironment tEnv = StreamTableEnvironment.create(sEnv, tEnvConfig);
@@ -101,7 +96,7 @@ public class DatasqrlRun {
       if (statement.trim().isEmpty()) {
         continue;
       }
-//      System.out.println(replaceWithEnv(statement));
+      System.out.println(replaceWithEnv(statement));
       tableResult = tEnv.executeSql(replaceWithEnv(statement));
     }
     String insert = replaceWithEnv(statements.get(statements.size() - 1));
@@ -166,68 +161,78 @@ public class DatasqrlRun {
 
   @SneakyThrows
   public void startPostgres() {
-    postgreSQLContainer = new PostgreSQLContainer(
-      DockerImageName.parse("ankane/pgvector:v0.5.0")
-        .asCompatibleSubstituteFor("postgres"))
-        .withDatabaseName("datasqrl")
-        .withPassword("postgres")
-        .withUsername("postgres");
+    if (path.resolve("postgres.json").toFile().exists()) { //todo fix
 
-    Connection connection;
-    try {
-      postgreSQLContainer.start();
-      connection = postgreSQLContainer.createConnection("");
-      isStarted.set(true);
-    } catch (Exception e) {
-      //attempt local connection
-      // todo: install postgres in homebrew (?), also remove the database on shutdown or reinit
-      connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/datasqrl", "postgres", "postgres");
-    }
+      postgreSQLContainer = new PostgreSQLContainer(
+        DockerImageName.parse("ankane/pgvector:v0.5.0")
+          .asCompatibleSubstituteFor("postgres"))
+          .withDatabaseName("datasqrl")
+          .withPassword("postgres")
+          .withUsername("postgres");
 
-    System.out.println(path.toAbsolutePath().toString());
-
-    Map map = objectMapper.readValue(path.resolve("postgres.json").toFile(), Map.class);
-    List<Map<String, Object>> ddl = (List<Map<String, Object>>) map.get("ddl");
-
-    for (Map<String, Object> statement: ddl) {
-      String sql = (String) statement.get("sql");
-      connection.createStatement().execute(sql);
-    }
-  }
-
-
-  @SneakyThrows
-  public void startVertx() {
-    RootGraphqlModel rootGraphqlModel = objectMapper.readValue(
-        path.resolve("vertx.json").toFile(),
-        ModelContainer.class).model;
-
-    URL resource = Resources.getResource("server-config.json");
-    Map json = objectMapper.readValue(
-        resource,
-        Map.class);
-    JsonObject config = new JsonObject(json);
-
-    ServerConfig serverConfig = new ServerConfig(config);
-    // hack because templating doesn't work on non-strings
-    serverConfig.getPgConnectOptions()
-        .setPort(isStarted.get() ? postgreSQLContainer.getMappedPort(5432): 5432);
-    GraphQLServer server = new GraphQLServer(rootGraphqlModel, serverConfig,
-        NameCanonicalizer.SYSTEM) {
-      @Override
-      public String getEnvironmentVariable(String envVar) {
-        if (envVar.equalsIgnoreCase("PROPERTIES_BOOTSTRAP_SERVERS")) {
-          return CLUSTER.bootstrapServers();
-        }
-        return null;
+      Connection connection;
+      try {
+        postgreSQLContainer.start();
+        connection = postgreSQLContainer.createConnection("");
+        isStarted.set(true);
+      } catch (Exception e) {
+        //attempt local connection
+        // todo: install postgres in homebrew (?), also remove the database on shutdown or reinit
+        connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/datasqrl", "postgres", "postgres");
       }
-    };
 
-    Vertx vertx = Vertx.vertx();
-    vertx.deployVerticle(server);
+      System.out.println(path.toAbsolutePath().toString());
+
+      Map map = objectMapper.readValue(path.resolve("postgres.json").toFile(), Map.class);
+      List<Map<String, Object>> ddl = (List<Map<String, Object>>) map.get("ddl");
+
+      for (Map<String, Object> statement : ddl) {
+        String sql = (String) statement.get("sql");
+        connection.createStatement().execute(sql);
+      }
+    }
   }
 
-  public static class ModelContainer {
-    public RootGraphqlModel model;
-  }
+//
+//  @SneakyThrows
+//  public void startVertx() {
+//    RootGraphqlModel rootGraphqlModel = objectMapper.readValue(
+//        path.resolve("vertx.json").toFile(),
+//        ModelContainer.class).model;
+//
+//    URL resource = Resources.getResource("server-config.json");
+//    Map json = objectMapper.readValue(
+//        resource,
+//        Map.class);
+//    JsonObject config = new JsonObject(json);
+//
+//    ServerConfig serverConfig = new ServerConfig(config);
+//    // hack because templating doesn't work on non-strings
+//    serverConfig.getPgConnectOptions()
+//        .setPort(isStarted.get() ? postgreSQLContainer.getMappedPort(5432): 5432);
+//    GraphQLServer server = new GraphQLServer(rootGraphqlModel, serverConfig,
+//        NameCanonicalizer.SYSTEM) {
+//      @Override
+//      public String getEnvironmentVariable(String envVar) {
+//        if (envVar.equalsIgnoreCase("PROPERTIES_BOOTSTRAP_SERVERS")) {
+//          return CLUSTER.bootstrapServers();
+//        }
+//        return null;
+//      }
+//    };
+//
+//    Vertx vertx = Vertx.vertx();
+//    vertx.deployVerticle(server, res -> {
+//      if (res.succeeded()) {
+//        System.out.println("Deployment id is: " + res.result());
+//      } else {
+//        System.out.println("Deployment failed!");
+//      }
+//    });
+//    System.out.println();
+//  }
+//
+//  public static class ModelContainer {
+//    public RootGraphqlModel model;
+//  }
 }
