@@ -1,0 +1,4618 @@
+{
+  "format-version" : 2,
+  "table-uuid" : "c822de53-bfaf-4e63-a4d5-7e2d02047e9b",
+  "location" : "file:///Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2",
+  "last-sequence-number" : 184,
+  "last-updated-ms" : 1724089497826,
+  "last-column-id" : 7,
+  "current-schema-id" : 0,
+  "schemas" : [ {
+    "type" : "struct",
+    "schema-id" : 0,
+    "identifier-field-ids" : [ 1, 7 ],
+    "fields" : [ {
+      "id" : 1,
+      "name" : "id",
+      "required" : true,
+      "type" : "long"
+    }, {
+      "id" : 2,
+      "name" : "customer_id",
+      "required" : true,
+      "type" : "long"
+    }, {
+      "id" : 3,
+      "name" : "loan_type_id",
+      "required" : true,
+      "type" : "long"
+    }, {
+      "id" : 4,
+      "name" : "amount",
+      "required" : true,
+      "type" : "double"
+    }, {
+      "id" : 5,
+      "name" : "duration",
+      "required" : true,
+      "type" : "long"
+    }, {
+      "id" : 6,
+      "name" : "application_date",
+      "required" : true,
+      "type" : "timestamptz"
+    }, {
+      "id" : 7,
+      "name" : "updated_at",
+      "required" : true,
+      "type" : "timestamptz"
+    } ]
+  } ],
+  "default-spec-id" : 0,
+  "partition-specs" : [ {
+    "spec-id" : 0,
+    "fields" : [ ]
+  } ],
+  "last-partition-id" : 999,
+  "default-sort-order-id" : 0,
+  "sort-orders" : [ {
+    "order-id" : 0,
+    "fields" : [ ]
+  } ],
+  "properties" : {
+    "connector" : "iceberg",
+    "write.parquet.compression-codec" : "zstd",
+    "catalog-table" : "applications_2",
+    "catalog-type" : "hadoop",
+    "warehouse" : "file:///Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test",
+    "catalog-name" : "mydatabase"
+  },
+  "current-snapshot-id" : 8141587775078156481,
+  "refs" : {
+    "main" : {
+      "snapshot-id" : 8141587775078156481,
+      "type" : "branch"
+    }
+  },
+  "snapshots" : [ {
+    "sequence-number" : 1,
+    "snapshot-id" : 3024399084276116779,
+    "timestamp-ms" : 1724030347500,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "f410d37ed460faa36092ea13e9856e64",
+      "flink.max-committed-checkpoint-id" : "1",
+      "added-data-files" : "12",
+      "added-records" : "130",
+      "added-files-size" : "30416",
+      "changed-partition-count" : "1",
+      "total-records" : "130",
+      "total-files-size" : "30416",
+      "total-data-files" : "12",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3024399084276116779-1-9aebc488-2597-42c9-b277-aae46a5a66b7.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 2,
+    "snapshot-id" : 6962697260031954233,
+    "parent-snapshot-id" : 3024399084276116779,
+    "timestamp-ms" : 1724030446676,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "f410d37ed460faa36092ea13e9856e64",
+      "flink.max-committed-checkpoint-id" : "11",
+      "changed-partition-count" : "0",
+      "total-records" : "130",
+      "total-files-size" : "30416",
+      "total-data-files" : "12",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6962697260031954233-1-7d659503-db67-40ed-8bc1-7779ebceb5ad.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 3,
+    "snapshot-id" : 6942471494735746238,
+    "parent-snapshot-id" : 6962697260031954233,
+    "timestamp-ms" : 1724030546674,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "f410d37ed460faa36092ea13e9856e64",
+      "flink.max-committed-checkpoint-id" : "21",
+      "changed-partition-count" : "0",
+      "total-records" : "130",
+      "total-files-size" : "30416",
+      "total-data-files" : "12",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6942471494735746238-1-e727641b-dfae-477d-95ab-d2b84b33595a.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 4,
+    "snapshot-id" : 7361220037183572420,
+    "parent-snapshot-id" : 6942471494735746238,
+    "timestamp-ms" : 1724030646700,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "f410d37ed460faa36092ea13e9856e64",
+      "flink.max-committed-checkpoint-id" : "31",
+      "changed-partition-count" : "0",
+      "total-records" : "130",
+      "total-files-size" : "30416",
+      "total-data-files" : "12",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7361220037183572420-1-f7c87ee5-45f3-4e61-a072-a917f3bfaa85.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 5,
+    "snapshot-id" : 3840778805208155957,
+    "parent-snapshot-id" : 7361220037183572420,
+    "timestamp-ms" : 1724030746677,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "f410d37ed460faa36092ea13e9856e64",
+      "flink.max-committed-checkpoint-id" : "41",
+      "changed-partition-count" : "0",
+      "total-records" : "130",
+      "total-files-size" : "30416",
+      "total-data-files" : "12",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3840778805208155957-1-67bc8ee7-1384-4712-8686-f2588974d8ba.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 6,
+    "snapshot-id" : 5673592077120608267,
+    "parent-snapshot-id" : 3840778805208155957,
+    "timestamp-ms" : 1724030846660,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "f410d37ed460faa36092ea13e9856e64",
+      "flink.max-committed-checkpoint-id" : "51",
+      "changed-partition-count" : "0",
+      "total-records" : "130",
+      "total-files-size" : "30416",
+      "total-data-files" : "12",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-5673592077120608267-1-188a5061-ba3e-42f6-9bb1-baed48bfc465.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 7,
+    "snapshot-id" : 7933130555787548615,
+    "parent-snapshot-id" : 5673592077120608267,
+    "timestamp-ms" : 1724030946691,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "f410d37ed460faa36092ea13e9856e64",
+      "flink.max-committed-checkpoint-id" : "61",
+      "changed-partition-count" : "0",
+      "total-records" : "130",
+      "total-files-size" : "30416",
+      "total-data-files" : "12",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7933130555787548615-1-e8c71740-a12c-4f55-b2d9-9d84da3bbd11.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 8,
+    "snapshot-id" : 4476818874198385210,
+    "parent-snapshot-id" : 7933130555787548615,
+    "timestamp-ms" : 1724031046646,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "f410d37ed460faa36092ea13e9856e64",
+      "flink.max-committed-checkpoint-id" : "71",
+      "changed-partition-count" : "0",
+      "total-records" : "130",
+      "total-files-size" : "30416",
+      "total-data-files" : "12",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4476818874198385210-1-fe01f9ea-bce0-46bb-abd0-a62ad893cf41.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 9,
+    "snapshot-id" : 8099226659038936941,
+    "parent-snapshot-id" : 4476818874198385210,
+    "timestamp-ms" : 1724031146658,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "f410d37ed460faa36092ea13e9856e64",
+      "flink.max-committed-checkpoint-id" : "81",
+      "changed-partition-count" : "0",
+      "total-records" : "130",
+      "total-files-size" : "30416",
+      "total-data-files" : "12",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-8099226659038936941-1-4a32c131-f55d-4328-a9be-c601e1e497c3.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 10,
+    "snapshot-id" : 449478811793207943,
+    "parent-snapshot-id" : 8099226659038936941,
+    "timestamp-ms" : 1724031246705,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "f410d37ed460faa36092ea13e9856e64",
+      "flink.max-committed-checkpoint-id" : "91",
+      "changed-partition-count" : "0",
+      "total-records" : "130",
+      "total-files-size" : "30416",
+      "total-data-files" : "12",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-449478811793207943-1-061975f2-9f95-4960-ad74-bc59950d1120.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 11,
+    "snapshot-id" : 9127584513589435337,
+    "parent-snapshot-id" : 449478811793207943,
+    "timestamp-ms" : 1724031346652,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "f410d37ed460faa36092ea13e9856e64",
+      "flink.max-committed-checkpoint-id" : "101",
+      "changed-partition-count" : "0",
+      "total-records" : "130",
+      "total-files-size" : "30416",
+      "total-data-files" : "12",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-9127584513589435337-1-14d4febc-7891-43fa-bb51-a57e69355182.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 12,
+    "snapshot-id" : 1347311596400626527,
+    "parent-snapshot-id" : 9127584513589435337,
+    "timestamp-ms" : 1724031446690,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "f410d37ed460faa36092ea13e9856e64",
+      "flink.max-committed-checkpoint-id" : "111",
+      "changed-partition-count" : "0",
+      "total-records" : "130",
+      "total-files-size" : "30416",
+      "total-data-files" : "12",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1347311596400626527-1-0b7104a2-d72e-4ab9-b5a2-41d66f43df47.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 13,
+    "snapshot-id" : 8458814709003727017,
+    "parent-snapshot-id" : 1347311596400626527,
+    "timestamp-ms" : 1724031546664,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "f410d37ed460faa36092ea13e9856e64",
+      "flink.max-committed-checkpoint-id" : "121",
+      "changed-partition-count" : "0",
+      "total-records" : "130",
+      "total-files-size" : "30416",
+      "total-data-files" : "12",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-8458814709003727017-1-0471a67a-e9e7-4b82-a94a-9dbcb2b1d122.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 14,
+    "snapshot-id" : 2747689516522784388,
+    "parent-snapshot-id" : 8458814709003727017,
+    "timestamp-ms" : 1724031646661,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "f410d37ed460faa36092ea13e9856e64",
+      "flink.max-committed-checkpoint-id" : "131",
+      "changed-partition-count" : "0",
+      "total-records" : "130",
+      "total-files-size" : "30416",
+      "total-data-files" : "12",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2747689516522784388-1-f3717225-5120-41b3-8139-6abd69cfc3ed.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 15,
+    "snapshot-id" : 4150632325911235565,
+    "parent-snapshot-id" : 2747689516522784388,
+    "timestamp-ms" : 1724031746625,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "f410d37ed460faa36092ea13e9856e64",
+      "flink.max-committed-checkpoint-id" : "141",
+      "changed-partition-count" : "0",
+      "total-records" : "130",
+      "total-files-size" : "30416",
+      "total-data-files" : "12",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4150632325911235565-1-f82e3982-97c8-497b-9fb8-8bbac45eb262.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 16,
+    "snapshot-id" : 7174247030979957119,
+    "parent-snapshot-id" : 4150632325911235565,
+    "timestamp-ms" : 1724031846653,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "f410d37ed460faa36092ea13e9856e64",
+      "flink.max-committed-checkpoint-id" : "151",
+      "changed-partition-count" : "0",
+      "total-records" : "130",
+      "total-files-size" : "30416",
+      "total-data-files" : "12",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7174247030979957119-1-b7daa9f7-9236-4c25-abd0-cbdbf97cb0fa.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 17,
+    "snapshot-id" : 1761983627839647252,
+    "parent-snapshot-id" : 7174247030979957119,
+    "timestamp-ms" : 1724033043527,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1",
+      "added-data-files" : "12",
+      "added-records" : "130",
+      "added-files-size" : "30416",
+      "changed-partition-count" : "1",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1761983627839647252-1-510140fc-e797-4f27-bf60-d985f85ff497.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 18,
+    "snapshot-id" : 4671472692742012904,
+    "parent-snapshot-id" : 1761983627839647252,
+    "timestamp-ms" : 1724033142586,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "11",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4671472692742012904-1-2315d82c-8cf5-42cb-9d61-41db28b2d37f.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 19,
+    "snapshot-id" : 2431957216509312186,
+    "parent-snapshot-id" : 4671472692742012904,
+    "timestamp-ms" : 1724033242586,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "21",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2431957216509312186-1-b1f48f16-4fc9-4f78-a7ed-854beca0a046.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 20,
+    "snapshot-id" : 3744554687582084968,
+    "parent-snapshot-id" : 2431957216509312186,
+    "timestamp-ms" : 1724033342578,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "31",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3744554687582084968-1-6189b0fe-2e13-4317-862c-f6784c7b6dc4.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 21,
+    "snapshot-id" : 1980361901021293781,
+    "parent-snapshot-id" : 3744554687582084968,
+    "timestamp-ms" : 1724033442586,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "41",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1980361901021293781-1-334f076a-9c6a-4fca-bf34-db9e8e89a430.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 22,
+    "snapshot-id" : 8965308681572733821,
+    "parent-snapshot-id" : 1980361901021293781,
+    "timestamp-ms" : 1724033542563,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "51",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-8965308681572733821-1-5ad47d8c-2013-4c70-92ee-345e5574a273.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 23,
+    "snapshot-id" : 891592735358902973,
+    "parent-snapshot-id" : 8965308681572733821,
+    "timestamp-ms" : 1724033642580,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "61",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-891592735358902973-1-71614fd2-fefa-4dae-ba3a-a21cc6683ce3.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 24,
+    "snapshot-id" : 931140030083450382,
+    "parent-snapshot-id" : 891592735358902973,
+    "timestamp-ms" : 1724033742571,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "71",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-931140030083450382-1-09482076-6b42-48be-874c-7e6e50c6d3d7.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 25,
+    "snapshot-id" : 300781268241546394,
+    "parent-snapshot-id" : 931140030083450382,
+    "timestamp-ms" : 1724033842568,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "81",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-300781268241546394-1-074f5ea3-8dd8-4b43-bb71-3ee042c671ef.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 26,
+    "snapshot-id" : 2377767535294993578,
+    "parent-snapshot-id" : 300781268241546394,
+    "timestamp-ms" : 1724033942572,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "91",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2377767535294993578-1-09466835-2444-4b66-acd2-9f3df598f2e6.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 27,
+    "snapshot-id" : 4270100459170481390,
+    "parent-snapshot-id" : 2377767535294993578,
+    "timestamp-ms" : 1724034042606,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "101",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4270100459170481390-1-bc8f5ddc-6311-4fbc-a7c3-fabb0bccfad3.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 28,
+    "snapshot-id" : 2785396185905834583,
+    "parent-snapshot-id" : 4270100459170481390,
+    "timestamp-ms" : 1724034142583,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "111",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2785396185905834583-1-9d74f1f1-2237-46b4-bd21-55d77ae4d871.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 29,
+    "snapshot-id" : 390349046642212450,
+    "parent-snapshot-id" : 2785396185905834583,
+    "timestamp-ms" : 1724034242602,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "121",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-390349046642212450-1-ec559df1-fd46-4b90-96a2-940b67b7c4fe.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 30,
+    "snapshot-id" : 6152627677925652966,
+    "parent-snapshot-id" : 390349046642212450,
+    "timestamp-ms" : 1724034342587,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "131",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6152627677925652966-1-8244f353-7891-4964-8972-72cc3941f572.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 31,
+    "snapshot-id" : 2748918008713585952,
+    "parent-snapshot-id" : 6152627677925652966,
+    "timestamp-ms" : 1724034442597,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "141",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2748918008713585952-1-5f36eac1-79c8-4499-8057-b8120ee92f3d.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 32,
+    "snapshot-id" : 2432218657013728436,
+    "parent-snapshot-id" : 2748918008713585952,
+    "timestamp-ms" : 1724034542600,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "151",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2432218657013728436-1-e9da0b06-0197-4350-8e64-50aa6e001271.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 33,
+    "snapshot-id" : 2508105955365787049,
+    "parent-snapshot-id" : 2432218657013728436,
+    "timestamp-ms" : 1724034642605,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "161",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2508105955365787049-1-5fc04ea5-5789-4b44-b161-cbdb97b92a54.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 34,
+    "snapshot-id" : 7405977662338824330,
+    "parent-snapshot-id" : 2508105955365787049,
+    "timestamp-ms" : 1724034742594,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "171",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7405977662338824330-1-29121b67-c167-4aa3-9234-c7669714bba7.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 35,
+    "snapshot-id" : 447175336298292854,
+    "parent-snapshot-id" : 7405977662338824330,
+    "timestamp-ms" : 1724034842594,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "181",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-447175336298292854-1-1b9177e1-0893-44e4-ade9-0c3f0d3ec6f3.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 36,
+    "snapshot-id" : 9058247807169728706,
+    "parent-snapshot-id" : 447175336298292854,
+    "timestamp-ms" : 1724034942599,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "191",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-9058247807169728706-1-4d75a813-4e43-40e8-a64f-5da1952a0d69.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 37,
+    "snapshot-id" : 2388287362234448659,
+    "parent-snapshot-id" : 9058247807169728706,
+    "timestamp-ms" : 1724035042591,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "201",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2388287362234448659-1-6b701b70-bdf0-48a1-8e50-7d819f387727.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 38,
+    "snapshot-id" : 5993243322335572875,
+    "parent-snapshot-id" : 2388287362234448659,
+    "timestamp-ms" : 1724035142600,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "211",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-5993243322335572875-1-0da9223d-84f0-401b-a5fe-094dad50c50b.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 39,
+    "snapshot-id" : 7465080541865685745,
+    "parent-snapshot-id" : 5993243322335572875,
+    "timestamp-ms" : 1724035242603,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "221",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7465080541865685745-1-e7a13eee-4135-4a06-95f3-f926571e7181.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 40,
+    "snapshot-id" : 3303776216383809256,
+    "parent-snapshot-id" : 7465080541865685745,
+    "timestamp-ms" : 1724035342600,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "231",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3303776216383809256-1-80bd41a4-81c8-451e-a0f1-236e244950b2.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 41,
+    "snapshot-id" : 5191172974605146867,
+    "parent-snapshot-id" : 3303776216383809256,
+    "timestamp-ms" : 1724035442607,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "241",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-5191172974605146867-1-29144dcd-52fc-4661-a8c0-fc855920738a.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 42,
+    "snapshot-id" : 2924549161790610605,
+    "parent-snapshot-id" : 5191172974605146867,
+    "timestamp-ms" : 1724035542596,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "251",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2924549161790610605-1-17a9e719-12a2-48f4-a570-5b3bf5961215.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 43,
+    "snapshot-id" : 5625121786192789892,
+    "parent-snapshot-id" : 2924549161790610605,
+    "timestamp-ms" : 1724035642599,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "261",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-5625121786192789892-1-b3d11822-9fe6-4acb-a1de-136bc62b5b99.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 44,
+    "snapshot-id" : 2736869395688131839,
+    "parent-snapshot-id" : 5625121786192789892,
+    "timestamp-ms" : 1724035742590,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "271",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2736869395688131839-1-9adadf47-528d-4aa3-9d27-98a9d3599c81.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 45,
+    "snapshot-id" : 1273245544411482613,
+    "parent-snapshot-id" : 2736869395688131839,
+    "timestamp-ms" : 1724035842605,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "281",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1273245544411482613-1-574d2a0e-c494-4ba9-ae84-97acb396b65a.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 46,
+    "snapshot-id" : 6589082514954691252,
+    "parent-snapshot-id" : 1273245544411482613,
+    "timestamp-ms" : 1724035942601,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "291",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6589082514954691252-1-0e5d2907-4244-4270-b773-1169ed725791.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 47,
+    "snapshot-id" : 7507476089076874372,
+    "parent-snapshot-id" : 6589082514954691252,
+    "timestamp-ms" : 1724036042602,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "301",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7507476089076874372-1-5fb212b5-6681-4387-aa2a-4169bb4c9951.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 48,
+    "snapshot-id" : 6056388024598216356,
+    "parent-snapshot-id" : 7507476089076874372,
+    "timestamp-ms" : 1724036142596,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "311",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6056388024598216356-1-751cbe8e-6758-460f-9aa3-41743a670cc6.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 49,
+    "snapshot-id" : 3917631967392455054,
+    "parent-snapshot-id" : 6056388024598216356,
+    "timestamp-ms" : 1724036242599,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "321",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3917631967392455054-1-1dce71ad-93f8-4207-84c9-24284dac4e74.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 50,
+    "snapshot-id" : 6248227927257217590,
+    "parent-snapshot-id" : 3917631967392455054,
+    "timestamp-ms" : 1724036342593,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "331",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6248227927257217590-1-ef70c7eb-aebf-4972-8985-d63ca351ad67.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 51,
+    "snapshot-id" : 4390987446595959579,
+    "parent-snapshot-id" : 6248227927257217590,
+    "timestamp-ms" : 1724036442606,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "341",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4390987446595959579-1-a9d56b00-c94e-4428-80db-902d35ba2ce1.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 52,
+    "snapshot-id" : 1245012781070336732,
+    "parent-snapshot-id" : 4390987446595959579,
+    "timestamp-ms" : 1724036542602,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "351",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1245012781070336732-1-e8cdf896-d9de-4ee6-b113-e8fd17ca8482.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 53,
+    "snapshot-id" : 5436147769650634223,
+    "parent-snapshot-id" : 1245012781070336732,
+    "timestamp-ms" : 1724036642605,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "361",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-5436147769650634223-1-23bb8855-a32f-43d0-808a-72de71ce7d14.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 54,
+    "snapshot-id" : 7396792949578943011,
+    "parent-snapshot-id" : 5436147769650634223,
+    "timestamp-ms" : 1724036742589,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "371",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7396792949578943011-1-41f366e1-a60b-4854-9686-35f58d1c8b95.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 55,
+    "snapshot-id" : 6176472392230530443,
+    "parent-snapshot-id" : 7396792949578943011,
+    "timestamp-ms" : 1724036842597,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "381",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6176472392230530443-1-8c9f5618-23f9-4679-954e-7adbe43e5ff1.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 56,
+    "snapshot-id" : 4405593241525372390,
+    "parent-snapshot-id" : 6176472392230530443,
+    "timestamp-ms" : 1724036942600,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "391",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4405593241525372390-1-c1585ca0-8977-4316-ba22-4738c0a11c38.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 57,
+    "snapshot-id" : 5591981672709729230,
+    "parent-snapshot-id" : 4405593241525372390,
+    "timestamp-ms" : 1724037042608,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "401",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-5591981672709729230-1-4d1b288b-3cd4-408f-a033-496236c5e477.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 58,
+    "snapshot-id" : 811873166346730371,
+    "parent-snapshot-id" : 5591981672709729230,
+    "timestamp-ms" : 1724037142602,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "411",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-811873166346730371-1-20564143-be0e-400e-a7ef-d96042c5eeef.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 59,
+    "snapshot-id" : 5599617027746749159,
+    "parent-snapshot-id" : 811873166346730371,
+    "timestamp-ms" : 1724037242609,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "421",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-5599617027746749159-1-dfaa366d-2a09-494d-904a-fca98f60c8ce.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 60,
+    "snapshot-id" : 7976537300316071718,
+    "parent-snapshot-id" : 5599617027746749159,
+    "timestamp-ms" : 1724037342609,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "431",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7976537300316071718-1-4a91c307-53d7-42a3-9569-51e97f551004.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 61,
+    "snapshot-id" : 4146358828338988177,
+    "parent-snapshot-id" : 7976537300316071718,
+    "timestamp-ms" : 1724037442600,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "441",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4146358828338988177-1-edd5858b-999a-47fe-b284-b25a69234157.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 62,
+    "snapshot-id" : 1173071209659310884,
+    "parent-snapshot-id" : 4146358828338988177,
+    "timestamp-ms" : 1724037542607,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "451",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1173071209659310884-1-8f71fce6-60b7-4df7-85e3-45e52985ba52.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 63,
+    "snapshot-id" : 5117898443828981870,
+    "parent-snapshot-id" : 1173071209659310884,
+    "timestamp-ms" : 1724037642605,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "461",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-5117898443828981870-1-de1e9226-7785-4145-9b23-e9be504793e9.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 64,
+    "snapshot-id" : 4201372818067689025,
+    "parent-snapshot-id" : 5117898443828981870,
+    "timestamp-ms" : 1724037742598,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "471",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4201372818067689025-1-a4bb2eb9-2b4f-4741-8928-19e0726731e3.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 65,
+    "snapshot-id" : 3521661688126234135,
+    "parent-snapshot-id" : 4201372818067689025,
+    "timestamp-ms" : 1724037842612,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "481",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3521661688126234135-1-a941da7e-f2cb-418e-8151-2d898f0bce2e.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 66,
+    "snapshot-id" : 72069988817015809,
+    "parent-snapshot-id" : 3521661688126234135,
+    "timestamp-ms" : 1724037942599,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "491",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-72069988817015809-1-a9008e3b-6856-42ab-9f86-e61a423862a6.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 67,
+    "snapshot-id" : 8211944933122008917,
+    "parent-snapshot-id" : 72069988817015809,
+    "timestamp-ms" : 1724038042596,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "501",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-8211944933122008917-1-d8320272-4b4f-42f4-84bb-5a024138d4a0.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 68,
+    "snapshot-id" : 5296940411539413157,
+    "parent-snapshot-id" : 8211944933122008917,
+    "timestamp-ms" : 1724038142602,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "511",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-5296940411539413157-1-f74eded0-410b-4951-8e47-75e801f0e0a2.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 69,
+    "snapshot-id" : 3597658668024071737,
+    "parent-snapshot-id" : 5296940411539413157,
+    "timestamp-ms" : 1724038242599,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "521",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3597658668024071737-1-df473756-5c66-484f-b884-146daf5d8277.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 70,
+    "snapshot-id" : 1799298117345188478,
+    "parent-snapshot-id" : 3597658668024071737,
+    "timestamp-ms" : 1724038342606,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "531",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1799298117345188478-1-ff8bab35-448b-496e-9d45-8b57c22c2bc1.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 71,
+    "snapshot-id" : 5668472419169435395,
+    "parent-snapshot-id" : 1799298117345188478,
+    "timestamp-ms" : 1724038442598,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "541",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-5668472419169435395-1-10ee4403-6558-4aa7-b4d8-e30ab26b4026.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 72,
+    "snapshot-id" : 6847919836071195167,
+    "parent-snapshot-id" : 5668472419169435395,
+    "timestamp-ms" : 1724038542603,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "551",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6847919836071195167-1-c37b17a6-7726-4a39-b061-d91201c16dde.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 73,
+    "snapshot-id" : 2696723908485733139,
+    "parent-snapshot-id" : 6847919836071195167,
+    "timestamp-ms" : 1724038642602,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "561",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2696723908485733139-1-f9577a98-887d-477e-96bd-dadeabcf76a9.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 74,
+    "snapshot-id" : 7692081353552953637,
+    "parent-snapshot-id" : 2696723908485733139,
+    "timestamp-ms" : 1724038742597,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "571",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7692081353552953637-1-ca184770-05b9-4208-bc6d-49c6916ed428.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 75,
+    "snapshot-id" : 3254032485594129649,
+    "parent-snapshot-id" : 7692081353552953637,
+    "timestamp-ms" : 1724038842604,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "581",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3254032485594129649-1-a9afdd2e-96ef-4c50-9d06-eb14bc0df887.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 76,
+    "snapshot-id" : 7712646590425956927,
+    "parent-snapshot-id" : 3254032485594129649,
+    "timestamp-ms" : 1724044639264,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "591",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7712646590425956927-1-921af66f-2ff4-4659-8b37-42f77e03e2b3.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 77,
+    "snapshot-id" : 3953351536891900938,
+    "parent-snapshot-id" : 7712646590425956927,
+    "timestamp-ms" : 1724061234458,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "601",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3953351536891900938-1-82e777da-312a-4738-8976-4e6ec3e422fc.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 78,
+    "snapshot-id" : 2916208552022585951,
+    "parent-snapshot-id" : 3953351536891900938,
+    "timestamp-ms" : 1724075643746,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "611",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2916208552022585951-1-09241a27-fa6f-4999-8058-ea6f47183d4c.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 79,
+    "snapshot-id" : 3071773497499038937,
+    "parent-snapshot-id" : 2916208552022585951,
+    "timestamp-ms" : 1724077734221,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "621",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3071773497499038937-1-d603aea3-32f9-47f0-a776-7dc654fd4bf4.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 80,
+    "snapshot-id" : 1171034499912373022,
+    "parent-snapshot-id" : 3071773497499038937,
+    "timestamp-ms" : 1724077834288,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "631",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1171034499912373022-1-ae05be94-5134-45e5-915d-9dae2db4bdf2.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 81,
+    "snapshot-id" : 7090120976005196613,
+    "parent-snapshot-id" : 1171034499912373022,
+    "timestamp-ms" : 1724077934233,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "641",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7090120976005196613-1-4dabd11c-d532-4ac0-b506-99a95eae837a.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 82,
+    "snapshot-id" : 6044822610406584314,
+    "parent-snapshot-id" : 7090120976005196613,
+    "timestamp-ms" : 1724078034238,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "651",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6044822610406584314-1-492ea10b-1513-4d06-84a8-a36e50afb9b0.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 83,
+    "snapshot-id" : 1989151260801743868,
+    "parent-snapshot-id" : 6044822610406584314,
+    "timestamp-ms" : 1724078134237,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "661",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1989151260801743868-1-2f232771-ecd6-4a40-9276-052538f0af5e.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 84,
+    "snapshot-id" : 2304641075520076676,
+    "parent-snapshot-id" : 1989151260801743868,
+    "timestamp-ms" : 1724078234225,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "671",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2304641075520076676-1-7f7e2197-fa3f-47cc-a04d-0fa60b58739c.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 85,
+    "snapshot-id" : 8792046316479380527,
+    "parent-snapshot-id" : 2304641075520076676,
+    "timestamp-ms" : 1724078334249,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "681",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-8792046316479380527-1-9ff03556-73b1-4205-8f9e-ad215b92dd6b.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 86,
+    "snapshot-id" : 4772058813132577032,
+    "parent-snapshot-id" : 8792046316479380527,
+    "timestamp-ms" : 1724078434235,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "691",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4772058813132577032-1-60125de1-4346-4442-bd83-22333cd27283.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 87,
+    "snapshot-id" : 5409559693618026869,
+    "parent-snapshot-id" : 4772058813132577032,
+    "timestamp-ms" : 1724078534237,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "701",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-5409559693618026869-1-9fe05428-38aa-4932-bbbf-6c545e8418a6.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 88,
+    "snapshot-id" : 6048250962985350474,
+    "parent-snapshot-id" : 5409559693618026869,
+    "timestamp-ms" : 1724078634231,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "711",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6048250962985350474-1-07b0f6e7-dae2-41cb-a6df-3e34425eb35b.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 89,
+    "snapshot-id" : 4408843884702613933,
+    "parent-snapshot-id" : 6048250962985350474,
+    "timestamp-ms" : 1724078734225,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "721",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4408843884702613933-1-787d8215-7e23-40fe-bd35-1239b889837b.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 90,
+    "snapshot-id" : 4779579176240924497,
+    "parent-snapshot-id" : 4408843884702613933,
+    "timestamp-ms" : 1724078834224,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "731",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4779579176240924497-1-3a7280db-2c71-4eb4-ab3b-cde74060e3ed.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 91,
+    "snapshot-id" : 7134901250168590967,
+    "parent-snapshot-id" : 4779579176240924497,
+    "timestamp-ms" : 1724078934227,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "741",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7134901250168590967-1-ea8a5580-995b-4533-980d-9edc9bcd27de.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 92,
+    "snapshot-id" : 2705121917452618961,
+    "parent-snapshot-id" : 7134901250168590967,
+    "timestamp-ms" : 1724079034243,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "751",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2705121917452618961-1-881a3b76-dd19-4f23-b737-7fc423b5e830.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 93,
+    "snapshot-id" : 7795825917428977701,
+    "parent-snapshot-id" : 2705121917452618961,
+    "timestamp-ms" : 1724079134229,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "761",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7795825917428977701-1-4726b056-7a27-4cab-a8a6-37c7b4a33065.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 94,
+    "snapshot-id" : 5208080167303146489,
+    "parent-snapshot-id" : 7795825917428977701,
+    "timestamp-ms" : 1724079234223,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "771",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-5208080167303146489-1-e28ec6e2-36db-4aca-8d2e-8b88d705a688.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 95,
+    "snapshot-id" : 2556926841548294932,
+    "parent-snapshot-id" : 5208080167303146489,
+    "timestamp-ms" : 1724079334226,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "781",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2556926841548294932-1-f305c6dd-55a7-4ef7-b3cf-ffc186944023.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 96,
+    "snapshot-id" : 4843585001884997921,
+    "parent-snapshot-id" : 2556926841548294932,
+    "timestamp-ms" : 1724079434217,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "791",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4843585001884997921-1-cb3c674a-f98b-4d3f-ad70-b1a7a815970e.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 97,
+    "snapshot-id" : 1073861860767287154,
+    "parent-snapshot-id" : 4843585001884997921,
+    "timestamp-ms" : 1724079534225,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "801",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1073861860767287154-1-5ad09334-e61f-4d0c-8f52-0772b839fd32.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 98,
+    "snapshot-id" : 8387672482800884307,
+    "parent-snapshot-id" : 1073861860767287154,
+    "timestamp-ms" : 1724079634239,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "811",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-8387672482800884307-1-49b41649-4199-41b3-8f37-11b99818c714.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 99,
+    "snapshot-id" : 1166313955949744660,
+    "parent-snapshot-id" : 8387672482800884307,
+    "timestamp-ms" : 1724079734224,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "821",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1166313955949744660-1-70ebc70f-2f42-4c87-817f-9aa8f7831d34.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 100,
+    "snapshot-id" : 5733139675520859274,
+    "parent-snapshot-id" : 1166313955949744660,
+    "timestamp-ms" : 1724079834213,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "831",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-5733139675520859274-1-43cfca00-d03b-40be-91cc-2fb5a2a6bdf1.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 101,
+    "snapshot-id" : 1728428926173768658,
+    "parent-snapshot-id" : 5733139675520859274,
+    "timestamp-ms" : 1724079934220,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "841",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1728428926173768658-1-9d19441a-c872-4aea-a0d5-aaae8094cbdc.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 102,
+    "snapshot-id" : 6682942569710543746,
+    "parent-snapshot-id" : 1728428926173768658,
+    "timestamp-ms" : 1724080034203,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "851",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6682942569710543746-1-f5a1a594-5ee2-4760-9f34-e7adb7889a8e.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 103,
+    "snapshot-id" : 1226331840964398659,
+    "parent-snapshot-id" : 6682942569710543746,
+    "timestamp-ms" : 1724080134222,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "861",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1226331840964398659-1-5078ce46-7758-44ee-8c6e-778aba6cdc59.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 104,
+    "snapshot-id" : 3295634274010698900,
+    "parent-snapshot-id" : 1226331840964398659,
+    "timestamp-ms" : 1724080234213,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "871",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3295634274010698900-1-7c76e015-0be9-4ad5-a8e8-b2b541f9b8bb.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 105,
+    "snapshot-id" : 3173869316421901755,
+    "parent-snapshot-id" : 3295634274010698900,
+    "timestamp-ms" : 1724080334209,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "881",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3173869316421901755-1-c92e89c6-b2fd-48e7-b2a9-05dcabba4e66.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 106,
+    "snapshot-id" : 2011019077666741700,
+    "parent-snapshot-id" : 3173869316421901755,
+    "timestamp-ms" : 1724080434217,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "891",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2011019077666741700-1-8ac9f91e-d61d-42be-a60c-27bf3dd89419.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 107,
+    "snapshot-id" : 7612352713221590538,
+    "parent-snapshot-id" : 2011019077666741700,
+    "timestamp-ms" : 1724080534244,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "901",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7612352713221590538-1-4f9bd341-ee8f-4324-a847-5f7ac353f693.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 108,
+    "snapshot-id" : 1110756288262986945,
+    "parent-snapshot-id" : 7612352713221590538,
+    "timestamp-ms" : 1724080634210,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "911",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1110756288262986945-1-97787a50-4782-42dd-b89b-daa46a031de1.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 109,
+    "snapshot-id" : 4474148606321879508,
+    "parent-snapshot-id" : 1110756288262986945,
+    "timestamp-ms" : 1724080734215,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "921",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4474148606321879508-1-5d7cdcbb-c494-4dde-9fee-4a1d25eaf690.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 110,
+    "snapshot-id" : 3519038500269718780,
+    "parent-snapshot-id" : 4474148606321879508,
+    "timestamp-ms" : 1724080834214,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "931",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3519038500269718780-1-5e01dd47-8737-46b4-88df-ed3e5567f218.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 111,
+    "snapshot-id" : 7241492239140208064,
+    "parent-snapshot-id" : 3519038500269718780,
+    "timestamp-ms" : 1724080934211,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "941",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7241492239140208064-1-0b6b440c-31f8-4e4a-a310-668624e9dbca.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 112,
+    "snapshot-id" : 4488409764816413328,
+    "parent-snapshot-id" : 7241492239140208064,
+    "timestamp-ms" : 1724081034214,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "951",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4488409764816413328-1-91724dcd-fd18-4997-b312-388785ef6d52.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 113,
+    "snapshot-id" : 5120829358056153334,
+    "parent-snapshot-id" : 4488409764816413328,
+    "timestamp-ms" : 1724081134216,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "961",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-5120829358056153334-1-9cc52279-bfa2-4ff0-aae3-d603edfac7c5.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 114,
+    "snapshot-id" : 8271170287025976887,
+    "parent-snapshot-id" : 5120829358056153334,
+    "timestamp-ms" : 1724081234205,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "971",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-8271170287025976887-1-87a6e379-f38f-4ecb-9633-5bce4df16bac.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 115,
+    "snapshot-id" : 3698142777001887759,
+    "parent-snapshot-id" : 8271170287025976887,
+    "timestamp-ms" : 1724081334212,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "981",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3698142777001887759-1-f8375670-a7d8-4afd-ba2e-3a9d02460618.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 116,
+    "snapshot-id" : 7068428100723017298,
+    "parent-snapshot-id" : 3698142777001887759,
+    "timestamp-ms" : 1724081434204,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "991",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7068428100723017298-1-d3d88a8b-dd78-47b5-876c-f29155bbce39.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 117,
+    "snapshot-id" : 2398038955138282710,
+    "parent-snapshot-id" : 7068428100723017298,
+    "timestamp-ms" : 1724081534209,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1001",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2398038955138282710-1-2ec29979-0d12-402d-a3c9-2734bd803642.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 118,
+    "snapshot-id" : 6311526027832935172,
+    "parent-snapshot-id" : 2398038955138282710,
+    "timestamp-ms" : 1724081634199,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1011",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6311526027832935172-1-162cdcfb-4979-4af8-b8c1-ae8be76cb991.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 119,
+    "snapshot-id" : 2458205186964528818,
+    "parent-snapshot-id" : 6311526027832935172,
+    "timestamp-ms" : 1724081734209,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1021",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2458205186964528818-1-4c796b39-aef3-4bb3-b9f7-e9f7e2a7ddce.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 120,
+    "snapshot-id" : 6130910537121757172,
+    "parent-snapshot-id" : 2458205186964528818,
+    "timestamp-ms" : 1724081834218,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1031",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6130910537121757172-1-8e923c1e-00cc-4542-800f-3a12eddfb172.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 121,
+    "snapshot-id" : 5702270099260091288,
+    "parent-snapshot-id" : 6130910537121757172,
+    "timestamp-ms" : 1724081934210,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1041",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-5702270099260091288-1-cd4ae44d-0e23-4ad8-bcc6-f5090f8fa408.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 122,
+    "snapshot-id" : 6435074631366988957,
+    "parent-snapshot-id" : 5702270099260091288,
+    "timestamp-ms" : 1724082034207,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1051",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6435074631366988957-1-d4ca27bc-1369-4e8a-a8b4-ff01754c420d.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 123,
+    "snapshot-id" : 1463792157449355492,
+    "parent-snapshot-id" : 6435074631366988957,
+    "timestamp-ms" : 1724082134208,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1061",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1463792157449355492-1-bd121a79-c032-4573-9a8b-65be71066c3d.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 124,
+    "snapshot-id" : 1204969816349749611,
+    "parent-snapshot-id" : 1463792157449355492,
+    "timestamp-ms" : 1724082234213,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1071",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1204969816349749611-1-3c68f4f9-b504-4c60-a4a8-6de2621596c3.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 125,
+    "snapshot-id" : 3416536587350766235,
+    "parent-snapshot-id" : 1204969816349749611,
+    "timestamp-ms" : 1724082334206,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1081",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3416536587350766235-1-8f9ef6e7-3300-47f1-8ae5-30b542f4b1b5.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 126,
+    "snapshot-id" : 4483778813009037252,
+    "parent-snapshot-id" : 3416536587350766235,
+    "timestamp-ms" : 1724082434207,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1091",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4483778813009037252-1-4bd3fc81-b89a-4bb2-a213-5bbfdc5fcd7d.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 127,
+    "snapshot-id" : 3288386709871835061,
+    "parent-snapshot-id" : 4483778813009037252,
+    "timestamp-ms" : 1724082534205,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1101",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3288386709871835061-1-1cbd20f1-0382-4bfb-96ad-77797b36292c.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 128,
+    "snapshot-id" : 4382563690346689887,
+    "parent-snapshot-id" : 3288386709871835061,
+    "timestamp-ms" : 1724082634207,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1111",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4382563690346689887-1-c9b3345c-801d-4aad-98c5-751f5b81aaf1.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 129,
+    "snapshot-id" : 1478923662075628847,
+    "parent-snapshot-id" : 4382563690346689887,
+    "timestamp-ms" : 1724082734214,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1121",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1478923662075628847-1-fc4261d6-73a2-4047-ae25-0d606905d0d7.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 130,
+    "snapshot-id" : 4847189040832065049,
+    "parent-snapshot-id" : 1478923662075628847,
+    "timestamp-ms" : 1724082834208,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1131",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4847189040832065049-1-e2fd899b-b29c-4569-bd19-35638f92c595.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 131,
+    "snapshot-id" : 6580525588249307809,
+    "parent-snapshot-id" : 4847189040832065049,
+    "timestamp-ms" : 1724082934211,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1141",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6580525588249307809-1-50da0001-8e08-4fc5-ae1b-8e649564d59e.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 132,
+    "snapshot-id" : 8176055216866418469,
+    "parent-snapshot-id" : 6580525588249307809,
+    "timestamp-ms" : 1724083034209,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1151",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-8176055216866418469-1-6811f184-55ad-41f4-b167-1e4f804876a6.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 133,
+    "snapshot-id" : 8563591899704868604,
+    "parent-snapshot-id" : 8176055216866418469,
+    "timestamp-ms" : 1724083134209,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1161",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-8563591899704868604-1-601deba8-9cd3-4899-96cf-7c5bfd1916e0.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 134,
+    "snapshot-id" : 2517572343631456437,
+    "parent-snapshot-id" : 8563591899704868604,
+    "timestamp-ms" : 1724083234210,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1171",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2517572343631456437-1-3dcdfc99-ceec-4193-8c25-2826a8cfec74.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 135,
+    "snapshot-id" : 4602171038221027478,
+    "parent-snapshot-id" : 2517572343631456437,
+    "timestamp-ms" : 1724083334218,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1181",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4602171038221027478-1-75a74706-cd02-4719-b081-6b64e1691bee.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 136,
+    "snapshot-id" : 6121686154808820207,
+    "parent-snapshot-id" : 4602171038221027478,
+    "timestamp-ms" : 1724083434206,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1191",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6121686154808820207-1-89252444-ae97-4629-bf34-41a13566fcfa.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 137,
+    "snapshot-id" : 4685256909428036640,
+    "parent-snapshot-id" : 6121686154808820207,
+    "timestamp-ms" : 1724084059594,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1201",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4685256909428036640-1-7b4aab5d-e97c-45fc-bd3e-6e17f0c0ddc5.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 138,
+    "snapshot-id" : 3747544043141353197,
+    "parent-snapshot-id" : 4685256909428036640,
+    "timestamp-ms" : 1724084159619,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1211",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3747544043141353197-1-432644f9-3065-4936-b1cc-fddaf9226871.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 139,
+    "snapshot-id" : 2188693004815762343,
+    "parent-snapshot-id" : 3747544043141353197,
+    "timestamp-ms" : 1724084259590,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1221",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2188693004815762343-1-a904f9c9-397a-461f-9cf8-e0f0d1518ebb.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 140,
+    "snapshot-id" : 3728679260497853723,
+    "parent-snapshot-id" : 2188693004815762343,
+    "timestamp-ms" : 1724084359576,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1231",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3728679260497853723-1-8cd24887-fb43-482e-90b2-5294540e710f.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 141,
+    "snapshot-id" : 5662073099825859610,
+    "parent-snapshot-id" : 3728679260497853723,
+    "timestamp-ms" : 1724084459586,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1241",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-5662073099825859610-1-517379eb-acfc-4451-a919-6411d786b925.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 142,
+    "snapshot-id" : 7978014115350356528,
+    "parent-snapshot-id" : 5662073099825859610,
+    "timestamp-ms" : 1724084559585,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1251",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7978014115350356528-1-a59e5cc8-4d74-4527-8742-85f5c581b8a4.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 143,
+    "snapshot-id" : 6157934185780448210,
+    "parent-snapshot-id" : 7978014115350356528,
+    "timestamp-ms" : 1724084659583,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1261",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6157934185780448210-1-78dc70dd-d43a-4492-82bf-3370d8c5e951.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 144,
+    "snapshot-id" : 6882448524920296984,
+    "parent-snapshot-id" : 6157934185780448210,
+    "timestamp-ms" : 1724084759587,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1271",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6882448524920296984-1-cb265b1b-fe4c-4917-bda7-c1793fa52750.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 145,
+    "snapshot-id" : 4197709839195228762,
+    "parent-snapshot-id" : 6882448524920296984,
+    "timestamp-ms" : 1724084859578,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1281",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4197709839195228762-1-bd4555f0-4b03-4c32-9ca0-03d5ac0ce1e7.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 146,
+    "snapshot-id" : 8685634144304757071,
+    "parent-snapshot-id" : 4197709839195228762,
+    "timestamp-ms" : 1724084959586,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1291",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-8685634144304757071-1-91c031ed-4ff4-4fc2-b7af-648c4e6873c8.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 147,
+    "snapshot-id" : 1128305327408120217,
+    "parent-snapshot-id" : 8685634144304757071,
+    "timestamp-ms" : 1724085059580,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1301",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1128305327408120217-1-598401d2-f927-49f5-ae92-19ead6f07cab.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 148,
+    "snapshot-id" : 1317327238580836333,
+    "parent-snapshot-id" : 1128305327408120217,
+    "timestamp-ms" : 1724085159580,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1311",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1317327238580836333-1-680a84a5-53fa-4848-86c5-e6881156cfaa.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 149,
+    "snapshot-id" : 3455791384430997808,
+    "parent-snapshot-id" : 1317327238580836333,
+    "timestamp-ms" : 1724085259585,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1321",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3455791384430997808-1-96b932e5-c1bf-40b1-a43b-19c694203294.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 150,
+    "snapshot-id" : 3389066040636164885,
+    "parent-snapshot-id" : 3455791384430997808,
+    "timestamp-ms" : 1724085359587,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1331",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3389066040636164885-1-6cc3f396-3d0a-448f-a25c-71d0c2dadb6c.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 151,
+    "snapshot-id" : 1936390451035292762,
+    "parent-snapshot-id" : 3389066040636164885,
+    "timestamp-ms" : 1724085459574,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1341",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1936390451035292762-1-611aef78-98d5-424c-81f2-341fe4e6568c.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 152,
+    "snapshot-id" : 6422312648157503550,
+    "parent-snapshot-id" : 1936390451035292762,
+    "timestamp-ms" : 1724085559584,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1351",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6422312648157503550-1-9846dc85-12be-4a85-8631-05d9df4ba5c7.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 153,
+    "snapshot-id" : 3623272729171207324,
+    "parent-snapshot-id" : 6422312648157503550,
+    "timestamp-ms" : 1724085659581,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1361",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3623272729171207324-1-ad566fc0-513a-4a7e-afbd-e57ead4f4509.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 154,
+    "snapshot-id" : 7931241327146562877,
+    "parent-snapshot-id" : 3623272729171207324,
+    "timestamp-ms" : 1724085759576,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1371",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7931241327146562877-1-c4e9e35e-808d-41c1-8ec0-b40b7b994585.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 155,
+    "snapshot-id" : 2381068101975950983,
+    "parent-snapshot-id" : 7931241327146562877,
+    "timestamp-ms" : 1724085859588,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1381",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2381068101975950983-1-2212e850-9875-4a79-a5e3-eaa5790c0a3e.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 156,
+    "snapshot-id" : 3049883036203297680,
+    "parent-snapshot-id" : 2381068101975950983,
+    "timestamp-ms" : 1724085959576,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1391",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3049883036203297680-1-e423f737-64ff-417b-80b5-963d969c78b1.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 157,
+    "snapshot-id" : 66967353516995847,
+    "parent-snapshot-id" : 3049883036203297680,
+    "timestamp-ms" : 1724086059582,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1401",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-66967353516995847-1-bf71d2f4-6a68-4612-937f-7cde629fe535.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 158,
+    "snapshot-id" : 5561199351279623482,
+    "parent-snapshot-id" : 66967353516995847,
+    "timestamp-ms" : 1724086159575,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1411",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-5561199351279623482-1-4f145b27-f31c-4da1-a0ac-657e54ec2614.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 159,
+    "snapshot-id" : 4417976118310828069,
+    "parent-snapshot-id" : 5561199351279623482,
+    "timestamp-ms" : 1724086259575,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1421",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4417976118310828069-1-5a69f64c-8849-4cef-8f0c-68d7c1d8108f.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 160,
+    "snapshot-id" : 7696729708204056215,
+    "parent-snapshot-id" : 4417976118310828069,
+    "timestamp-ms" : 1724086359576,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1431",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7696729708204056215-1-9a250fe9-4499-4da4-8517-f9dcef2dc424.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 161,
+    "snapshot-id" : 3000909664514145559,
+    "parent-snapshot-id" : 7696729708204056215,
+    "timestamp-ms" : 1724086459582,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1441",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3000909664514145559-1-95cf6de0-e81c-49c7-8bef-ef3033357881.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 162,
+    "snapshot-id" : 5171228427223568952,
+    "parent-snapshot-id" : 3000909664514145559,
+    "timestamp-ms" : 1724086559585,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1451",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-5171228427223568952-1-79ef5164-a8e3-4b2e-8d66-b9b6b3d23549.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 163,
+    "snapshot-id" : 7342220921763074876,
+    "parent-snapshot-id" : 5171228427223568952,
+    "timestamp-ms" : 1724086659581,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1461",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7342220921763074876-1-8bb061d0-0d06-4072-8754-02aee08e5942.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 164,
+    "snapshot-id" : 6683112093988605209,
+    "parent-snapshot-id" : 7342220921763074876,
+    "timestamp-ms" : 1724086759581,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1471",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6683112093988605209-1-31e1e398-0a2f-4f3b-8de1-3f16befbbee4.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 165,
+    "snapshot-id" : 6734573167269362734,
+    "parent-snapshot-id" : 6683112093988605209,
+    "timestamp-ms" : 1724086859588,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1481",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6734573167269362734-1-8614ca58-5916-47ef-a9e6-df3b608d6f98.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 166,
+    "snapshot-id" : 6184261714018985638,
+    "parent-snapshot-id" : 6734573167269362734,
+    "timestamp-ms" : 1724086959584,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1491",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6184261714018985638-1-448c0ada-8875-4d30-be63-354035c7fb15.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 167,
+    "snapshot-id" : 2056239258656576221,
+    "parent-snapshot-id" : 6184261714018985638,
+    "timestamp-ms" : 1724087059581,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1501",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2056239258656576221-1-bd35a90b-c76c-4277-bc30-a32421072463.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 168,
+    "snapshot-id" : 7785199334780779862,
+    "parent-snapshot-id" : 2056239258656576221,
+    "timestamp-ms" : 1724087159585,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1511",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7785199334780779862-1-68432fb9-fed4-46c7-8cc6-ff02a137e552.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 169,
+    "snapshot-id" : 1364682350164333342,
+    "parent-snapshot-id" : 7785199334780779862,
+    "timestamp-ms" : 1724087322257,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1521",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1364682350164333342-1-ecd32742-5ba0-4e3b-9c1c-7bdd710fe136.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 170,
+    "snapshot-id" : 7424978498424548242,
+    "parent-snapshot-id" : 1364682350164333342,
+    "timestamp-ms" : 1724088097824,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1531",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7424978498424548242-1-c908f455-e730-4280-8570-cd90e32b34a8.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 171,
+    "snapshot-id" : 835932023498957804,
+    "parent-snapshot-id" : 7424978498424548242,
+    "timestamp-ms" : 1724088197812,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1541",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-835932023498957804-1-2bddf8dd-9b7d-4e52-94e9-3aa638d6bf2a.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 172,
+    "snapshot-id" : 1095013101609480043,
+    "parent-snapshot-id" : 835932023498957804,
+    "timestamp-ms" : 1724088297809,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1551",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1095013101609480043-1-c2aa7e19-a32b-41b2-b25e-1ed073da4147.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 173,
+    "snapshot-id" : 3780381089453777281,
+    "parent-snapshot-id" : 1095013101609480043,
+    "timestamp-ms" : 1724088397816,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1561",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3780381089453777281-1-3a44c50e-ce9d-401f-bf9a-cb17cd1bfea4.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 174,
+    "snapshot-id" : 7709503355330399189,
+    "parent-snapshot-id" : 3780381089453777281,
+    "timestamp-ms" : 1724088497826,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1571",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-7709503355330399189-1-70e14f3b-2eba-442f-97ef-76de97721f03.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 175,
+    "snapshot-id" : 4534551305580394826,
+    "parent-snapshot-id" : 7709503355330399189,
+    "timestamp-ms" : 1724088597817,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1581",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-4534551305580394826-1-7e5d898a-a0a0-4ad8-b323-1d3df825fa72.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 176,
+    "snapshot-id" : 1129911742453248265,
+    "parent-snapshot-id" : 4534551305580394826,
+    "timestamp-ms" : 1724088697822,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1591",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1129911742453248265-1-8a3ecff5-a06e-44ae-b225-b7ad2bbc04bc.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 177,
+    "snapshot-id" : 8473269501718001822,
+    "parent-snapshot-id" : 1129911742453248265,
+    "timestamp-ms" : 1724088797824,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1601",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-8473269501718001822-1-71732cb9-ff2d-47db-bf45-b27407f915a1.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 178,
+    "snapshot-id" : 3207196513041948989,
+    "parent-snapshot-id" : 8473269501718001822,
+    "timestamp-ms" : 1724088897825,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1611",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-3207196513041948989-1-69ebb422-13d6-4d4a-9ef8-dd9178a6ae75.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 179,
+    "snapshot-id" : 2430568586508688851,
+    "parent-snapshot-id" : 3207196513041948989,
+    "timestamp-ms" : 1724088997832,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1621",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-2430568586508688851-1-b46b191d-db48-4662-9e39-b55ed3ffe06c.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 180,
+    "snapshot-id" : 6297119322867752493,
+    "parent-snapshot-id" : 2430568586508688851,
+    "timestamp-ms" : 1724089097837,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1631",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-6297119322867752493-1-e2e380ab-b8c8-47c7-a543-76cb81fa0e1e.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 181,
+    "snapshot-id" : 5984986883688356920,
+    "parent-snapshot-id" : 6297119322867752493,
+    "timestamp-ms" : 1724089197838,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1641",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-5984986883688356920-1-9f6cbfb7-e4b1-4c66-a55d-f8733cf16e5d.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 182,
+    "snapshot-id" : 1602323100573735293,
+    "parent-snapshot-id" : 5984986883688356920,
+    "timestamp-ms" : 1724089297856,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1651",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-1602323100573735293-1-d7ae9a3f-652b-49ad-9e07-fae439afc51f.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 183,
+    "snapshot-id" : 595723901856592001,
+    "parent-snapshot-id" : 1602323100573735293,
+    "timestamp-ms" : 1724089397824,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1661",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-595723901856592001-1-c617bc26-57e3-42e5-9e75-4d304dff0768.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 184,
+    "snapshot-id" : 8141587775078156481,
+    "parent-snapshot-id" : 595723901856592001,
+    "timestamp-ms" : 1724089497826,
+    "summary" : {
+      "operation" : "append",
+      "flink.operator-id" : "bf858fcbb9c8f2c07bacd0326ffc1a92",
+      "flink.job-id" : "9010d80810f77a5042cc6a8b7fbd5708",
+      "flink.max-committed-checkpoint-id" : "1671",
+      "changed-partition-count" : "0",
+      "total-records" : "260",
+      "total-files-size" : "60832",
+      "total-data-files" : "24",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0"
+    },
+    "manifest-list" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/snap-8141587775078156481-1-b1eefcad-399d-42e6-943a-69509d83d8cd.avro",
+    "schema-id" : 0
+  } ],
+  "statistics" : [ ],
+  "partition-statistics" : [ ],
+  "snapshot-log" : [ {
+    "timestamp-ms" : 1724030347500,
+    "snapshot-id" : 3024399084276116779
+  }, {
+    "timestamp-ms" : 1724030446676,
+    "snapshot-id" : 6962697260031954233
+  }, {
+    "timestamp-ms" : 1724030546674,
+    "snapshot-id" : 6942471494735746238
+  }, {
+    "timestamp-ms" : 1724030646700,
+    "snapshot-id" : 7361220037183572420
+  }, {
+    "timestamp-ms" : 1724030746677,
+    "snapshot-id" : 3840778805208155957
+  }, {
+    "timestamp-ms" : 1724030846660,
+    "snapshot-id" : 5673592077120608267
+  }, {
+    "timestamp-ms" : 1724030946691,
+    "snapshot-id" : 7933130555787548615
+  }, {
+    "timestamp-ms" : 1724031046646,
+    "snapshot-id" : 4476818874198385210
+  }, {
+    "timestamp-ms" : 1724031146658,
+    "snapshot-id" : 8099226659038936941
+  }, {
+    "timestamp-ms" : 1724031246705,
+    "snapshot-id" : 449478811793207943
+  }, {
+    "timestamp-ms" : 1724031346652,
+    "snapshot-id" : 9127584513589435337
+  }, {
+    "timestamp-ms" : 1724031446690,
+    "snapshot-id" : 1347311596400626527
+  }, {
+    "timestamp-ms" : 1724031546664,
+    "snapshot-id" : 8458814709003727017
+  }, {
+    "timestamp-ms" : 1724031646661,
+    "snapshot-id" : 2747689516522784388
+  }, {
+    "timestamp-ms" : 1724031746625,
+    "snapshot-id" : 4150632325911235565
+  }, {
+    "timestamp-ms" : 1724031846653,
+    "snapshot-id" : 7174247030979957119
+  }, {
+    "timestamp-ms" : 1724033043527,
+    "snapshot-id" : 1761983627839647252
+  }, {
+    "timestamp-ms" : 1724033142586,
+    "snapshot-id" : 4671472692742012904
+  }, {
+    "timestamp-ms" : 1724033242586,
+    "snapshot-id" : 2431957216509312186
+  }, {
+    "timestamp-ms" : 1724033342578,
+    "snapshot-id" : 3744554687582084968
+  }, {
+    "timestamp-ms" : 1724033442586,
+    "snapshot-id" : 1980361901021293781
+  }, {
+    "timestamp-ms" : 1724033542563,
+    "snapshot-id" : 8965308681572733821
+  }, {
+    "timestamp-ms" : 1724033642580,
+    "snapshot-id" : 891592735358902973
+  }, {
+    "timestamp-ms" : 1724033742571,
+    "snapshot-id" : 931140030083450382
+  }, {
+    "timestamp-ms" : 1724033842568,
+    "snapshot-id" : 300781268241546394
+  }, {
+    "timestamp-ms" : 1724033942572,
+    "snapshot-id" : 2377767535294993578
+  }, {
+    "timestamp-ms" : 1724034042606,
+    "snapshot-id" : 4270100459170481390
+  }, {
+    "timestamp-ms" : 1724034142583,
+    "snapshot-id" : 2785396185905834583
+  }, {
+    "timestamp-ms" : 1724034242602,
+    "snapshot-id" : 390349046642212450
+  }, {
+    "timestamp-ms" : 1724034342587,
+    "snapshot-id" : 6152627677925652966
+  }, {
+    "timestamp-ms" : 1724034442597,
+    "snapshot-id" : 2748918008713585952
+  }, {
+    "timestamp-ms" : 1724034542600,
+    "snapshot-id" : 2432218657013728436
+  }, {
+    "timestamp-ms" : 1724034642605,
+    "snapshot-id" : 2508105955365787049
+  }, {
+    "timestamp-ms" : 1724034742594,
+    "snapshot-id" : 7405977662338824330
+  }, {
+    "timestamp-ms" : 1724034842594,
+    "snapshot-id" : 447175336298292854
+  }, {
+    "timestamp-ms" : 1724034942599,
+    "snapshot-id" : 9058247807169728706
+  }, {
+    "timestamp-ms" : 1724035042591,
+    "snapshot-id" : 2388287362234448659
+  }, {
+    "timestamp-ms" : 1724035142600,
+    "snapshot-id" : 5993243322335572875
+  }, {
+    "timestamp-ms" : 1724035242603,
+    "snapshot-id" : 7465080541865685745
+  }, {
+    "timestamp-ms" : 1724035342600,
+    "snapshot-id" : 3303776216383809256
+  }, {
+    "timestamp-ms" : 1724035442607,
+    "snapshot-id" : 5191172974605146867
+  }, {
+    "timestamp-ms" : 1724035542596,
+    "snapshot-id" : 2924549161790610605
+  }, {
+    "timestamp-ms" : 1724035642599,
+    "snapshot-id" : 5625121786192789892
+  }, {
+    "timestamp-ms" : 1724035742590,
+    "snapshot-id" : 2736869395688131839
+  }, {
+    "timestamp-ms" : 1724035842605,
+    "snapshot-id" : 1273245544411482613
+  }, {
+    "timestamp-ms" : 1724035942601,
+    "snapshot-id" : 6589082514954691252
+  }, {
+    "timestamp-ms" : 1724036042602,
+    "snapshot-id" : 7507476089076874372
+  }, {
+    "timestamp-ms" : 1724036142596,
+    "snapshot-id" : 6056388024598216356
+  }, {
+    "timestamp-ms" : 1724036242599,
+    "snapshot-id" : 3917631967392455054
+  }, {
+    "timestamp-ms" : 1724036342593,
+    "snapshot-id" : 6248227927257217590
+  }, {
+    "timestamp-ms" : 1724036442606,
+    "snapshot-id" : 4390987446595959579
+  }, {
+    "timestamp-ms" : 1724036542602,
+    "snapshot-id" : 1245012781070336732
+  }, {
+    "timestamp-ms" : 1724036642605,
+    "snapshot-id" : 5436147769650634223
+  }, {
+    "timestamp-ms" : 1724036742589,
+    "snapshot-id" : 7396792949578943011
+  }, {
+    "timestamp-ms" : 1724036842597,
+    "snapshot-id" : 6176472392230530443
+  }, {
+    "timestamp-ms" : 1724036942600,
+    "snapshot-id" : 4405593241525372390
+  }, {
+    "timestamp-ms" : 1724037042608,
+    "snapshot-id" : 5591981672709729230
+  }, {
+    "timestamp-ms" : 1724037142602,
+    "snapshot-id" : 811873166346730371
+  }, {
+    "timestamp-ms" : 1724037242609,
+    "snapshot-id" : 5599617027746749159
+  }, {
+    "timestamp-ms" : 1724037342609,
+    "snapshot-id" : 7976537300316071718
+  }, {
+    "timestamp-ms" : 1724037442600,
+    "snapshot-id" : 4146358828338988177
+  }, {
+    "timestamp-ms" : 1724037542607,
+    "snapshot-id" : 1173071209659310884
+  }, {
+    "timestamp-ms" : 1724037642605,
+    "snapshot-id" : 5117898443828981870
+  }, {
+    "timestamp-ms" : 1724037742598,
+    "snapshot-id" : 4201372818067689025
+  }, {
+    "timestamp-ms" : 1724037842612,
+    "snapshot-id" : 3521661688126234135
+  }, {
+    "timestamp-ms" : 1724037942599,
+    "snapshot-id" : 72069988817015809
+  }, {
+    "timestamp-ms" : 1724038042596,
+    "snapshot-id" : 8211944933122008917
+  }, {
+    "timestamp-ms" : 1724038142602,
+    "snapshot-id" : 5296940411539413157
+  }, {
+    "timestamp-ms" : 1724038242599,
+    "snapshot-id" : 3597658668024071737
+  }, {
+    "timestamp-ms" : 1724038342606,
+    "snapshot-id" : 1799298117345188478
+  }, {
+    "timestamp-ms" : 1724038442598,
+    "snapshot-id" : 5668472419169435395
+  }, {
+    "timestamp-ms" : 1724038542603,
+    "snapshot-id" : 6847919836071195167
+  }, {
+    "timestamp-ms" : 1724038642602,
+    "snapshot-id" : 2696723908485733139
+  }, {
+    "timestamp-ms" : 1724038742597,
+    "snapshot-id" : 7692081353552953637
+  }, {
+    "timestamp-ms" : 1724038842604,
+    "snapshot-id" : 3254032485594129649
+  }, {
+    "timestamp-ms" : 1724044639264,
+    "snapshot-id" : 7712646590425956927
+  }, {
+    "timestamp-ms" : 1724061234458,
+    "snapshot-id" : 3953351536891900938
+  }, {
+    "timestamp-ms" : 1724075643746,
+    "snapshot-id" : 2916208552022585951
+  }, {
+    "timestamp-ms" : 1724077734221,
+    "snapshot-id" : 3071773497499038937
+  }, {
+    "timestamp-ms" : 1724077834288,
+    "snapshot-id" : 1171034499912373022
+  }, {
+    "timestamp-ms" : 1724077934233,
+    "snapshot-id" : 7090120976005196613
+  }, {
+    "timestamp-ms" : 1724078034238,
+    "snapshot-id" : 6044822610406584314
+  }, {
+    "timestamp-ms" : 1724078134237,
+    "snapshot-id" : 1989151260801743868
+  }, {
+    "timestamp-ms" : 1724078234225,
+    "snapshot-id" : 2304641075520076676
+  }, {
+    "timestamp-ms" : 1724078334249,
+    "snapshot-id" : 8792046316479380527
+  }, {
+    "timestamp-ms" : 1724078434235,
+    "snapshot-id" : 4772058813132577032
+  }, {
+    "timestamp-ms" : 1724078534237,
+    "snapshot-id" : 5409559693618026869
+  }, {
+    "timestamp-ms" : 1724078634231,
+    "snapshot-id" : 6048250962985350474
+  }, {
+    "timestamp-ms" : 1724078734225,
+    "snapshot-id" : 4408843884702613933
+  }, {
+    "timestamp-ms" : 1724078834224,
+    "snapshot-id" : 4779579176240924497
+  }, {
+    "timestamp-ms" : 1724078934227,
+    "snapshot-id" : 7134901250168590967
+  }, {
+    "timestamp-ms" : 1724079034243,
+    "snapshot-id" : 2705121917452618961
+  }, {
+    "timestamp-ms" : 1724079134229,
+    "snapshot-id" : 7795825917428977701
+  }, {
+    "timestamp-ms" : 1724079234223,
+    "snapshot-id" : 5208080167303146489
+  }, {
+    "timestamp-ms" : 1724079334226,
+    "snapshot-id" : 2556926841548294932
+  }, {
+    "timestamp-ms" : 1724079434217,
+    "snapshot-id" : 4843585001884997921
+  }, {
+    "timestamp-ms" : 1724079534225,
+    "snapshot-id" : 1073861860767287154
+  }, {
+    "timestamp-ms" : 1724079634239,
+    "snapshot-id" : 8387672482800884307
+  }, {
+    "timestamp-ms" : 1724079734224,
+    "snapshot-id" : 1166313955949744660
+  }, {
+    "timestamp-ms" : 1724079834213,
+    "snapshot-id" : 5733139675520859274
+  }, {
+    "timestamp-ms" : 1724079934220,
+    "snapshot-id" : 1728428926173768658
+  }, {
+    "timestamp-ms" : 1724080034203,
+    "snapshot-id" : 6682942569710543746
+  }, {
+    "timestamp-ms" : 1724080134222,
+    "snapshot-id" : 1226331840964398659
+  }, {
+    "timestamp-ms" : 1724080234213,
+    "snapshot-id" : 3295634274010698900
+  }, {
+    "timestamp-ms" : 1724080334209,
+    "snapshot-id" : 3173869316421901755
+  }, {
+    "timestamp-ms" : 1724080434217,
+    "snapshot-id" : 2011019077666741700
+  }, {
+    "timestamp-ms" : 1724080534244,
+    "snapshot-id" : 7612352713221590538
+  }, {
+    "timestamp-ms" : 1724080634210,
+    "snapshot-id" : 1110756288262986945
+  }, {
+    "timestamp-ms" : 1724080734215,
+    "snapshot-id" : 4474148606321879508
+  }, {
+    "timestamp-ms" : 1724080834214,
+    "snapshot-id" : 3519038500269718780
+  }, {
+    "timestamp-ms" : 1724080934211,
+    "snapshot-id" : 7241492239140208064
+  }, {
+    "timestamp-ms" : 1724081034214,
+    "snapshot-id" : 4488409764816413328
+  }, {
+    "timestamp-ms" : 1724081134216,
+    "snapshot-id" : 5120829358056153334
+  }, {
+    "timestamp-ms" : 1724081234205,
+    "snapshot-id" : 8271170287025976887
+  }, {
+    "timestamp-ms" : 1724081334212,
+    "snapshot-id" : 3698142777001887759
+  }, {
+    "timestamp-ms" : 1724081434204,
+    "snapshot-id" : 7068428100723017298
+  }, {
+    "timestamp-ms" : 1724081534209,
+    "snapshot-id" : 2398038955138282710
+  }, {
+    "timestamp-ms" : 1724081634199,
+    "snapshot-id" : 6311526027832935172
+  }, {
+    "timestamp-ms" : 1724081734209,
+    "snapshot-id" : 2458205186964528818
+  }, {
+    "timestamp-ms" : 1724081834218,
+    "snapshot-id" : 6130910537121757172
+  }, {
+    "timestamp-ms" : 1724081934210,
+    "snapshot-id" : 5702270099260091288
+  }, {
+    "timestamp-ms" : 1724082034207,
+    "snapshot-id" : 6435074631366988957
+  }, {
+    "timestamp-ms" : 1724082134208,
+    "snapshot-id" : 1463792157449355492
+  }, {
+    "timestamp-ms" : 1724082234213,
+    "snapshot-id" : 1204969816349749611
+  }, {
+    "timestamp-ms" : 1724082334206,
+    "snapshot-id" : 3416536587350766235
+  }, {
+    "timestamp-ms" : 1724082434207,
+    "snapshot-id" : 4483778813009037252
+  }, {
+    "timestamp-ms" : 1724082534205,
+    "snapshot-id" : 3288386709871835061
+  }, {
+    "timestamp-ms" : 1724082634207,
+    "snapshot-id" : 4382563690346689887
+  }, {
+    "timestamp-ms" : 1724082734214,
+    "snapshot-id" : 1478923662075628847
+  }, {
+    "timestamp-ms" : 1724082834208,
+    "snapshot-id" : 4847189040832065049
+  }, {
+    "timestamp-ms" : 1724082934211,
+    "snapshot-id" : 6580525588249307809
+  }, {
+    "timestamp-ms" : 1724083034209,
+    "snapshot-id" : 8176055216866418469
+  }, {
+    "timestamp-ms" : 1724083134209,
+    "snapshot-id" : 8563591899704868604
+  }, {
+    "timestamp-ms" : 1724083234210,
+    "snapshot-id" : 2517572343631456437
+  }, {
+    "timestamp-ms" : 1724083334218,
+    "snapshot-id" : 4602171038221027478
+  }, {
+    "timestamp-ms" : 1724083434206,
+    "snapshot-id" : 6121686154808820207
+  }, {
+    "timestamp-ms" : 1724084059594,
+    "snapshot-id" : 4685256909428036640
+  }, {
+    "timestamp-ms" : 1724084159619,
+    "snapshot-id" : 3747544043141353197
+  }, {
+    "timestamp-ms" : 1724084259590,
+    "snapshot-id" : 2188693004815762343
+  }, {
+    "timestamp-ms" : 1724084359576,
+    "snapshot-id" : 3728679260497853723
+  }, {
+    "timestamp-ms" : 1724084459586,
+    "snapshot-id" : 5662073099825859610
+  }, {
+    "timestamp-ms" : 1724084559585,
+    "snapshot-id" : 7978014115350356528
+  }, {
+    "timestamp-ms" : 1724084659583,
+    "snapshot-id" : 6157934185780448210
+  }, {
+    "timestamp-ms" : 1724084759587,
+    "snapshot-id" : 6882448524920296984
+  }, {
+    "timestamp-ms" : 1724084859578,
+    "snapshot-id" : 4197709839195228762
+  }, {
+    "timestamp-ms" : 1724084959586,
+    "snapshot-id" : 8685634144304757071
+  }, {
+    "timestamp-ms" : 1724085059580,
+    "snapshot-id" : 1128305327408120217
+  }, {
+    "timestamp-ms" : 1724085159580,
+    "snapshot-id" : 1317327238580836333
+  }, {
+    "timestamp-ms" : 1724085259585,
+    "snapshot-id" : 3455791384430997808
+  }, {
+    "timestamp-ms" : 1724085359587,
+    "snapshot-id" : 3389066040636164885
+  }, {
+    "timestamp-ms" : 1724085459574,
+    "snapshot-id" : 1936390451035292762
+  }, {
+    "timestamp-ms" : 1724085559584,
+    "snapshot-id" : 6422312648157503550
+  }, {
+    "timestamp-ms" : 1724085659581,
+    "snapshot-id" : 3623272729171207324
+  }, {
+    "timestamp-ms" : 1724085759576,
+    "snapshot-id" : 7931241327146562877
+  }, {
+    "timestamp-ms" : 1724085859588,
+    "snapshot-id" : 2381068101975950983
+  }, {
+    "timestamp-ms" : 1724085959576,
+    "snapshot-id" : 3049883036203297680
+  }, {
+    "timestamp-ms" : 1724086059582,
+    "snapshot-id" : 66967353516995847
+  }, {
+    "timestamp-ms" : 1724086159575,
+    "snapshot-id" : 5561199351279623482
+  }, {
+    "timestamp-ms" : 1724086259575,
+    "snapshot-id" : 4417976118310828069
+  }, {
+    "timestamp-ms" : 1724086359576,
+    "snapshot-id" : 7696729708204056215
+  }, {
+    "timestamp-ms" : 1724086459582,
+    "snapshot-id" : 3000909664514145559
+  }, {
+    "timestamp-ms" : 1724086559585,
+    "snapshot-id" : 5171228427223568952
+  }, {
+    "timestamp-ms" : 1724086659581,
+    "snapshot-id" : 7342220921763074876
+  }, {
+    "timestamp-ms" : 1724086759581,
+    "snapshot-id" : 6683112093988605209
+  }, {
+    "timestamp-ms" : 1724086859588,
+    "snapshot-id" : 6734573167269362734
+  }, {
+    "timestamp-ms" : 1724086959584,
+    "snapshot-id" : 6184261714018985638
+  }, {
+    "timestamp-ms" : 1724087059581,
+    "snapshot-id" : 2056239258656576221
+  }, {
+    "timestamp-ms" : 1724087159585,
+    "snapshot-id" : 7785199334780779862
+  }, {
+    "timestamp-ms" : 1724087322257,
+    "snapshot-id" : 1364682350164333342
+  }, {
+    "timestamp-ms" : 1724088097824,
+    "snapshot-id" : 7424978498424548242
+  }, {
+    "timestamp-ms" : 1724088197812,
+    "snapshot-id" : 835932023498957804
+  }, {
+    "timestamp-ms" : 1724088297809,
+    "snapshot-id" : 1095013101609480043
+  }, {
+    "timestamp-ms" : 1724088397816,
+    "snapshot-id" : 3780381089453777281
+  }, {
+    "timestamp-ms" : 1724088497826,
+    "snapshot-id" : 7709503355330399189
+  }, {
+    "timestamp-ms" : 1724088597817,
+    "snapshot-id" : 4534551305580394826
+  }, {
+    "timestamp-ms" : 1724088697822,
+    "snapshot-id" : 1129911742453248265
+  }, {
+    "timestamp-ms" : 1724088797824,
+    "snapshot-id" : 8473269501718001822
+  }, {
+    "timestamp-ms" : 1724088897825,
+    "snapshot-id" : 3207196513041948989
+  }, {
+    "timestamp-ms" : 1724088997832,
+    "snapshot-id" : 2430568586508688851
+  }, {
+    "timestamp-ms" : 1724089097837,
+    "snapshot-id" : 6297119322867752493
+  }, {
+    "timestamp-ms" : 1724089197838,
+    "snapshot-id" : 5984986883688356920
+  }, {
+    "timestamp-ms" : 1724089297856,
+    "snapshot-id" : 1602323100573735293
+  }, {
+    "timestamp-ms" : 1724089397824,
+    "snapshot-id" : 595723901856592001
+  }, {
+    "timestamp-ms" : 1724089497826,
+    "snapshot-id" : 8141587775078156481
+  } ],
+  "metadata-log" : [ {
+    "timestamp-ms" : 1724078234225,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v85.metadata.json"
+  }, {
+    "timestamp-ms" : 1724078334249,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v86.metadata.json"
+  }, {
+    "timestamp-ms" : 1724078434235,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v87.metadata.json"
+  }, {
+    "timestamp-ms" : 1724078534237,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v88.metadata.json"
+  }, {
+    "timestamp-ms" : 1724078634231,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v89.metadata.json"
+  }, {
+    "timestamp-ms" : 1724078734225,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v90.metadata.json"
+  }, {
+    "timestamp-ms" : 1724078834224,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v91.metadata.json"
+  }, {
+    "timestamp-ms" : 1724078934227,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v92.metadata.json"
+  }, {
+    "timestamp-ms" : 1724079034243,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v93.metadata.json"
+  }, {
+    "timestamp-ms" : 1724079134229,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v94.metadata.json"
+  }, {
+    "timestamp-ms" : 1724079234223,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v95.metadata.json"
+  }, {
+    "timestamp-ms" : 1724079334226,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v96.metadata.json"
+  }, {
+    "timestamp-ms" : 1724079434217,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v97.metadata.json"
+  }, {
+    "timestamp-ms" : 1724079534225,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v98.metadata.json"
+  }, {
+    "timestamp-ms" : 1724079634239,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v99.metadata.json"
+  }, {
+    "timestamp-ms" : 1724079734224,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v100.metadata.json"
+  }, {
+    "timestamp-ms" : 1724079834213,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v101.metadata.json"
+  }, {
+    "timestamp-ms" : 1724079934220,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v102.metadata.json"
+  }, {
+    "timestamp-ms" : 1724080034203,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v103.metadata.json"
+  }, {
+    "timestamp-ms" : 1724080134222,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v104.metadata.json"
+  }, {
+    "timestamp-ms" : 1724080234213,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v105.metadata.json"
+  }, {
+    "timestamp-ms" : 1724080334209,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v106.metadata.json"
+  }, {
+    "timestamp-ms" : 1724080434217,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v107.metadata.json"
+  }, {
+    "timestamp-ms" : 1724080534244,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v108.metadata.json"
+  }, {
+    "timestamp-ms" : 1724080634210,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v109.metadata.json"
+  }, {
+    "timestamp-ms" : 1724080734215,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v110.metadata.json"
+  }, {
+    "timestamp-ms" : 1724080834214,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v111.metadata.json"
+  }, {
+    "timestamp-ms" : 1724080934211,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v112.metadata.json"
+  }, {
+    "timestamp-ms" : 1724081034214,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v113.metadata.json"
+  }, {
+    "timestamp-ms" : 1724081134216,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v114.metadata.json"
+  }, {
+    "timestamp-ms" : 1724081234205,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v115.metadata.json"
+  }, {
+    "timestamp-ms" : 1724081334212,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v116.metadata.json"
+  }, {
+    "timestamp-ms" : 1724081434204,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v117.metadata.json"
+  }, {
+    "timestamp-ms" : 1724081534209,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v118.metadata.json"
+  }, {
+    "timestamp-ms" : 1724081634199,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v119.metadata.json"
+  }, {
+    "timestamp-ms" : 1724081734209,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v120.metadata.json"
+  }, {
+    "timestamp-ms" : 1724081834218,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v121.metadata.json"
+  }, {
+    "timestamp-ms" : 1724081934210,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v122.metadata.json"
+  }, {
+    "timestamp-ms" : 1724082034207,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v123.metadata.json"
+  }, {
+    "timestamp-ms" : 1724082134208,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v124.metadata.json"
+  }, {
+    "timestamp-ms" : 1724082234213,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v125.metadata.json"
+  }, {
+    "timestamp-ms" : 1724082334206,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v126.metadata.json"
+  }, {
+    "timestamp-ms" : 1724082434207,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v127.metadata.json"
+  }, {
+    "timestamp-ms" : 1724082534205,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v128.metadata.json"
+  }, {
+    "timestamp-ms" : 1724082634207,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v129.metadata.json"
+  }, {
+    "timestamp-ms" : 1724082734214,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v130.metadata.json"
+  }, {
+    "timestamp-ms" : 1724082834208,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v131.metadata.json"
+  }, {
+    "timestamp-ms" : 1724082934211,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v132.metadata.json"
+  }, {
+    "timestamp-ms" : 1724083034209,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v133.metadata.json"
+  }, {
+    "timestamp-ms" : 1724083134209,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v134.metadata.json"
+  }, {
+    "timestamp-ms" : 1724083234210,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v135.metadata.json"
+  }, {
+    "timestamp-ms" : 1724083334218,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v136.metadata.json"
+  }, {
+    "timestamp-ms" : 1724083434206,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v137.metadata.json"
+  }, {
+    "timestamp-ms" : 1724084059594,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v138.metadata.json"
+  }, {
+    "timestamp-ms" : 1724084159619,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v139.metadata.json"
+  }, {
+    "timestamp-ms" : 1724084259590,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v140.metadata.json"
+  }, {
+    "timestamp-ms" : 1724084359576,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v141.metadata.json"
+  }, {
+    "timestamp-ms" : 1724084459586,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v142.metadata.json"
+  }, {
+    "timestamp-ms" : 1724084559585,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v143.metadata.json"
+  }, {
+    "timestamp-ms" : 1724084659583,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v144.metadata.json"
+  }, {
+    "timestamp-ms" : 1724084759587,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v145.metadata.json"
+  }, {
+    "timestamp-ms" : 1724084859578,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v146.metadata.json"
+  }, {
+    "timestamp-ms" : 1724084959586,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v147.metadata.json"
+  }, {
+    "timestamp-ms" : 1724085059580,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v148.metadata.json"
+  }, {
+    "timestamp-ms" : 1724085159580,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v149.metadata.json"
+  }, {
+    "timestamp-ms" : 1724085259585,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v150.metadata.json"
+  }, {
+    "timestamp-ms" : 1724085359587,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v151.metadata.json"
+  }, {
+    "timestamp-ms" : 1724085459574,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v152.metadata.json"
+  }, {
+    "timestamp-ms" : 1724085559584,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v153.metadata.json"
+  }, {
+    "timestamp-ms" : 1724085659581,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v154.metadata.json"
+  }, {
+    "timestamp-ms" : 1724085759576,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v155.metadata.json"
+  }, {
+    "timestamp-ms" : 1724085859588,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v156.metadata.json"
+  }, {
+    "timestamp-ms" : 1724085959576,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v157.metadata.json"
+  }, {
+    "timestamp-ms" : 1724086059582,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v158.metadata.json"
+  }, {
+    "timestamp-ms" : 1724086159575,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v159.metadata.json"
+  }, {
+    "timestamp-ms" : 1724086259575,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v160.metadata.json"
+  }, {
+    "timestamp-ms" : 1724086359576,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v161.metadata.json"
+  }, {
+    "timestamp-ms" : 1724086459582,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v162.metadata.json"
+  }, {
+    "timestamp-ms" : 1724086559585,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v163.metadata.json"
+  }, {
+    "timestamp-ms" : 1724086659581,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v164.metadata.json"
+  }, {
+    "timestamp-ms" : 1724086759581,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v165.metadata.json"
+  }, {
+    "timestamp-ms" : 1724086859588,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v166.metadata.json"
+  }, {
+    "timestamp-ms" : 1724086959584,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v167.metadata.json"
+  }, {
+    "timestamp-ms" : 1724087059581,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v168.metadata.json"
+  }, {
+    "timestamp-ms" : 1724087159585,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v169.metadata.json"
+  }, {
+    "timestamp-ms" : 1724087322257,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v170.metadata.json"
+  }, {
+    "timestamp-ms" : 1724088097824,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v171.metadata.json"
+  }, {
+    "timestamp-ms" : 1724088197812,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v172.metadata.json"
+  }, {
+    "timestamp-ms" : 1724088297809,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v173.metadata.json"
+  }, {
+    "timestamp-ms" : 1724088397816,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v174.metadata.json"
+  }, {
+    "timestamp-ms" : 1724088497826,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v175.metadata.json"
+  }, {
+    "timestamp-ms" : 1724088597817,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v176.metadata.json"
+  }, {
+    "timestamp-ms" : 1724088697822,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v177.metadata.json"
+  }, {
+    "timestamp-ms" : 1724088797824,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v178.metadata.json"
+  }, {
+    "timestamp-ms" : 1724088897825,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v179.metadata.json"
+  }, {
+    "timestamp-ms" : 1724088997832,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v180.metadata.json"
+  }, {
+    "timestamp-ms" : 1724089097837,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v181.metadata.json"
+  }, {
+    "timestamp-ms" : 1724089197838,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v182.metadata.json"
+  }, {
+    "timestamp-ms" : 1724089297856,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v183.metadata.json"
+  }, {
+    "timestamp-ms" : 1724089397824,
+    "metadata-file" : "file:/Users/henneberger/sqrl/sqrl-testing/sqrl-flink-1.18/src/test/default_database/applications_2/metadata/v184.metadata.json"
+  } ]
+}

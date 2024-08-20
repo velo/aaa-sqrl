@@ -116,7 +116,9 @@ public class DatasqrlRun {
     configMap.put("JDBC_USERNAME", "postgres");
     configMap.put("JDBC_PASSWORD", "postgres");
     //todo target?
-    configMap.put("DATA_PATH", Path.of(System.getProperty("user.dir")).resolve("build/deploy/flink/data").toString());
+    configMap.put("DATA_PATH",
+        Path.of("/Users/henneberger/data-product-data-connect-cv/src/main/data").toString());
+//        Path.of(System.getProperty("user.dir")).resolve("build/deploy/flink/data").toString());
     configMap.put("PGHOST", "localhost");
     configMap.put("PGUSER", "postgres");
     configMap.put("PGPASSWORD", "postgres");
@@ -152,11 +154,11 @@ public class DatasqrlRun {
   public void startKafka() {
     startKafkaCluster();
 
-    Map map = objectMapper.readValue(path.resolve("kafka.json").toFile(), Map.class);
-    List<Map<String, Object>> topics = (List<Map<String, Object>>)map.get("topics");
-    for (Map<String, Object> topic : topics) {
-      CLUSTER.createTopic((String)topic.get("name"), 1, 1);
-    }
+//    Map map = objectMapper.readValue(path.resolve("kafka.json").toFile(), Map.class);
+//    List<Map<String, Object>> topics = (List<Map<String, Object>>)map.get("topics");
+//    for (Map<String, Object> topic : topics) {
+//      CLUSTER.createTopic((String)topic.get("name"), 1, 1);
+//    }
   }
 
   @SneakyThrows

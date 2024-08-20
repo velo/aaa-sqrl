@@ -87,7 +87,9 @@ public class SnowflakeEngine extends AbstractJDBCQueryEngine {
           new SqlIdentifier(sink.getNameId(), SqlParserPos.ZERO),
           externalVolume,
           SqlLiteral.createCharString((String)engineConfig.toMap().get("catalog-name"),
-              SqlParserPos.ZERO), null,
+              SqlParserPos.ZERO),
+          SqlLiteral.createCharString(sink.getNameId(), SqlParserPos.ZERO),
+          null,
           null, null, null);
       ddlStatements.add(()->icebergTable.toSqlString(CalciteSqlDialect.DEFAULT).getSql());
     }
@@ -119,13 +121,11 @@ public class SnowflakeEngine extends AbstractJDBCQueryEngine {
               .map(f->new SqlIdentifier(f.getName(), SqlParserPos.ZERO))
           .collect(Collectors.toList()), pos);
 
-      SqlCharStringLiteral comment = SqlLiteral.createCharString("", pos);
-
       SqlSelect select =(SqlSelect) framework.getQueryPlanner()
           .relToSql(Dialect.SNOWFLAKE, relNode).getSqlNode();
 
-      SqlCreateSnowflakeView createView = new SqlCreateSnowflakeView(pos, true, true, false, false, null, viewName, columnList,
-          select, comment, false);
+      SqlCreateSnowflakeView createView = new SqlCreateSnowflakeView(pos, true, false, false, false, null, viewName, columnList,
+          select, null, false);
 
       SnowflakeSqlNodeToString toString = new SnowflakeSqlNodeToString();
       String sql = toString.convert(() -> createView).getSql();
