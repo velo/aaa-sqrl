@@ -91,7 +91,10 @@ public class SnowflakeEngine extends AbstractJDBCQueryEngine {
           SqlLiteral.createCharString(sink.getNameId(), SqlParserPos.ZERO),
           null,
           null, null, null);
-      ddlStatements.add(()->icebergTable.toSqlString(CalciteSqlDialect.DEFAULT).getSql());
+
+      SnowflakeSqlNodeToString toString = new SnowflakeSqlNodeToString();
+      String sql = toString.convert(() -> icebergTable).getSql();
+      ddlStatements.add(()->sql);
     }
 
     Preconditions.checkArgument(plan instanceof DatabaseStagePlan);
@@ -112,7 +115,6 @@ public class SnowflakeEngine extends AbstractJDBCQueryEngine {
               scan, icebergDataTypeMapper);
         }
       });
-
 
 
       SqlParserPos pos = new SqlParserPos(0, 0);
