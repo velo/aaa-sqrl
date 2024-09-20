@@ -1,9 +1,7 @@
 package com.datasqrl.config;
 
 import com.datasqrl.canonicalizer.Name;
-import com.datasqrl.error.ErrorCollector;
 import com.datasqrl.io.tables.TableType;
-import java.net.URI;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
@@ -14,8 +12,6 @@ import lombok.Getter;
 import lombok.NonNull;
 
 public interface TableConfig {
-
-  TableConfig load(URI uri, Name last, ErrorCollector errors);
 
   ConnectorConfig getConnectorConfig();
 

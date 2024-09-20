@@ -9,6 +9,7 @@ import com.datasqrl.error.ErrorMessage.Implementation;
 import com.datasqrl.error.ErrorMessage.Severity;
 import java.io.Serializable;
 import java.net.URI;
+import java.net.URL;
 import java.nio.file.Path;
 import java.util.Iterator;
 import lombok.Getter;
@@ -104,8 +105,8 @@ public class ErrorCollector implements Iterable<ErrorMessage>, Serializable {
     return withConfig(file.getFileName().toString());
   }
 
-  public ErrorCollector withConfig(URI uri) {
-    return withConfig(uri.getPath());
+  public ErrorCollector withConfig(URL url) {
+    return withConfig(url.getPath());
   }
 
   public ErrorCollector withConfig(String filename) {

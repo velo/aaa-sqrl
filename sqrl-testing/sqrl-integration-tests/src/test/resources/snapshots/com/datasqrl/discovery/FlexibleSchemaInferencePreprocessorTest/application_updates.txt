@@ -26,7 +26,11 @@ columns:
   "flink" : {
     "format" : "flexible-json",
     "path" : "${DATA_PATH}/application_updates.jsonl",
+<<<<<<< Updated upstream
     "source.monitor-interval" : 1,
+=======
+    "source.monitor-interval" : 10000,
+>>>>>>> Stashed changes
     "connector" : "filesystem"
   },
   "metadata" : {

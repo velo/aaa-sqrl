@@ -35,6 +35,8 @@ import freemarker.template.TemplateMethodModelEx;
 import freemarker.template.TemplateModelException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.FileVisitResult;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -533,4 +535,29 @@ public class Packager {
     }
   }
 
+  @SneakyThrows
+  public static List<URL> findPackageFileOrDefault(Path rootDir, List<Path> packageFiles,
+      URL defaultPackageJson) {
+    if (packageFiles.isEmpty()) {
+      Path defaultPkg = rootDir.resolve(DEFAULT_PACKAGE);
+      if (Files.isRegularFile(defaultPkg)) {
+        return List.of(defaultPackageJson, defaultPkg.toFile().toURI().toURL());
+      } else {
+        return List.of(defaultPackageJson);
+      }
+    } else {
+      List<URL> files = new ArrayList<>();
+      files.add(defaultPackageJson);
+      packageFiles.stream().map(rootDir::resolve)
+          .map(e-> {
+            try {
+              return e.toFile().toURI().toURL();
+            } catch (MalformedURLException ex) {
+              throw new RuntimeException(ex);
+            }
+          })
+          .forEach(files::add);
+      return files;
+    }
+  }
 }

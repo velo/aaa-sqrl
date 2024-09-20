@@ -26,7 +26,11 @@ columns:
   "flink" : {
     "format" : "csv",
     "path" : "${DATA_PATH}/sensorreading.csv.gz",
+<<<<<<< Updated upstream
     "source.monitor-interval" : 1,
+=======
+    "source.monitor-interval" : 10000,
+>>>>>>> Stashed changes
     "connector" : "filesystem"
   },
   "metadata" : {

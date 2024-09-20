@@ -15,6 +15,8 @@ import com.datasqrl.error.ErrorCollector;
 import com.datasqrl.error.ErrorPrefix;
 import com.datasqrl.packager.Packager;
 import com.datasqrl.packager.repository.Repository;
+import com.google.common.io.Resources;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -44,45 +46,40 @@ public class PackageBootstrap {
     Packager.cleanBuildDir(buildDir);
     Packager.createBuildDir(buildDir);
 
-    Optional<List<Path>> existingPackage = Packager.findPackageFile(rootDir, packageFiles);
-    Optional<PackageJson> existingConfig;
-    existingConfig = existingPackage.map(
-        paths -> SqrlConfigCommons.fromFilesPackageJson(errors, paths));
+    URL defaultPackageJson = getClass().getResource("/package.json");
+
+    //Check if a package json exists in the directory
+    List<URL> packageJsonUrls = Packager.findPackageFileOrDefault(rootDir, packageFiles, defaultPackageJson);
+    PackageJson config;
+
+    config = SqrlConfigCommons.fromURLPackageJson(errors, packageJsonUrls);
 
     Map<String, Dependency> dependencies = new HashMap<>();
     // Check if 'profiles' key is set, replace if existing
     if (profiles.length > 0) {
       profiles = profiles;
-    } else if (existingConfig.isPresent() && existingConfig.get().hasProfileKey()) {
-      profiles = existingConfig.get().getProfiles().toArray(String[]::new);
+    } else if (config.hasProfileKey()) {
+      profiles = config.getProfiles().toArray(String[]::new);
     }
 
     //Create package.json from project root if exists
-    List<Path> configFiles = new ArrayList<>();
+    List<URL> configFiles = new ArrayList<>();
 
-    if (existingConfig.isEmpty() && profiles.length == 0) { //No profiles found, use default (remotely downloaded)
-      PackageJson defaultConfig = createDefaultConfig(errors);
-      Path path = buildDir.resolve(PACKAGE_JSON);
-      profiles = defaultConfig.getProfiles().toArray(String[]::new);
-      existingConfig = Optional.of(defaultConfig);
-      defaultConfig.toFile(path, true);
-      configFiles.add(path);
-    } else if (existingConfig.isPresent() && profiles.length == 0) {
-      PackageJson packageJson = existingConfig.get();
-      setDefaultConfig(packageJson);
-      profiles = packageJson.getProfiles().toArray(String[]::new);
+    if (profiles.length == 0) {
+      setDefaultConfig(config);
+      profiles = config.getProfiles().toArray(String[]::new);
     }
 
     //Download any profiles
     for (String profile : profiles) {
       if (isLocalProfile(rootDir, profile)) {
-        Path localProfile = rootDir.resolve(profile).resolve(PACKAGE_JSON);
+        URL localProfile = rootDir.resolve(profile).resolve(PACKAGE_JSON).toUri().toURL();
         configFiles.add(localProfile);
       } else {
         //check to see if it's already in the package json, download the correct dep
         Optional<Dependency> dependency;
-        if (hasVersionedProfileDependency(existingConfig, profile)) {
-          dependency = existingConfig.get().getDependencies().getDependency(profile);
+        if (hasVersionedProfileDependency(config, profile)) {
+          dependency = config.getDependencies().getDependency(profile);
         } else {
           dependency = repository.resolveDependency(profile);
         }
@@ -102,14 +99,14 @@ public class PackageBootstrap {
 
         Path remoteProfile = profilePath.resolve(PACKAGE_JSON);
         if (Files.isRegularFile(remoteProfile)) {
-          configFiles.add(remoteProfile);
+          configFiles.add(remoteProfile.toUri().toURL());
         } else {
           throw new RuntimeException("Could not find package.json in profile: " + profile);
         }
       }
     }
 
-    existingPackage.ifPresent(configFiles::addAll);
+    configFiles.addAll(packageJsonUrls);
 
     // Could not find any package json
     if (configFiles.isEmpty()) {
@@ -117,7 +114,7 @@ public class PackageBootstrap {
     }
 
     // Merge all configurations
-    PackageJson packageJson = SqrlConfigCommons.fromFilesPackageJson(errors, configFiles);
+    PackageJson packageJson = SqrlConfigCommons.fromURLPackageJson(errors, configFiles);
     packageJson.setProfiles(profiles);
 
     //Add dependencies of discovered profiles
@@ -198,9 +195,8 @@ public class PackageBootstrap {
     return path.get().isAbsolute() ? path.get() : rootDir.resolve(path.get());
   }
 
-  private boolean hasVersionedProfileDependency(Optional<PackageJson> existingConfig, String profile) {
-    return existingConfig.isPresent()
-        && existingConfig.get().getDependencies().getDependency(profile).isPresent()
-        && existingConfig.get().getDependencies().getDependency(profile).get().getVersion().isPresent();
+  private boolean hasVersionedProfileDependency(PackageJson existingConfig, String profile) {
+    return existingConfig.getDependencies().getDependency(profile).isPresent()
+        && existingConfig.getDependencies().getDependency(profile).get().getVersion().isPresent();
   }
 }

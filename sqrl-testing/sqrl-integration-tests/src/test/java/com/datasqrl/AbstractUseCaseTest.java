@@ -50,8 +50,8 @@ public class AbstractUseCaseTest extends AbstractAssetSnapshotTest {
       arguments.add("-c"); arguments.add(packageFile.getFileName().toString());
     }
 //    arguments.add("-t"); arguments.add(deployDir.toString());
-    arguments.add("--profile");
-    arguments.add(getProjectRoot().resolve("profiles/default").toString());
+//    arguments.add("--profile");
+//    arguments.add(getProjectRoot().resolve("profiles/default").toString());
 //    arguments.add("-t"); arguments.add(deployDir.toString());
     String testname = Stream.of(script, graphQlFile, packageFile)
         .map(AbstractAssetSnapshotTest::getDisplayName)

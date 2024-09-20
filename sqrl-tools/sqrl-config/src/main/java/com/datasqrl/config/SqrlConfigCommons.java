@@ -333,6 +333,9 @@ public class SqrlConfigCommons implements SqrlConfig {
   public static PackageJson fromFilesPackageJson(ErrorCollector errors, @NonNull List<Path> files) {
     return new PackageJsonImpl(fromFiles(errors, files));
   }
+  public static PackageJson fromURLPackageJson(ErrorCollector errors, @NonNull List<URL> url) {
+    return new PackageJsonImpl(fromURLs(errors, url));
+  }
 
   public static SqrlConfig fromFiles(ErrorCollector errors, @NonNull List<Path> files) {
     return fromFiles(errors, files.get(0),
@@ -366,14 +369,37 @@ public class SqrlConfigCommons implements SqrlConfig {
     }
   }
 
-  public static SqrlConfig fromURL(ErrorCollector errors, @NonNull URL url) {
+  public static SqrlConfig fromURLs(ErrorCollector errors, @NonNull List<URL> urls) {
     Configurations configs = new Configurations();
+    Configuration resultconfig;
+    ErrorCollector localErrors = errors;
     try {
-      Configuration config = configs.fileBased(JSONConfiguration.class, url);
-      String configFilename = url.toString();
-      return new SqrlConfigCommons(errors.withConfig(configFilename), configFilename, config, "");
+      if (urls.isEmpty()) {
+        throw new IllegalArgumentException("No URLs provided");
+      }
+
+      URL firstUrl = urls.get(0);
+      localErrors = errors.withConfig(firstUrl.toString());
+      Configuration baseconfig = configs.fileBased(JSONConfiguration.class, firstUrl);
+
+      if (urls.size() > 1) {
+        NodeCombiner combiner = new OverrideCombiner();
+        CombinedConfiguration cc = new CombinedConfiguration(combiner);
+        for (int i = urls.size() - 1; i >= 1; i--) { // iterate backwards so last URL takes precedence
+          URL url = urls.get(i);
+          localErrors = errors.withConfig(url.toString());
+          Configuration nextconfig = configs.fileBased(JSONConfiguration.class, url);
+          cc.addConfiguration(nextconfig);
+        }
+        cc.addConfiguration(baseconfig);
+        resultconfig = cc;
+      } else {
+        resultconfig = baseconfig;
+      }
+      String configFilename = firstUrl.toString();
+      return new SqrlConfigCommons(errors.withConfig(configFilename), configFilename, resultconfig, "");
     } catch (ConfigurationException e) {
-      throw errors.withConfig(url.toString()).handle(e);
+      throw localErrors.handle(e);
     }
   }
 

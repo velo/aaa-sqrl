@@ -1,0 +1,73 @@
+{
+  "version": "1",
+  "enabled-engines": ["vertx", "postgres", "kafka", "flink"],
+  "engines" : {
+    "flink" : {
+      "connectors": {
+        "postgres": {
+          "connector": "jdbc-sqrl",
+          "password": "${JDBC_PASSWORD}",
+          "driver": "org.postgresql.Driver",
+          "username": "${JDBC_USERNAME}",
+          "url": "${JDBC_URL}",
+          "table-name": "${sqrl:table}"
+        },
+        "kafka": {
+          "connector" : "kafka",
+          "format" : "flexible-json",
+          "properties.bootstrap.servers": "${PROPERTIES_BOOTSTRAP_SERVERS}",
+          "properties.group.id": "${PROPERTIES_GROUP_ID}",
+          "scan.startup.mode" : "group-offsets",
+          "properties.auto.offset.reset" : "earliest",
+          "topic" : "${sqrl:topic}"
+        },
+        "localfile": {
+          "connector" : "filesystem",
+          "format" : "${sqrl:format}",
+          "path" : "${sqrl:filepath}",
+          "source.monitor-interval" : 1
+        },
+        "iceberg": {
+          "connector": "iceberg",
+          "catalog-table": "${sqrl:table}"
+        },
+        "postgres_log-source": {
+          "connector": "postgres-cdc",
+          "hostname": "${PGHOST}",
+          "port": "5432",
+          "username": "${JDBC_USERNAME}",
+          "password": "${JDBC_PASSWORD}",
+          "database-name": "datasqrl",
+          "schema-name": "public",
+          "table-name": "${sqrl:table}",
+          "slot.name": "flink_slot",
+          "decoding.plugin.name": "pgoutput",
+          "debezium.slot.drop_on_stop": "false"
+        },
+        "postgres_log-sink": {
+          "connector": "jdbc-sqrl",
+          "password": "${JDBC_PASSWORD}",
+          "driver": "org.postgresql.Driver",
+          "username": "${JDBC_USERNAME}",
+          "url": "${JDBC_URL}",
+          "table-name": "${sqrl:table}"
+        }
+      }
+    },
+    "snowflake" : {
+      "schema-type": "aws-glue"
+    }
+  },
+  "test-runner": {
+    "delay-sec": 30
+  },
+  "package": {
+    "name": "datasqrl.profile.default",
+    "version": "0.5.4",
+    "variant": "dev",
+    "description": "A docker compose datasqrl profile",
+    "homepage": "",
+    "documentation": "",
+    "topics": [ "profile" ]
+  }
+}

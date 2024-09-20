@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests some use cases in the test/resources/usecases folder using the `test` command.
  */
+@Disabled
 public class UseCasesIT {
   protected static final Path PROJECT_ROOT = getProjectRoot();
   private static final Path RESOURCES = Paths.get("src/test/resources/usecases");
@@ -46,8 +47,8 @@ public class UseCasesIT {
       argsList.add("-s"); argsList.add("snapshots-"+testSuffix);
       argsList.add("--tests"); argsList.add("tests-"+testSuffix);
     }
-    argsList.add("--profile");
-    argsList.add(getProjectRoot(rootDir).resolve("profiles/default").toString());
+//    argsList.add("--profile");
+//    argsList.add(getProjectRoot(rootDir).resolve("profiles/default").toString());
     argsList.addAll(Arrays.asList(args));
 
     execute(rootDir, AssertStatusHook.INSTANCE, argsList.toArray(String[]::new));

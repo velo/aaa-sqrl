@@ -27,7 +27,7 @@ where we create additional topics manually.
 
 ### Configuring it as an Engine
 
-As described in the [Default Profile's Advanced Scenario](../default/README.md#advanced-scenario)
+As described in the [Default Profile's Advanced Scenario](../compose/README.md#advanced-scenario)
 section, we need to respect the original structure of the default profile. Since the Redpanda
 profile follows that rule, the only thing needed is to configure it as a profile in the profile
 section.

@@ -30,7 +30,11 @@ columns:
   "flink" : {
     "format" : "flexible-json",
     "path" : "${DATA_PATH}/machinegroup.jsonl.gz",
+<<<<<<< Updated upstream
     "source.monitor-interval" : 1,
+=======
+    "source.monitor-interval" : 10000,
+>>>>>>> Stashed changes
     "connector" : "filesystem"
   },
   "metadata" : {
