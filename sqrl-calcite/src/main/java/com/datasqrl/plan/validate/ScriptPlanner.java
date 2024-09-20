@@ -79,6 +79,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.apache.calcite.plan.RelOptTable;
 import org.apache.calcite.rel.RelNode;
+import org.apache.calcite.rel.hint.RelHint;
 import org.apache.calcite.rel.type.RelDataType;
 import org.apache.calcite.rel.type.RelDataTypeField;
 import org.apache.calcite.rex.RexNode;
@@ -464,7 +465,17 @@ public class ScriptPlanner implements StatementVisitor<Void, Void> {
           ? Optional.empty()
           : Optional.of(()->rel);
 
-      tableFactory.createTable(moduleLoader, path, rel, null,
+      List<RelHint> hints = assignment.getHints()
+          .map(nodeList -> nodeList.getList().stream()
+              .filter(SqlHint.class::isInstance)
+              .map(SqlHint.class::cast)
+              .map(sqlHint -> RelHint.builder(sqlHint.getName())
+                  .hintOptions(sqlHint.getOptionList())
+                  .build())
+              .collect(Collectors.toList()))
+          .orElse(null);
+
+      tableFactory.createTable(moduleLoader, path, rel, hints,
           assignment.getHints(), result.getParams(), isA,
           materializeSelf, nodeSupplier, errorCollector, hasTestHint(assignment.getHints()));
     }

@@ -123,7 +123,7 @@ public class SqrlPlanningTableFactory implements SqrlTableFactory {
     SqrlConverterConfig config = configBuilder.build();
 
     AnnotatedLP alp = sqrlConverter.convert(relNode, config, errors);
-    return new LPAnalysis(relNode, alp, configuredStages, baseConfig, analyzedHints.getKey(),
-        analyzedHints.getValue());
+    return new LPAnalysis(relNode, alp, configuredStages, baseConfig, analyzedHints.getLeft(),
+        analyzedHints.getRight());
   }
 }
