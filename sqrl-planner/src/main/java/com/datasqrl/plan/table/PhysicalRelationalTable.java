@@ -95,7 +95,7 @@ public abstract class PhysicalRelationalTable extends ScriptRelationalTable impl
     this.assignedStage = Optional.of(stage);
   }
 
-  public List<OptimizerHint> getOptimizerHints() {
+  public<C extends OptimizerHint> List<C> getOptimizerHints(Class<C> hintClass) {
     return List.of();
   }
 

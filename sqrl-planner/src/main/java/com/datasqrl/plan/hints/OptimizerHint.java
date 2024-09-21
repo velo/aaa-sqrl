@@ -43,6 +43,8 @@ public interface OptimizerHint {
           List<String> options = hint.getOptionList();
           errors.checkFatal(options!=null && !options.isEmpty(), "%s hint requires at least one column as argument", PrimaryKeyHint.HINT_NAME);
           optHints.add(new PrimaryKeyHint(options));
+        } else if (hintname.equalsIgnoreCase(TestHint.HINT_NAME)) {
+          optHints.add(TestHint.of(hint.getOptionList()));
         } else {
           otherHints.add(hint);
         }

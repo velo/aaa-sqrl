@@ -83,8 +83,7 @@ public class IndexSelector {
   }
 
   public Optional<List<IndexDefinition>> getIndexHints(PhysicalRelationalTable table) {
-    List<IndexHint> indexHints = StreamUtil.filterByClass(table.getOptimizerHints(), IndexHint.class)
-        .collect(Collectors.toUnmodifiableList());
+    List<IndexHint> indexHints = table.getOptimizerHints(com.datasqrl.plan.hints.IndexHint.class);
     if (!indexHints.isEmpty()) {
       return Optional.of(indexHints.stream().filter(IndexHint::isValid)
           .filter(idxHint -> config.supportedIndexTypes().contains(idxHint.getIndexType()))

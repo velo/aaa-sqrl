@@ -5,9 +5,11 @@ import com.datasqrl.engine.pipeline.ExecutionPipeline;
 import com.datasqrl.engine.pipeline.ExecutionStage;
 import com.datasqrl.error.ErrorCollector;
 import com.datasqrl.canonicalizer.Name;
+import com.datasqrl.plan.hints.IndexHint;
 import com.datasqrl.plan.hints.OptimizerHint;
 import com.datasqrl.plan.rules.LPAnalysis;
 import com.datasqrl.plan.rules.SqrlConverterConfig;
+import com.datasqrl.util.StreamUtil;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,8 +39,9 @@ public class QueryRelationalTable extends PhysicalRelationalTable {
     this.streamRoot = analyzedLP.getConvertedRelnode().getStreamRoot();
   }
 
-  public List<OptimizerHint> getOptimizerHints() {
-    return analyzedLP.getSqrlHints();
+  public <C extends OptimizerHint> List<C> getOptimizerHints(Class<C> hintClass) {
+    return StreamUtil.filterByClass(analyzedLP.getSqrlHints(), hintClass)
+        .collect(Collectors.toUnmodifiableList());
   }
 
   public RelNode getOriginalRelnode() {
