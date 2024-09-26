@@ -1,0 +1,18 @@
+{
+  "enabled-engines": ["flink", "iceberg", "snowflake"],
+  "script" : {
+    "main" : "iceberg_connector_with_partition_key.sqrl"
+  },
+  "profiles": ["../../../../../../profiles/default"],
+  "values" : {
+    "flink-config" : {
+      "execution.checkpointing.interval": "10 sec"
+    }
+  },
+  "engines": {
+    "snowflake" : {
+      "catalog-name": "NSCatalog",
+      "external-volume": "iceberg_storage_vol_2"
+    }
+  }
+}

@@ -1,0 +1,4 @@
+IMPORT mock.Data;
+
+/*+ EXEC(iceberg), partition_key(id) */
+data_in_iceberg := SELECT * FROM Data;
