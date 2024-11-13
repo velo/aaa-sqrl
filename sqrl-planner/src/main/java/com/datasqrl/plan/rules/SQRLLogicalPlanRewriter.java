@@ -1060,44 +1060,110 @@ public class SQRLLogicalPlanRewriter extends AbstractSqrlRelShuttle<AnnotatedLP>
   private AnnotatedLP handleTimeWindowAggregation(AnnotatedLP input,
       List<Integer> groupByIdx, List<AggregateCall> aggregateCalls, int targetLength,
                                                   Timestamps.TimeWindow window) {
-    Preconditions.checkArgument(window instanceof Timestamps.SimpleTumbleWindow,
-            "Expected simple tumble window");
-    Timestamps.SimpleTumbleWindow simpleWindow = (Timestamps.SimpleTumbleWindow)window;
-    //This must exist otherwise the window would not have matched
-    int keyIdx = IntStream.range(0, groupByIdx.size())
-            .filter(idx -> groupByIdx.get(idx)==simpleWindow.getWindowIndex()).findAny().getAsInt();
+    Preconditions.checkArgument(window instanceof Timestamps.SimpleTumbleWindow || window instanceof Timestamps.SimpleSessionWindow,
+            "Expected simple tumble window or session window");
+    // TODO ECH: fix my naïve code duplication
+    if (window instanceof Timestamps.SimpleTumbleWindow) {
+      Timestamps.SimpleTumbleWindow simpleWindow = (Timestamps.SimpleTumbleWindow) window;
 
-    //Fix timestamp (if not already fixed)
-    Timestamps newTimestamp = Timestamps.ofFixed(keyIdx);
-    //Now filters must be on the timestamp - otherwise we need to inline them
-    NowFilter nowFilter = NowFilter.EMPTY;
-    if (!input.nowFilter.isEmpty()) {
-      if (input.nowFilter.getTimestampIndex()!=simpleWindow.getTimestampIndex()) {
-        input = input.inlineNowFilter(makeRelBuilder(), exec);
-      } else {
-        long intervalExpansion = simpleWindow.getWindowWidthMillis();
-        //Update new Filter with expansion based on time window
-        nowFilter = input.nowFilter.map(tp -> new TimePredicate(tp.getSmallerIndex(),
-                keyIdx, tp.getComparison(), tp.getIntervalLength() + intervalExpansion));
+      // This must exist otherwise the window would not have matched
+      int keyIdx =
+          IntStream.range(0, groupByIdx.size())
+              .filter(idx -> groupByIdx.get(idx) == simpleWindow.getWindowIndex())
+              .findAny()
+              .getAsInt();
+
+      // Fix timestamp (if not already fixed)
+      Timestamps newTimestamp = Timestamps.ofFixed(keyIdx);
+      // Now filters must be on the timestamp - otherwise we need to inline them
+      NowFilter nowFilter = NowFilter.EMPTY;
+      if (!input.nowFilter.isEmpty()) {
+        if (input.nowFilter.getTimestampIndex() != simpleWindow.getTimestampIndex()) {
+          input = input.inlineNowFilter(makeRelBuilder(), exec);
+        } else {
+          long intervalExpansion = simpleWindow.getWindowWidthMillis();
+          // Update new Filter with expansion based on time window
+          nowFilter =
+              input.nowFilter.map(
+                  tp ->
+                      new TimePredicate(
+                          tp.getSmallerIndex(),
+                          keyIdx,
+                          tp.getComparison(),
+                          tp.getIntervalLength() + intervalExpansion));
+        }
       }
-    }
 
-    RelBuilder relB = makeRelBuilder();
-    relB.push(input.relNode);
-    relB.aggregate(relB.groupKey(Ints.toArray(groupByIdx)), aggregateCalls);
-    TumbleAggregationHint.functionOf(simpleWindow.getWindowIndex(),
-            simpleWindow.getTimestampIndex(),
-        simpleWindow.getWindowWidthMillis(), simpleWindow.getWindowOffsetMillis()).addTo(relB);
-    PkAndSelect pkSelect = aggregatePkAndSelect(groupByIdx, targetLength);
+      RelBuilder relB = makeRelBuilder();
+      relB.push(input.relNode);
+      relB.aggregate(relB.groupKey(Ints.toArray(groupByIdx)), aggregateCalls);
+      TumbleAggregationHint.functionOf(
+              simpleWindow.getWindowIndex(),
+              simpleWindow.getTimestampIndex(),
+              simpleWindow.getWindowWidthMillis(),
+              simpleWindow.getWindowOffsetMillis())
+          .addTo(relB);
+      PkAndSelect pkSelect = aggregatePkAndSelect(groupByIdx, targetLength);
 
     /* TODO: this type of streaming aggregation requires a post-filter in the database (in physical model) to filter out "open" time buckets,
     i.e. time_bucket_col < time_bucket_function(now()) [if now() lands in a time bucket, that bucket is still open and shouldn't be shown]
       set to "SHOULD" once this is supported
      */
 
-    return AnnotatedLP.build(relB.build(), TableType.STREAM, pkSelect.pk, newTimestamp,
-                pkSelect.select, input)
-            .nowFilter(nowFilter).build();
+      return AnnotatedLP.build(relB.build(), TableType.STREAM, pkSelect.pk, newTimestamp,
+                      pkSelect.select, input)
+              .nowFilter(nowFilter).build();
+
+    } else { // window instance of SimpleSessionWindow
+      Timestamps.SimpleSessionWindow simpleWindow = (Timestamps.SimpleSessionWindow) window;
+
+      // This must exist otherwise the window would not have matched
+      // ECH: window need to be in the group by clause
+      int keyIdx =
+              IntStream.range(0, groupByIdx.size())
+                      .filter(idx -> groupByIdx.get(idx) == simpleWindow.getWindowIndex())
+                      .findAny()
+                      .getAsInt();
+
+      // Fix timestamp (if not already fixed)
+      Timestamps newTimestamp = Timestamps.ofFixed(keyIdx);
+      // Now filters must be on the timestamp - otherwise we need to inline them
+      NowFilter nowFilter = NowFilter.EMPTY;
+      if (!input.nowFilter.isEmpty()) {
+        if (input.nowFilter.getTimestampIndex() != simpleWindow.getTimestampIndex()) {
+          input = input.inlineNowFilter(makeRelBuilder(), exec);
+        } else {
+          long intervalExpansion = simpleWindow.getWindowGapMillis();
+          // Update new Filter with expansion based on time window
+          nowFilter =
+                  input.nowFilter.map(tp -> new TimePredicate(
+                                            tp.getSmallerIndex(),
+                                            keyIdx,
+                                            tp.getComparison(),
+                                tp.getIntervalLength() + intervalExpansion));
+        }
+      }
+
+      RelBuilder relB = makeRelBuilder();
+      relB.push(input.relNode);
+      relB.aggregate(relB.groupKey(Ints.toArray(groupByIdx)), aggregateCalls);
+      SessionAggregationHint.functionOf(
+                      simpleWindow.getWindowIndex(),
+                      simpleWindow.getTimestampIndex(),
+                      simpleWindow.getWindowGapMillis())
+              .addTo(relB);
+      PkAndSelect pkSelect = aggregatePkAndSelect(groupByIdx, targetLength);
+
+    /* TODO: this type of streaming aggregation requires a post-filter in the database (in physical model) to filter out "open" time buckets,
+    i.e. time_bucket_col < time_bucket_function(now()) [if now() lands in a time bucket, that bucket is still open and shouldn't be shown]
+      set to "SHOULD" once this is supported
+     */
+
+      return AnnotatedLP.build(relB.build(), TableType.STREAM, pkSelect.pk, newTimestamp,
+                      pkSelect.select, input)
+              .nowFilter(nowFilter).build();
+
+    }
   }
 
   private AnnotatedLP handleTimestampedAggregationInStream(LogicalAggregate aggregate, AnnotatedLP input,
