@@ -12,6 +12,7 @@ import org.apache.calcite.rel.hint.RelHint;
 @AllArgsConstructor
 public class SessionAggregationHint implements SqrlHint {
 
+  //TODO ECH: what is the instant aggregation type ?
   public enum Type {FUNCTION, INSTANT}
 
   @Getter

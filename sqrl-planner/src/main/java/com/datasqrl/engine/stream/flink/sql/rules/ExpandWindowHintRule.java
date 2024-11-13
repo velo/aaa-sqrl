@@ -1,6 +1,7 @@
 package com.datasqrl.engine.stream.flink.sql.rules;
 
 
+import com.datasqrl.plan.hints.SessionAggregationHint;
 import com.datasqrl.plan.hints.SlidingAggregationHint;
 import com.datasqrl.plan.hints.SqrlHint;
 import com.datasqrl.plan.hints.TumbleAggregationHint;
@@ -42,41 +43,53 @@ public class ExpandWindowHintRule extends RelRule<ExpandWindowHintRule.Config>
   @Override
   public void onMatch(RelOptRuleCall relOptRuleCall) {
     RelBuilder relBuilder = relOptRuleCall.builder();
-    LogicalAggregate aggregate = relOptRuleCall.rel(0);
-    RelNode input = relOptRuleCall.rel(1);
+    LogicalAggregate aggregate = relOptRuleCall.rel(0); // ECH: the group by
+    RelNode input = relOptRuleCall.rel(1); // ECH: the expression matched by the rule
+    // ECH extract all the window hints, getting empty optionals when not present
     Optional<TumbleAggregationHint> tumbleHintOpt = SqrlHint.fromRel(aggregate,
         TumbleAggregationHint.CONSTRUCTOR);
     Optional<SlidingAggregationHint> slideHintOpt = SqrlHint.fromRel(aggregate,
         SlidingAggregationHint.CONSTRUCTOR);
-    if (tumbleHintOpt.isEmpty() && slideHintOpt.isEmpty()) {
+    Optional<SessionAggregationHint> sessionHintOpt = SqrlHint.fromRel(aggregate,
+            SessionAggregationHint.CONSTRUCTOR);
+    if (tumbleHintOpt.isEmpty() && slideHintOpt.isEmpty() && sessionHintOpt.isEmpty()) {
       return;
     }
-
     ImmutableBitSet groupBy = Iterables.getOnlyElement(aggregate.groupSets);
     List<AggregateCall> aggCalls = aggregate.getAggCallList();
 
-    if (tumbleHintOpt.isPresent() || slideHintOpt.isPresent()) {
-      handleWindowedAggregation(relBuilder, tumbleHintOpt, slideHintOpt, groupBy, aggCalls, input);
+    if (tumbleHintOpt.isPresent() || slideHintOpt.isPresent() || sessionHintOpt.isPresent()) {
+      handleWindowedAggregation(relBuilder, tumbleHintOpt, slideHintOpt, sessionHintOpt, groupBy, aggCalls, input);
       relOptRuleCall.transformTo(relBuilder.build());
     }
   }
 
-  private void handleWindowedAggregation(RelBuilder relBuilder,
-      Optional<TumbleAggregationHint> tumbleHintOpt, Optional<SlidingAggregationHint> slideHintOpt,
-      ImmutableBitSet groupBy, List<AggregateCall> aggCalls, RelNode input) {
-    Preconditions.checkArgument(tumbleHintOpt.isPresent() ^ slideHintOpt.isPresent());
+  private void handleWindowedAggregation(
+      RelBuilder relBuilder,
+      Optional<TumbleAggregationHint> tumbleHintOpt,
+      Optional<SlidingAggregationHint> slideHintOpt,
+      Optional<SessionAggregationHint> sessionHintOpt,
+      ImmutableBitSet groupBy,
+      List<AggregateCall> aggCalls,
+      RelNode input) {
+    // ECH: input is the window aggregation
+    // ECH: exactly one window hint (one type of window)
+    Preconditions.checkArgument(tumbleHintOpt.isPresent() ^ slideHintOpt.isPresent() ^ sessionHintOpt.isPresent());
     RexBuilder rexBuilder = getRexBuilder(relBuilder);
     int inputFieldCount = input.getRowType().getFieldCount();
     RelDataType inputType = input.getRowType();
 
-    final int timestampIdx = tumbleHintOpt
-        .map(tumbleHint -> tumbleHint.getWindowFunctionIdx())
-        .orElseGet(() -> slideHintOpt.get().getTimestampIdx());
-
-    tumbleHintOpt.ifPresentOrElse(
-        tumbleHint -> handleTumbleWindow(timestampIdx, tumbleHint, input,  relBuilder),
-        () -> handleSlidingWindow(timestampIdx, slideHintOpt.get(), input, relBuilder));
-
+    int timestampIdx = -1; //preconditions checks that exactly one window hint is defined so timestampIdx will be set
+    if (tumbleHintOpt.isPresent()) {
+      timestampIdx =  tumbleHintOpt.get().getWindowFunctionIdx();
+      handleTumbleWindow(timestampIdx, tumbleHintOpt.get(), input,  relBuilder);
+    } else if (slideHintOpt.isPresent()) {
+      timestampIdx = slideHintOpt.get().getTimestampIdx();
+      handleSlidingWindow(timestampIdx, slideHintOpt.get(), input, relBuilder);
+    } else if (sessionHintOpt.isPresent()) {
+      timestampIdx = sessionHintOpt.get().getWindowFunctionIdx();
+      handleSessionWindow(timestampIdx, sessionHintOpt.get(), input,  relBuilder);
+    }
     applyWindowedGroupingAndProjection(relBuilder, rexBuilder, inputType, groupBy,
         aggCalls, inputFieldCount, timestampIdx);
   }
@@ -85,6 +98,7 @@ public class ExpandWindowHintRule extends RelRule<ExpandWindowHintRule.Config>
     return relBuilder.getRexBuilder();
   }
 
+  //ECH: project the fields in group by and the flink-added field (window_time, window_start, window_end)
   public void applyWindowedGroupingAndProjection(RelBuilder relBuilder,
       RexBuilder rexBuilder, RelDataType inputType, ImmutableBitSet groupBy,
       List<AggregateCall> aggCalls, int inputFieldCount, int timestampIdx) {
@@ -148,6 +162,22 @@ public class ExpandWindowHintRule extends RelRule<ExpandWindowHintRule.Config>
     makeWindow(relBuilder, windowFunction, timestampIdx, intervalsMs);
   }
 
+  private void handleSessionWindow(int windowTimestampIdx, SessionAggregationHint sessionHint, RelNode input, RelBuilder relBuilder) {
+    SqlOperator windowFunction = FlinkSqlOperatorTable.SESSION;
+    relBuilder.push(input);
+    long[] windowDef;
+    if (sessionHint.getType() == SessionAggregationHint.Type.FUNCTION) {
+      windowDef = new long[]{sessionHint.getWindowGapMs()};
+    } else if (sessionHint.getType() == SessionAggregationHint.Type.INSTANT) {
+      windowDef = new long[]{1};
+      Preconditions.checkArgument(sessionHint.getInputTimestampIdx() == windowTimestampIdx);
+    } else {
+      throw new UnsupportedOperationException(
+              "Invalid session window type: " + sessionHint.getType());
+    }
+    makeWindow(relBuilder, windowFunction, sessionHint.getInputTimestampIdx(), windowDef);
+
+  }
   private void handleRegularAggregation(RelBuilder relBuilder,
       ImmutableBitSet groupBy, List<AggregateCall> aggCalls, RelNode input) {
     relBuilder.push(input);
@@ -164,7 +194,7 @@ public class ExpandWindowHintRule extends RelRule<ExpandWindowHintRule.Config>
 
     //this window functions adds 3 columns to end of relation: window_start/_end/_time
     //TODO: This should actually be a COLLECTION_TABLE + a call to tumble function
-    relBuilder.functionScan(FlinkSqlOperatorTable.TUMBLE, 1, operandList);
+    relBuilder.functionScan(operator, 1, operandList);
     LogicalTableFunctionScan tfs = (LogicalTableFunctionScan) relBuilder.build();
 
     //Flink expects an inputref for the last column of the original relation as the first operand
@@ -177,6 +207,7 @@ public class ExpandWindowHintRule extends RelRule<ExpandWindowHintRule.Config>
     return relBuilder;
   }
 
+  //TODO ECH: how does the interval merging work with session windows ?
   private List<RexNode> createOperandList(RexBuilder rexBuilder, RelNode input,
       int timestampIdx, long[] intervalsMs) {
     List<RexNode> operandList = new ArrayList<>();
