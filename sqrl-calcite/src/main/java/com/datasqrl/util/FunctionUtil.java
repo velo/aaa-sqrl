@@ -1,9 +1,6 @@
 package com.datasqrl.util;
 
-import com.datasqrl.function.FunctionMetadata;
-import com.datasqrl.function.IndexableFunction;
-import com.datasqrl.function.InputPreservingFunction;
-import com.datasqrl.function.SqrlTimeTumbleFunction;
+import com.datasqrl.function.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -53,5 +50,10 @@ public class FunctionUtil {
   public static Optional<SqrlTimeTumbleFunction> getSqrlTimeTumbleFunction(
       FunctionDefinition functionDefinition) {
     return getFunctionMetaData(functionDefinition, SqrlTimeTumbleFunction.class);
+  }
+
+  public static Optional<SqrlTimeSessionFunction> getSqrlTimeSessionFunction(
+          FunctionDefinition functionDefinition) {
+    return getFunctionMetaData(functionDefinition, SqrlTimeSessionFunction.class);
   }
 }

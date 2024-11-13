@@ -496,6 +496,8 @@ public class SQRLLogicalPlanRewriter extends AbstractSqrlRelShuttle<AnnotatedLP>
         timestampBuilder.candidate(exp.i);
       } else if ((timeWindow = TimestampAnalysis.extractTumbleWindow(exp.i, mapRex, rexUtil.getBuilder(), input.timestamp)).isPresent()) {
         timeWindows.add(timeWindow.get());
+      } else if ((timeWindow = TimestampAnalysis.extractSessionWindow(exp.i, mapRex, rexUtil.getBuilder(), input.timestamp)).isPresent()) {
+        timeWindows.add(timeWindow.get());
       }
     }
     //Make sure we pull the primary keys through (i.e. append those to the projects if not already present)

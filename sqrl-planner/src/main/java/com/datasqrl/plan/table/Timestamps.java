@@ -172,6 +172,27 @@ public class Timestamps {
   }
 
   /**
+   * A time window created by a {@link com.datasqrl.function.SqrlTimeSessionFunction}.
+   */
+  @Value
+  public static class SimpleSessionWindow implements TimeWindow {
+
+    int windowIndex;
+    int timestampIndex;
+    long windowGapMillis;
+
+    @Override
+    public TimeWindow withTimestampIndex(int newIndex) {
+      return new SimpleSessionWindow(this.windowIndex, newIndex, this.windowGapMillis);
+    }
+
+    @Override
+    public boolean qualifiesWindow(List<Integer> indexes) {
+      return indexes.contains(windowIndex);
+    }
+  }
+
+  /**
    * A time-window created by one of Flink's TVF window functions
    */
   @Value

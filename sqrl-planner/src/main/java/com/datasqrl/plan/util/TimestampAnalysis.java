@@ -3,6 +3,7 @@
  */
 package com.datasqrl.plan.util;
 
+import com.datasqrl.function.SqrlTimeSessionFunction;
 import com.datasqrl.function.SqrlTimeTumbleFunction;
 import com.datasqrl.plan.table.Timestamps;
 import com.datasqrl.util.CalciteUtil;
@@ -92,6 +93,45 @@ public class TimestampAnalysis {
     SqrlTimeTumbleFunction.Specification spec = tumbleFct.getSpecification(operandValues);
     return Optional.of(new Timestamps.SimpleTumbleWindow(index, timestampIdx, spec.getWindowWidthMillis(),
             spec.getWindowOffsetMillis()));
+  }
+
+
+  //TODO avoid code duplication between tumble and session window (notably on operands management)
+  public static Optional<Timestamps.TimeWindow> extractSessionWindow(int windowIndex, RexNode rexNode, RexBuilder rexBuilder, Timestamps timestamps) {
+    if (!(rexNode instanceof RexCall)) {
+      return Optional.empty();
+    }
+    RexCall call = (RexCall) rexNode;
+    Optional<SqrlTimeSessionFunction> fnc = FunctionUtil.getBridgedFunction(call.getOperator())
+            .flatMap(FunctionUtil::getSqrlTimeSessionFunction);
+    if (fnc.isEmpty()) {
+      return Optional.empty();
+    }
+    SqrlTimeSessionFunction tumbleFct = fnc.get();
+    //Validate time bucketing function: First argument is timestamp, all others must be constants
+    Preconditions.checkArgument(call.getOperands().size() > 0,
+            "Tumble window function must have at least one argument");
+    RexNode timestamp = call.getOperands().get(0);
+    Optional<Integer> optIndex = CalciteUtil.getNonAlteredInputRef(timestamp);
+    if (optIndex.isEmpty() || !timestamps.isCandidate(optIndex.get())) {
+      return Optional.empty();
+    }
+    int timestampIdx = optIndex.get();
+    List<RexNode> operands = new ArrayList<>();
+    for (int i = 1; i < call.getOperands().size(); i++) {
+      RexNode operand = call.getOperands().get(i);
+      Preconditions.checkArgument(RexUtil.isConstant(operand),
+              "All non-timestamp arguments must be constants");
+      operands.add(operand);
+    }
+    long[] operandValues = new long[0];
+    if (!operands.isEmpty()) {
+      ExpressionReducer reducer = new ExpressionReducer();
+      operandValues = reducer.reduce2Long(rexBuilder,
+              operands); //throws exception if arguments cannot be reduced
+    }
+    SqrlTimeSessionFunction.Specification spec = tumbleFct.getSpecification(operandValues);
+    return Optional.of(new Timestamps.SimpleSessionWindow(windowIndex, timestampIdx, spec.getWindowGapMillis()));
   }
 
 
