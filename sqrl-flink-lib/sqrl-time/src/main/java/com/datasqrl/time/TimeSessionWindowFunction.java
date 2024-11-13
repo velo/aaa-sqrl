@@ -44,6 +44,6 @@ public abstract class TimeSessionWindowFunction extends ScalarFunction implement
     ZonedDateTime time = ZonedDateTime.ofInstant(instant, ZoneOffset.UTC);
     final ZonedDateTime endOfWindow = time.plus(gap, gapUnit);
     return endOfWindow.minusNanos(1).toInstant();
-    //TODO how do Flink merges session windows based on the last timestamp of the windows ?
+    //TODO ECH how do Flink merges session windows based on the last timestamp of the windows ?
   }
 }
