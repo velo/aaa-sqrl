@@ -18,4 +18,5 @@ public class TimeFunctions {
   public static final EndOfWeek END_OF_WEEK = new EndOfWeek();
   public static final EndOfMonth END_OF_MONTH = new EndOfMonth();
   public static final EndOfYear END_OF_YEAR = new EndOfYear();
+  public static final EndOfSession END_OF_SESSION = new EndOfSession();
 }
