@@ -74,6 +74,7 @@ public class ExpandWindowHintRule extends RelRule<ExpandWindowHintRule.Config>
       RelNode input) {
     // ECH: input is the window aggregation
     // ECH: exactly one window hint (one type of window)
+    //TODO compute boolean for only one hint
     Preconditions.checkArgument(tumbleHintOpt.isPresent() ^ slideHintOpt.isPresent() ^ sessionHintOpt.isPresent());
     RexBuilder rexBuilder = getRexBuilder(relBuilder);
     int inputFieldCount = input.getRowType().getFieldCount();
@@ -166,15 +167,7 @@ public class ExpandWindowHintRule extends RelRule<ExpandWindowHintRule.Config>
     SqlOperator windowFunction = FlinkSqlOperatorTable.SESSION;
     relBuilder.push(input);
     long[] windowDef;
-    if (sessionHint.getType() == SessionAggregationHint.Type.FUNCTION) {
-      windowDef = new long[]{sessionHint.getWindowGapMs()};
-    } else if (sessionHint.getType() == SessionAggregationHint.Type.INSTANT) {
-      windowDef = new long[]{1};
-      Preconditions.checkArgument(sessionHint.getInputTimestampIdx() == windowTimestampIdx);
-    } else {
-      throw new UnsupportedOperationException(
-              "Invalid session window type: " + sessionHint.getType());
-    }
+    windowDef = new long[]{sessionHint.getWindowGapMs()};
     makeWindow(relBuilder, windowFunction, sessionHint.getInputTimestampIdx(), windowDef);
 
   }

@@ -12,30 +12,23 @@ import org.apache.calcite.rel.hint.RelHint;
 @AllArgsConstructor
 public class SessionAggregationHint implements SqrlHint {
 
-  //TODO ECH: what is the instant aggregation type ?
-  public enum Type {FUNCTION, INSTANT}
 
   @Getter
   final int windowFunctionIdx;
-  @Getter
-  final Type type;
+
   @Getter
   final int inputTimestampIdx;
   @Getter
   final long windowGapMs;
 
-  public static SessionAggregationHint instantOf(int timestampIdx) {
-    return new SessionAggregationHint(timestampIdx, Type.INSTANT, timestampIdx, 1);
-  }
-
   public static SessionAggregationHint functionOf(int windowFunctionIdx, int inputTimestampIdx, long windowGapMs) {
-    return new SessionAggregationHint(windowFunctionIdx, Type.FUNCTION, inputTimestampIdx, windowGapMs);
+    return new SessionAggregationHint(windowFunctionIdx, inputTimestampIdx, windowGapMs);
   }
 
   @Override
   public RelHint getHint() {
     return RelHint.builder(getHintName())
-        .hintOptions(List.of(String.valueOf(windowFunctionIdx), String.valueOf(type),
+        .hintOptions(List.of(String.valueOf(windowFunctionIdx),
             String.valueOf(inputTimestampIdx), String.valueOf(windowGapMs))).build();
   }
 
@@ -58,10 +51,9 @@ public class SessionAggregationHint implements SqrlHint {
     @Override
     public SessionAggregationHint fromHint(RelHint hint) {
       List<String> options = hint.listOptions;
-      Preconditions.checkArgument(options.size() == 4, "Invalid hint: %s", hint);
+      Preconditions.checkArgument(options.size() == 3, "Invalid hint: %s", hint);
       return new SessionAggregationHint(Integer.valueOf(options.get(0)),
-          Type.valueOf(options.get(1)),
-          Integer.valueOf(options.get(2)), Long.valueOf(options.get(3)));
+          Integer.valueOf(options.get(1)), Long.valueOf(options.get(2)));
     }
   }
 

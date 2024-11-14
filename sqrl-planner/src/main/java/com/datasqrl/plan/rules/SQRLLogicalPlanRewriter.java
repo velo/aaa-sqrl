@@ -1129,21 +1129,8 @@ public class SQRLLogicalPlanRewriter extends AbstractSqrlRelShuttle<AnnotatedLP>
       Timestamps newTimestamp = Timestamps.ofFixed(keyIdx);
       // Now filters must be on the timestamp - otherwise we need to inline them
       NowFilter nowFilter = NowFilter.EMPTY;
-      if (!input.nowFilter.isEmpty()) {
-        if (input.nowFilter.getTimestampIndex() != simpleWindow.getTimestampIndex()) {
-          input = input.inlineNowFilter(makeRelBuilder(), exec);
-        } else {
-          long intervalExpansion = simpleWindow.getWindowGapMillis();
-          // Update new Filter with expansion based on time window
-          nowFilter =
-                  input.nowFilter.map(tp -> new TimePredicate(
-                                            tp.getSmallerIndex(),
-                                            keyIdx,
-                                            tp.getComparison(),
-                                tp.getIntervalLength() + intervalExpansion));
-        }
-      }
-
+      input = input.inlineNowFilter(makeRelBuilder(), exec);
+      // nowfilters cannot pushed to session windows because of variable width
       RelBuilder relB = makeRelBuilder();
       relB.push(input.relNode);
       relB.aggregate(relB.groupKey(Ints.toArray(groupByIdx)), aggregateCalls);

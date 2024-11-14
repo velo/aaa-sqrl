@@ -4,20 +4,7 @@
 package com.datasqrl.functions.time;
 
 import static com.datasqrl.NamespaceObjectUtil.createFunctionFromStdOpTable;
-import static com.datasqrl.time.TimeFunctions.AT_ZONE;
-import static com.datasqrl.time.TimeFunctions.END_OF_DAY;
-import static com.datasqrl.time.TimeFunctions.END_OF_HOUR;
-import static com.datasqrl.time.TimeFunctions.END_OF_MINUTE;
-import static com.datasqrl.time.TimeFunctions.END_OF_MONTH;
-import static com.datasqrl.time.TimeFunctions.END_OF_SECOND;
-import static com.datasqrl.time.TimeFunctions.END_OF_WEEK;
-import static com.datasqrl.time.TimeFunctions.END_OF_YEAR;
-import static com.datasqrl.time.TimeFunctions.EPOCH_MILLI_TO_TIMESTAMP;
-import static com.datasqrl.time.TimeFunctions.EPOCH_TO_TIMESTAMP;
-import static com.datasqrl.time.TimeFunctions.STRING_TO_TIMESTAMP;
-import static com.datasqrl.time.TimeFunctions.TIMESTAMP_TO_EPOCH;
-import static com.datasqrl.time.TimeFunctions.TIMESTAMP_TO_EPOCH_MILLI;
-import static com.datasqrl.time.TimeFunctions.TIMESTAMP_TO_STRING;
+import static com.datasqrl.time.TimeFunctions.*;
 
 import com.datasqrl.NamespaceObjectUtil;
 import com.datasqrl.canonicalizer.NamePath;
@@ -47,7 +34,8 @@ public class StdTimeLibraryImpl extends AbstractFunctionModule implements StdLib
       END_OF_DAY,
       END_OF_WEEK,
       END_OF_MONTH,
-      END_OF_YEAR
+      END_OF_YEAR,
+      END_OF_SESSION
   );
 
   private static List<NamespaceObject> SQL_FUNCTIONS = List.of(
