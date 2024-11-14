@@ -207,12 +207,12 @@ public class ExpandWindowHintRule extends RelRule<ExpandWindowHintRule.Config>
     return relBuilder;
   }
 
-  //TODO ECH: how does the interval merging work with session windows ?
+  //TODO ECH: how does the interval merging work with session windows cf TimeSessionWindowFunction ?
   private List<RexNode> createOperandList(RexBuilder rexBuilder, RelNode input,
       int timestampIdx, long[] intervalsMs) {
     List<RexNode> operandList = new ArrayList<>();
-    operandList.add(rexBuilder.makeRangeReference(input));
-    operandList.add(rexBuilder.makeCall(FlinkSqlOperatorTable.DESCRIPTOR,
+    operandList.add(rexBuilder.makeRangeReference(input)); //ECH all the columns of the aggregation
+    operandList.add(rexBuilder.makeCall(FlinkSqlOperatorTable.DESCRIPTOR, //ECH the timestamp
         rexBuilder.makeInputRef(input, timestampIdx)));
     for (long intervalArg : intervalsMs) {
       operandList.add(CalciteUtil.makeTimeInterval(intervalArg, rexBuilder));

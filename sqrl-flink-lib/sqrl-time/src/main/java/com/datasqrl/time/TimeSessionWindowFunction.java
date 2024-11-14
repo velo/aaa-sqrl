@@ -31,7 +31,7 @@ public abstract class TimeSessionWindowFunction extends ScalarFunction implement
   }
 
   /**
-   * Gives the last timestamp of the window based on the instant timestamp
+   * Gives the last timestamp of the interval based on the instant timestamp
    * (e.g. last timespamp of the window containing input timestamp t=5s element with gap=10s is t=15s - 1 nano second)
    * @param instant input timestamp
    * @param gap gap duration in {@code gapUnit} unit
@@ -42,8 +42,13 @@ public abstract class TimeSessionWindowFunction extends ScalarFunction implement
     Preconditions.checkArgument(gap > 0, "Gap duration must be positive: %s", gap);
 
     ZonedDateTime time = ZonedDateTime.ofInstant(instant, ZoneOffset.UTC);
-    final ZonedDateTime endOfWindow = time.plus(gap, gapUnit);
-    return endOfWindow.minusNanos(1).toInstant();
-    //TODO ECH how do Flink merges session windows based on the last timestamp of the windows ?
+    final ZonedDateTime endOfInterval = time.plus(gap, gapUnit);
+    return endOfInterval.minusNanos(1).toInstant();
+    //TODO ECH: sessions windows do not overlap (an element is inside only one window).
+    // functionally: if no element arrives for gapDuration in event time then next element will belong to the next session window.
+    // technically: this window is determined by the intersection of the intervals: e.g.
+    // e1(t=1) and e2(t=4) are in the same session window of 5s gap because [1, 6] intersects [4, 9]
+    // e3(t=10) is in the next session because [10, 15] do not intersect with [1, 6] and [4, 9]
+    // => It is Flink which does intervals merging ?
   }
 }

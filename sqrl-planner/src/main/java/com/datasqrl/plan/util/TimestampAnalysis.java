@@ -96,7 +96,7 @@ public class TimestampAnalysis {
   }
 
 
-  //TODO ECH avoid code duplication between tumble and session window (notably on operands management)
+  //TODO ECH fix code duplication between tumble and session window (notably on operands management)
   public static Optional<Timestamps.TimeWindow> extractSessionWindow(int windowIndex, RexNode rexNode, RexBuilder rexBuilder, Timestamps timestamps) {
     if (!(rexNode instanceof RexCall)) {
       return Optional.empty();
