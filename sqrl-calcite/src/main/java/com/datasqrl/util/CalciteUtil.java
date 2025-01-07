@@ -336,7 +336,7 @@ public class CalciteUtil {
 
   }
 
-  public static RexNode makeTimeInterval(long interval_ms, RexBuilder rexBuilder) { //ECH: makes an interval of duration=interval_ms
+  public static RexNode makeTimeInterval(long interval_ms, RexBuilder rexBuilder) { // makes an interval of duration=interval_ms
     String intervalStr = Long.toString(interval_ms);
     SqlIntervalQualifier sqlIntervalQualifier =
         new SqlIntervalQualifier(TimeUnit.SECOND, getPrecision(intervalStr), TimeUnit.SECOND,

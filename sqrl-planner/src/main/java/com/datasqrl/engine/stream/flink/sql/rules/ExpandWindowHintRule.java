@@ -43,9 +43,9 @@ public class ExpandWindowHintRule extends RelRule<ExpandWindowHintRule.Config>
   @Override
   public void onMatch(RelOptRuleCall relOptRuleCall) {
     RelBuilder relBuilder = relOptRuleCall.builder();
-    LogicalAggregate aggregate = relOptRuleCall.rel(0); // ECH: the group by
-    RelNode input = relOptRuleCall.rel(1); // ECH: the expression matched by the rule
-    // ECH extract all the window hints, getting empty optionals when not present
+    LogicalAggregate aggregate = relOptRuleCall.rel(0); // the group by
+    RelNode input = relOptRuleCall.rel(1); // the expression matched by the rule
+    // extract all the window hints, getting empty optionals when not present
     Optional<TumbleAggregationHint> tumbleHintOpt = SqrlHint.fromRel(aggregate,
         TumbleAggregationHint.CONSTRUCTOR);
     Optional<SlidingAggregationHint> slideHintOpt = SqrlHint.fromRel(aggregate,
@@ -72,10 +72,12 @@ public class ExpandWindowHintRule extends RelRule<ExpandWindowHintRule.Config>
       ImmutableBitSet groupBy,
       List<AggregateCall> aggCalls,
       RelNode input) {
-    // ECH: input is the window aggregation
-    // ECH: exactly one window hint (one type of window)
-    //TODO compute boolean for only one hint
-    Preconditions.checkArgument(tumbleHintOpt.isPresent() ^ slideHintOpt.isPresent() ^ sessionHintOpt.isPresent());
+    // input is the window aggregation
+    // exactly one window hint (one type of window)
+    boolean exactlyOneHintPresent = (tumbleHintOpt.isPresent() ? 1 : 0) +
+            (slideHintOpt.isPresent() ? 1 : 0) +
+            (sessionHintOpt.isPresent() ? 1 : 0) == 1;
+    Preconditions.checkArgument(exactlyOneHintPresent, "Exactly one window hint must be present");
     RexBuilder rexBuilder = getRexBuilder(relBuilder);
     int inputFieldCount = input.getRowType().getFieldCount();
     RelDataType inputType = input.getRowType();
@@ -99,7 +101,7 @@ public class ExpandWindowHintRule extends RelRule<ExpandWindowHintRule.Config>
     return relBuilder.getRexBuilder();
   }
 
-  //ECH: project the fields in group by and the flink-added field (window_time, window_start, window_end)
+  // project the fields in group by and the flink-added field (window_time, window_start, window_end)
   public void applyWindowedGroupingAndProjection(RelBuilder relBuilder,
       RexBuilder rexBuilder, RelDataType inputType, ImmutableBitSet groupBy,
       List<AggregateCall> aggCalls, int inputFieldCount, int timestampIdx) {
@@ -163,6 +165,7 @@ public class ExpandWindowHintRule extends RelRule<ExpandWindowHintRule.Config>
     makeWindow(relBuilder, windowFunction, timestampIdx, intervalsMs);
   }
 
+  // TODO ECH: fix, the output flink plan uses the alias field instead of the normal name.
   private void handleSessionWindow(int windowTimestampIdx, SessionAggregationHint sessionHint, RelNode input, RelBuilder relBuilder) {
     SqlOperator windowFunction = FlinkSqlOperatorTable.SESSION;
     relBuilder.push(input);
@@ -200,12 +203,11 @@ public class ExpandWindowHintRule extends RelRule<ExpandWindowHintRule.Config>
     return relBuilder;
   }
 
-  //TODO ECH: how does the interval merging work with session windows cf TimeSessionWindowFunction ?
   private List<RexNode> createOperandList(RexBuilder rexBuilder, RelNode input,
       int timestampIdx, long[] intervalsMs) {
     List<RexNode> operandList = new ArrayList<>();
-    operandList.add(rexBuilder.makeRangeReference(input)); //ECH all the columns of the aggregation
-    operandList.add(rexBuilder.makeCall(FlinkSqlOperatorTable.DESCRIPTOR, //ECH the timestamp
+    operandList.add(rexBuilder.makeRangeReference(input)); // all the columns of the aggregation
+    operandList.add(rexBuilder.makeCall(FlinkSqlOperatorTable.DESCRIPTOR, // the timestamp
         rexBuilder.makeInputRef(input, timestampIdx)));
     for (long intervalArg : intervalsMs) {
       operandList.add(CalciteUtil.makeTimeInterval(intervalArg, rexBuilder));

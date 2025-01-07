@@ -27,7 +27,7 @@ public interface SqrlHint {
   }
 
   static <H extends SqrlHint> Optional<H> fromRel(RelNode node,
-      SqrlHint.Constructor<H> hintConstructor) { //ECH: extract the hint from the relnode if present and corresponds to the provided hint constructor
+      SqrlHint.Constructor<H> hintConstructor) { // extract the hint from the relnode if present and corresponds to the provided hint constructor
     if (node instanceof Hintable) {
       return ((Hintable) node).getHints().stream()
           .filter(h -> hintConstructor.validName(h.hintName))

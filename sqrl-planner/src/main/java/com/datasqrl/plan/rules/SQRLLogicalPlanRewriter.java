@@ -1118,7 +1118,7 @@ public class SQRLLogicalPlanRewriter extends AbstractSqrlRelShuttle<AnnotatedLP>
       Timestamps.SimpleSessionWindow simpleWindow = (Timestamps.SimpleSessionWindow) window;
 
       // This must exist otherwise the window would not have matched
-      // ECH: window need to be in the group by clause
+      // window needs to be in the group by clause
       int keyIdx =
               IntStream.range(0, groupByIdx.size())
                       .filter(idx -> groupByIdx.get(idx) == simpleWindow.getWindowIndex())
