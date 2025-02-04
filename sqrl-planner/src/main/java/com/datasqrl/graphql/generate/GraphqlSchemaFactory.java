@@ -70,7 +70,7 @@ import org.apache.commons.collections.ListUtils;
 import scala.annotation.meta.field;
 
 /**
- * Creates a default graphql schema based on the SQRL schema
+ * Creates a default graphql schema based on the SQRL schema/
  */
 @Slf4j
 public class GraphqlSchemaFactory {
