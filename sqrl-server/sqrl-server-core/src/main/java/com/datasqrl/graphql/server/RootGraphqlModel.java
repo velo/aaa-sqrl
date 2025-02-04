@@ -21,6 +21,9 @@ import lombok.Setter;
 import lombok.Singular;
 import lombok.ToString;
 
+/**
+ * .
+ */
 @Getter
 @Builder
 public class RootGraphqlModel {
