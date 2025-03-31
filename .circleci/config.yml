@@ -15,17 +15,11 @@ commands:
 
 jobs:
   build-and-test:
-    docker:
-      - image: cimg/openjdk:11.0
-        environment:
-          DOCKER_HOST: unix:///var/run/docker.sock
-      - image: docker:20.10.24-dind
-        environment:
-          DOCKER_TLS_CERTDIR: ""
+    machine:
+      image: ubuntu-2004:202111-02  # Includes Docker and OpenJDK 11
+      resource_class: large
     environment:
       TZ: America/Los_Angeles
-      TESTCONTAINERS_HOST_OVERRIDE: localhost
-    resource_class: large
     steps:
       - checkout
       - download-dependencies
