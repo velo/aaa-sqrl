@@ -7,20 +7,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.commons.lang3.ArrayUtils;
+import org.junit.jupiter.api.TestInfo;
+
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
+
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ArrayUtils;
-import org.junit.jupiter.api.TestInfo;
 
 @Slf4j
 public class SnapshotTest {

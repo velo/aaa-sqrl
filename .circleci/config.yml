@@ -26,52 +26,63 @@ jobs:
     steps:
       - checkout
       - download-dependencies
-      - persist_to_workspace:
-          root: .
+      - save_cache:
           paths:
-            - .
+            - ~/.m2/repository
+          key: sqrl-dependencies-{{ checksum "pom.xml" }}
 
   unit-tests:
     executor: default-machine
     steps:
-      - attach_workspace:
-          at: .
+      - checkout
+      - restore_cache:
+          keys:
+            - sqrl-dependencies-{{ checksum "pom.xml" }}
+            - sqrl-dependencies-
       - run:
           name: Install and Run Unit Tests
           command: mvn -T 1 -B install -DskipITs -Pskip-shade-plugin
           environment:
             DATASQRL_TOKEN: $DATASQRL_TOKEN
       - run:
-          name: Gather Unit Test Results
+          name: Save test results
           command: |
-            mkdir -p test-results/unit-tests
-            find . -type d -path '*/target/surefire-reports' -exec cp -r {} test-results/unit-tests/ \;
+            mkdir -p ~/test-results/junit/
+            find . -type f -regex ".*/target/surefire-reports/TEST.*xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
       - store_test_results:
-          path: test-results/unit-tests
+          path: ~/test-results
 
   integration-tests:
     executor: default-machine
     steps:
-      - attach_workspace:
-          at: .
+      - checkout
+      - restore_cache:
+          keys:
+            - sqrl-dependencies-{{ checksum "pom.xml" }}
+            - sqrl-dependencies-
       - run:
           name: Install and Run Integration Tests
           command: mvn -T 1 -B install -Dtest=skip -Dsurefire.failIfNoSpecifiedTests=false -Pskip-shade-plugin
           environment:
             DATASQRL_TOKEN: $DATASQRL_TOKEN
       - run:
-          name: Gather Integration Test Results
+          name: Save test results
           command: |
-            mkdir -p test-results/integration-tests
-            find . -type d -path '*/target/failsafe-reports' -exec cp -r {} test-results/integration-tests/ \;
+            mkdir -p ~/test-results/junit/
+            find . -type f -regex ".*/target/failsafe-reports/TEST.*xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
       - store_test_results:
-          path: test-results/integration-tests
+          path: ~/test-results
 
   build-test-image:
     executor: default-machine
     steps:
-      - attach_workspace:
-          at: .
+      - checkout
+      - restore_cache:
+          keys:
+            - sqrl-dependencies-{{ checksum "pom.xml" }}
+            - sqrl-dependencies-
       - run:
           name: Install and Build Shaded JAR
           command: mvn clean -T 1 -B install -DskipTests -DskipITs
@@ -94,6 +105,7 @@ jobs:
   run-conference-tests:
     executor: default-machine
     steps:
+      - checkout
       - attach_workspace:
           at: .
       - run:
@@ -108,6 +120,7 @@ jobs:
   run-udf-tests:
     executor: default-machine
     steps:
+      - checkout
       - attach_workspace:
           at: .
       - run:
