@@ -112,10 +112,10 @@ jobs:
           name: Load Docker Image
           command: docker load -i sqrl-test.tar
       - run:
-          name: Run Conference Tests
+          name: Run Banking Tests
           command: |
-            docker run -i --rm -v $PWD:/build sqrl-test test conference.sqrl conference.graphqls --snapshot snapshots-conference --tests tests-conference
-          working_directory: ./sqrl-testing/sqrl-integration-tests/src/test/resources/usecases/conference
+            docker run -i --rm -v $PWD:/build sqrl-test test loan.sqrl loan.graphqls --snapshot snapshots-loan --tests tests-loan
+          working_directory: ./sqrl-testing/sqrl-integration-tests/src/test/resources/usecases/banking
 
   run-udf-tests:
     executor: default-machine
