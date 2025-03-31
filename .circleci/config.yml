@@ -17,17 +17,13 @@ jobs:
   build-and-test:
     docker:
       - image: cimg/openjdk:11.0
-        # Ensure Docker daemon is available
         environment:
           DOCKER_HOST: unix:///var/run/docker.sock
-    # Secondary Docker service image for DinD
-    # This provides the Docker daemon that Testcontainers will use
       - image: docker:20.10.24-dind
         environment:
-          DOCKER_TLS_CERTDIR: "" # Disable TLS for simplicity
+          DOCKER_TLS_CERTDIR: ""
     environment:
       TZ: America/Los_Angeles
-      # Optional: Configure Testcontainers to use the Docker daemon explicitly
       TESTCONTAINERS_HOST_OVERRIDE: localhost
     resource_class: large
     steps:
@@ -61,7 +57,75 @@ jobs:
               echo "Test passed."
             fi
 
-  # ... (other jobs remain unchanged)
+  latest-docker-build:
+    docker:
+      - image: cimg/openjdk:11.0
+    environment:
+      TZ: America/Los_Angeles
+    steps:
+      - checkout
+      - download-dependencies
+      - run:
+          name: Build SQRL
+          command: mvn -T 1 -B -U -e clean package
+          environment:
+            DATASQRL_TOKEN: $DATASQRL_TOKEN
+      - docker/install-docker-tools
+      - docker/build:
+          image: datasqrl/cmd
+          tag: dev
+          dockerfile: sqrl-tools/Dockerfile
+          path: sqrl-tools
+          extra_build_args: --platform=linux/amd64,linux/arm64
+      - docker/build:
+          image: datasqrl/sqrl-server
+          tag: dev
+          dockerfile: sqrl-server/sqrl-server-vertx/Dockerfile
+          path: sqrl-server/sqrl-server-vertx
+          extra_build_args: --platform=linux/amd64,linux/arm64
+      - docker/push:
+          image: datasqrl/cmd
+          tag: dev
+      - docker/push:
+          image: datasqrl/sqrl-server
+          tag: dev
+
+  tag-docker-build:
+    docker:
+      - image: cimg/openjdk:11.0
+    steps:
+      - checkout
+      - download-dependencies
+      - run:
+          name: Build SQRL
+          command: mvn -T 1 -B -U -e clean package -DskipTests=true
+          environment:
+            DATASQRL_TOKEN: $DATASQRL_TOKEN
+      - docker/install-docker-tools
+      - docker/build:
+          image: datasqrl/cmd
+          tag: "$CIRCLE_TAG,latest"
+          dockerfile: sqrl-tools/Dockerfile
+          path: sqrl-tools
+          extra_build_args: --platform=linux/amd64,linux/arm64
+      - docker/build:
+          image: datasqrl/sqrl-server
+          tag: "$CIRCLE_TAG,latest"
+          dockerfile: sqrl-server/sqrl-server-vertx/Dockerfile
+          path: sqrl-server/sqrl-server-vertx
+          extra_build_args: --platform=linux/amd64,linux/arm64
+      - docker/push:
+          image: datasqrl/cmd
+          tag: "$CIRCLE_TAG"
+      - docker/push:
+          image: datasqrl/cmd
+          tag: latest
+      - docker/push:
+          image: datasqrl/sqrl-server
+          tag: "$CIRCLE_TAG"
+      - docker/push:
+          image: datasqrl/sqrl-server
+          tag: latest
 
 workflows:
   pull-request-workflow:
@@ -74,7 +138,7 @@ workflows:
   main-branch-workflow:
     jobs:
       - latest-docker-build:
-          context: docker 阳-hub
+          context: docker-hub
           filters:
             branches:
               only:
