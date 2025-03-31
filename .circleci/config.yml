@@ -25,6 +25,9 @@ jobs:
     executor: default-machine
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - sqrl-dependencies-{{ checksum "pom.xml" }}
       - download-dependencies
       - save_cache:
           paths:
@@ -38,7 +41,6 @@ jobs:
       - restore_cache:
           keys:
             - sqrl-dependencies-{{ checksum "pom.xml" }}
-            - sqrl-dependencies-
       - run:
           name: Install and Run Unit Tests
           command: mvn -T 1 -B install -DskipITs -Pskip-shade-plugin
@@ -60,7 +62,6 @@ jobs:
       - restore_cache:
           keys:
             - sqrl-dependencies-{{ checksum "pom.xml" }}
-            - sqrl-dependencies-
       - run:
           name: Install and Run Integration Tests
           command: mvn -T 1 -B install -Dtest=skip -Dsurefire.failIfNoSpecifiedTests=false -Pskip-shade-plugin
@@ -82,7 +83,6 @@ jobs:
       - restore_cache:
           keys:
             - sqrl-dependencies-{{ checksum "pom.xml" }}
-            - sqrl-dependencies-
       - run:
           name: Install and Build Shaded JAR
           command: mvn clean -T 1 -B install -DskipTests -DskipITs
