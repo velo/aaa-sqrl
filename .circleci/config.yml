@@ -3,11 +3,24 @@ version: 2.1
 orbs:
   docker: circleci/docker@2.2.0
 
+# Define list of stable branches to push to Docker Hub
+vars:
+  stable_branches:
+    - main
+    - sqrl-0.5.x
+
 executors:
   default-machine:
     machine:
       image: ubuntu-2004:202111-02
       resource_class: large
+    environment:
+      TZ: America/Los_Angeles
+  dlc-machine:
+    machine:
+      image: ubuntu-2004:202111-02
+      resource_class: large
+      docker_layer_caching: true
     environment:
       TZ: America/Los_Angeles
 
@@ -77,20 +90,17 @@ jobs:
           path: ~/test-results
 
   build-test-image:
-    executor: default-machine
+    executor: dlc-machine
     steps:
       - checkout
       - restore_cache:
           keys:
             - sqrl-dependencies-{{ checksum "pom.xml" }}
       - run:
-          name: Install and Build Shaded JAR
+          name: Build Shaded JAR
           command: mvn clean -T 1 -B install -DskipTests -DskipITs
           environment:
             DATASQRL_TOKEN: $DATASQRL_TOKEN
-      - run:
-          name: Download base image
-          command: docker pull eclipse-temurin:11.0.22_7-jdk
       - run:
           name: Build Docker Image
           command: docker build -t sqrl-test ./sqrl-tools
@@ -102,7 +112,7 @@ jobs:
           paths:
             - sqrl-test.tar
 
-  run-conference-tests:
+  run-banking-tests:
     executor: default-machine
     steps:
       - checkout
@@ -132,78 +142,76 @@ jobs:
             docker run -i --rm -v $PWD:/build sqrl-test test myudf.sqrl --snapshot snapshots-myudf --tests tests-myudf
           working_directory: ./sqrl-testing/sqrl-integration-tests/src/test/resources/usecases/udf
 
-  docker-build-and-push:
-    parameters:
-      build_type:
-        type: enum
-        enum: ["latest", "tag"]
-        default: "latest"
-    docker:
-      - image: cimg/openjdk:11.0
-    environment:
-      TZ: America/Los_Angeles
+  maven-deploy:
+    executor: default-machine
     steps:
       - checkout
-      - download-dependencies
+      - restore_cache:
+          keys:
+            - sqrl-dependencies-{{ checksum "pom.xml" }}
       - run:
-          name: Build SQRL
+          name: Import GPG Key
           command: |
-            if [ "<< parameters.build_type >>" = "tag" ]; then
-              mvn -T 1 -B -U -e clean package -DskipTests=true
-            else
-              mvn -T 1 -B -U -e clean package
-            fi
+            echo "$GPG_PRIVATE_KEY" | gpg --batch --import
+            echo "default-key $(gpg --list-keys --with-colons | grep pub | cut -d':' -f5)" >> ~/.gnupg/gpg.conf
+            echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
           environment:
-            DATASQRL_TOKEN: $DATASQRL_TOKEN
-      - docker/install-docker-tools
+            GPG_PRIVATE_KEY: $GPG_PRIVATE_KEY
       - run:
-          name: Set Docker Tags
+          name: Generate settings.xml
           command: |
-            if [ "<< parameters.build_type >>" = "tag" ]; then
-              echo "export CMD_TAGS='$CIRCLE_TAG,latest'" >> $BASH_ENV
-              echo "export SERVER_TAGS='$CIRCLE_TAG,latest'" >> $BASH_ENV
+            mkdir -p ~/.m2
+            echo "<settings><servers><server><id>github</id><username>$CIRCLE_USERNAME</username><password>$GITHUB_TOKEN</password></server></servers></settings>" > ~/.m2/settings.xml
+          environment:
+            GITHUB_TOKEN: $GITHUB_TOKEN
+      - run:
+          name: Deploy Existing Artifacts
+          command: |
+            find . -type f -path "*/target/*.jar" -not -name "*-sources.jar" -not -name "*-javadoc.jar" -exec mvn deploy:deploy-file -Dfile={} -DpomFile=pom.xml -DrepositoryId=github -Durl=https://maven.pkg.github.com/datasqrl/sqrl \;
+
+  tag-docker-image:
+    executor: dlc-machine
+    steps:
+      - checkout
+      - run:
+          name: Login to Docker Registry
+          command: |
+            if [[ "$CIRCLE_BRANCH" =~ ^(main|sqrl-0.5.x)$ ]]; then
+              docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
             else
-              echo "export CMD_TAGS='dev'" >> $BASH_ENV
-              echo "export SERVER_TAGS='dev'" >> $BASH_ENV
+              docker login ghcr.io -u "$GHCR_USERNAME" -p "$GHCR_TOKEN"
             fi
-      - docker/build:
-          image: datasqrl/cmd
-          tag: "$CMD_TAGS"
-          dockerfile: sqrl-tools/Dockerfile
-          path: sqrl-tools
-          extra_build_args: --platform=linux/amd64,linux/arm64
-      - docker/build:
-          image: datasqrl/sqrl-server
-          tag: "$SERVER_TAGS"
-          dockerfile: sqrl-server/sqrl-server-vertx/Dockerfile
-          path: sqrl-server/sqrl-server-vertx
-          extra_build_args: --platform=linux/amd64,linux/arm64
-      - when:
-          condition:
-            equal: [ "tag", << parameters.build_type >> ]
-          steps:
-            - docker/push:
-                image: datasqrl/cmd
-                tag: "$CIRCLE_TAG"
-            - docker/push:
-                image: datasqrl/cmd
-                tag: latest
-            - docker/push:
-                image: datasqrl/sqrl-server
-                tag: "$CIRCLE_TAG"
-            - docker/push:
-                image: datasqrl/sqrl-server
-                tag: latest
-      - when:
-          condition:
-            equal: [ "latest", << parameters.build_type >> ]
-          steps:
-            - docker/push:
-                image: datasqrl/cmd
-                tag: dev
-            - docker/push:
-                image: datasqrl/sqrl-server
-                tag: dev
+
+      - run:
+          name: Tag Docker Images
+          command: |
+            VERSION=$(mvn -q -DforceStdout help:evaluate -Dexpression=project.version)
+
+            if [[ "$CIRCLE_BRANCH" =~ ^(main|sqrl-0.5.x)$ ]]; then
+              docker tag sqrl-test datasqrl/cmd:v$VERSION
+              docker tag sqrl-test datasqrl/cmd:dev
+              docker tag sqrl-test datasqrl/sqrl-server:v$VERSION
+              docker tag sqrl-test datasqrl/sqrl-server:dev
+            else
+              docker tag sqrl-test ghcr.io/datasqrl/cmd:v$VERSION
+              docker tag sqrl-test ghcr.io/datasqrl/cmd:dev
+              docker tag sqrl-test ghcr.io/datasqrl/sqrl-server:v$VERSION
+              docker tag sqrl-test ghcr.io/datasqrl/sqrl-server:dev
+            fi
+      - run:
+          name: Push Docker Images
+          command: |
+            if [[ "$CIRCLE_BRANCH" =~ ^(main|sqrl-0.5.x)$ ]]; then
+              docker push datasqrl/cmd:v$VERSION
+              docker push datasqrl/cmd:dev
+              docker push datasqrl/sqrl-server:v$VERSION
+              docker push datasqrl/sqrl-server:dev
+            else
+              docker push ghcr.io/datasqrl/cmd:v$VERSION
+              docker push ghcr.io/datasqrl/cmd:dev
+              docker push ghcr.io/datasqrl/sqrl-server:v$VERSION
+              docker push ghcr.io/datasqrl/sqrl-server:dev
+            fi
 
 workflows:
   pull-request-workflow:
@@ -222,31 +230,26 @@ workflows:
       - build-test-image:
           requires:
             - build-base
-      - run-conference-tests:
+      - run-banking-tests:
           requires:
             - build-test-image
       - run-udf-tests:
           requires:
             - build-test-image
-
-  main-branch-workflow:
-    jobs:
-      - docker-build-and-push:
-          build_type: "latest"
-          context: docker-hub
+      - maven-deploy:
+          context: github-packages
+          requires:
+            - build-base
           filters:
             branches:
-              only:
-                - main
-                - v0.5.9-release
-
-  tag-workflow:
-    jobs:
-      - docker-build-and-push:
-          build_type: "tag"
+              only: /.*/
+      - tag-docker-image:
           context: docker-hub
+          requires:
+            - build-test-image
+            - run-banking-tests
+            - run-udf-tests
           filters:
-            tags:
-              only: /v[0-9]+(\.[0-9]+)*/
             branches:
-              ignore: /.*/
+              only: /.*/
+
