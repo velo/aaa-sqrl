@@ -1,0 +1,255 @@
+version: 2.1
+
+orbs:
+  docker: circleci/docker@2.2.0
+
+# Define list of stable branches to push to Docker Hub
+vars:
+  stable_branches:
+    - main
+    - sqrl-0.5.x
+
+executors:
+  default-machine:
+    machine:
+      image: ubuntu-2004:202111-02
+      resource_class: large
+    environment:
+      TZ: America/Los_Angeles
+  dlc-machine:
+    machine:
+      image: ubuntu-2004:202111-02
+      resource_class: large
+      docker_layer_caching: true
+    environment:
+      TZ: America/Los_Angeles
+
+commands:
+  download-dependencies:
+    description: "Download Maven dependencies"
+    steps:
+      - run:
+          name: Download dependencies
+          command: |
+            mvn -B org.apache.maven.plugins:maven-dependency-plugin:3.8.1:go-offline de.qaware.maven:go-offline-maven-plugin:1.2.8:resolve-dependencies -T3
+
+jobs:
+  build-base:
+    executor: default-machine
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - sqrl-dependencies-{{ checksum "pom.xml" }}
+      - download-dependencies
+      - save_cache:
+          paths:
+            - ~/.m2/repository
+          key: sqrl-dependencies-{{ checksum "pom.xml" }}
+
+  unit-tests:
+    executor: default-machine
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - sqrl-dependencies-{{ checksum "pom.xml" }}
+      - run:
+          name: Install and Run Unit Tests
+          command: mvn -T 1 -B install -DskipITs -Pskip-shade-plugin
+          environment:
+            DATASQRL_TOKEN: $DATASQRL_TOKEN
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/test-results/junit/
+            find . -type f -regex ".*/target/surefire-reports/TEST.*xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
+      - store_test_results:
+          path: ~/test-results
+
+  integration-tests:
+    executor: default-machine
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - sqrl-dependencies-{{ checksum "pom.xml" }}
+      - run:
+          name: Install and Run Integration Tests
+          command: mvn -T 1 -B install -Dtest=skip -Dsurefire.failIfNoSpecifiedTests=false -Pskip-shade-plugin
+          environment:
+            DATASQRL_TOKEN: $DATASQRL_TOKEN
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/test-results/junit/
+            find . -type f -regex ".*/target/failsafe-reports/TEST.*xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
+      - store_test_results:
+          path: ~/test-results
+
+  build-test-image:
+    executor: dlc-machine
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - sqrl-dependencies-{{ checksum "pom.xml" }}
+      - run:
+          name: Build Shaded JAR
+          command: mvn clean -T 1 -B install -DskipTests -DskipITs
+          environment:
+            DATASQRL_TOKEN: $DATASQRL_TOKEN
+      - run:
+          name: Build Docker Image
+          command: docker build -t sqrl-test ./sqrl-tools
+      - run:
+          name: Save Docker Image
+          command: docker save -o sqrl-test.tar sqrl-test
+      - persist_to_workspace:
+          root: .
+          paths:
+            - sqrl-test.tar
+
+  run-banking-tests:
+    executor: default-machine
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Load Docker Image
+          command: docker load -i sqrl-test.tar
+      - run:
+          name: Run Banking Tests
+          command: |
+            docker run -i --rm -v $PWD:/build sqrl-test test loan.sqrl loan.graphqls --snapshot snapshots-loan --tests tests-loan
+          working_directory: ./sqrl-testing/sqrl-integration-tests/src/test/resources/usecases/banking
+
+  run-udf-tests:
+    executor: default-machine
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Load Docker Image
+          command: docker load -i sqrl-test.tar
+      - run:
+          name: Run UDF Tests
+          command: |
+            docker run -i --rm -v $PWD:/build sqrl-test test myudf.sqrl --snapshot snapshots-myudf --tests tests-myudf
+          working_directory: ./sqrl-testing/sqrl-integration-tests/src/test/resources/usecases/udf
+
+  maven-deploy:
+    executor: default-machine
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - sqrl-dependencies-{{ checksum "pom.xml" }}
+      - run:
+          name: Import GPG Key
+          command: |
+            echo "$GPG_PRIVATE_KEY" | gpg --batch --import
+            echo "default-key $(gpg --list-keys --with-colons | grep pub | cut -d':' -f5)" >> ~/.gnupg/gpg.conf
+            echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+          environment:
+            GPG_PRIVATE_KEY: $GPG_PRIVATE_KEY
+      - run:
+          name: Generate settings.xml
+          command: |
+            mkdir -p ~/.m2
+            echo "<settings><servers><server><id>github</id><username>$CIRCLE_USERNAME</username><password>$GITHUB_TOKEN</password></server></servers></settings>" > ~/.m2/settings.xml
+          environment:
+            GITHUB_TOKEN: $GITHUB_TOKEN
+      - run:
+          name: Deploy Existing Artifacts
+          command: |
+            find . -type f -path "*/target/*.jar" -not -name "*-sources.jar" -not -name "*-javadoc.jar" -exec mvn deploy:deploy-file -Dfile={} -DpomFile=pom.xml -DrepositoryId=github -Durl=https://maven.pkg.github.com/datasqrl/sqrl \;
+
+  tag-docker-image:
+    executor: dlc-machine
+    steps:
+      - checkout
+      - run:
+          name: Login to Docker Registry
+          command: |
+            if [[ "$CIRCLE_BRANCH" =~ ^(main|sqrl-0.5.x)$ ]]; then
+              docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+            else
+              docker login ghcr.io -u "$GHCR_USERNAME" -p "$GHCR_TOKEN"
+            fi
+
+      - run:
+          name: Tag Docker Images
+          command: |
+            VERSION=$(mvn -q -DforceStdout help:evaluate -Dexpression=project.version)
+
+            if [[ "$CIRCLE_BRANCH" =~ ^(main|sqrl-0.5.x)$ ]]; then
+              docker tag sqrl-test datasqrl/cmd:v$VERSION
+              docker tag sqrl-test datasqrl/cmd:dev
+              docker tag sqrl-test datasqrl/sqrl-server:v$VERSION
+              docker tag sqrl-test datasqrl/sqrl-server:dev
+            else
+              docker tag sqrl-test ghcr.io/datasqrl/cmd:v$VERSION
+              docker tag sqrl-test ghcr.io/datasqrl/cmd:dev
+              docker tag sqrl-test ghcr.io/datasqrl/sqrl-server:v$VERSION
+              docker tag sqrl-test ghcr.io/datasqrl/sqrl-server:dev
+            fi
+      - run:
+          name: Push Docker Images
+          command: |
+            if [[ "$CIRCLE_BRANCH" =~ ^(main|sqrl-0.5.x)$ ]]; then
+              docker push datasqrl/cmd:v$VERSION
+              docker push datasqrl/cmd:dev
+              docker push datasqrl/sqrl-server:v$VERSION
+              docker push datasqrl/sqrl-server:dev
+            else
+              docker push ghcr.io/datasqrl/cmd:v$VERSION
+              docker push ghcr.io/datasqrl/cmd:dev
+              docker push ghcr.io/datasqrl/sqrl-server:v$VERSION
+              docker push ghcr.io/datasqrl/sqrl-server:dev
+            fi
+
+workflows:
+  pull-request-workflow:
+    jobs:
+      - build-base:
+          context: docker-hub
+          filters:
+            branches:
+              only: /.*/
+      - unit-tests:
+          requires:
+            - build-base
+      - integration-tests:
+          requires:
+            - build-base
+      - build-test-image:
+          requires:
+            - build-base
+      - run-banking-tests:
+          requires:
+            - build-test-image
+      - run-udf-tests:
+          requires:
+            - build-test-image
+      - maven-deploy:
+          context: github-packages
+          requires:
+            - build-base
+          filters:
+            branches:
+              only: /.*/
+      - tag-docker-image:
+          context: docker-hub
+          requires:
+            - build-test-image
+            - run-banking-tests
+            - run-udf-tests
+          filters:
+            branches:
+              only: /.*/
+
